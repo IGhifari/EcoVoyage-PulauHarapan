@@ -1,0 +1,28 @@
+body {
+    background-color: #50545b; /* Warna latar belakang gelap */
+    color: white; /* Warna teks putih */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Mengisi tinggi viewport */
+    font-family: 'Arial', sans-serif; /* Font yang lebih menarik */
+}
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+button a {
+    text-decoration: none;
+    color: white;
+}
