@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Yanto - Badai</title>
+    <link rel="stylesheet" href="../style/prolog2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="story-container">
+            <div class="char">
+                <img src="../asset/char/freepik__the-style-is-candid-image-photography-with-natural__47105-removebg-preview.png" alt="char" id="yanto" class="hidden">
+            </div>
+            <div class="dialog-container">
+                <div class="dialog">
+                    <div class="dialog-header">
+                        <h2 class="dialog-title" id="dialogTitle"></h2>
+                        <div class="dialog-controls">
+                            <button class="skip-btn" onclick="skipDialog()">
+                                <i class="fas fa-forward"></i> Skip
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dialog-content">
+                        <p id="dialogText"></p>
+                    </div>
+                    <div class="dialog-progress">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/prolog2.js"></script>
+</body>
+</html> 

@@ -2,13 +2,13 @@ let currentDialogIndex = 0;
 let isSkipping = false;
 
 const texts = [
-    { id: 'title', text: "Badai Kehidupan", title: "Prolog" },
-    { id: 'story', text: "Di sebuah desa pesisir, hiduplah keluarga sederhana yang bergantung pada laut sebagai sumber kehidupan. Yanto, anak sulung dari keluarga tersebut, memiliki mimpi besar untuk menjadi pemancing terbaik. Ia ingin membeli alat pancing yang canggih, tetapi keluarganya tidak mampu.", title: "Cerita" },
-    { id: 'ayahDialog', text: "Tidak, Nak. Kita harus hemat. Uang ini untuk kebutuhan keluarga", title: "Ayah" },
-    { id: 'yantoDialog', text: "Ayah tidak pernah mendukung impianku!", title: "Yanto" },
-    { id: 'narasi1', text: "Perdebatan memanas hingga Yanto memutuskan pergi memancing sendirian meski laut sedang tidak bersahabat. Angin mulai bertiup kencang, ombak semakin tinggi, dan Yanto tidak dapat mengendalikan perahunya.", title: "Narasi" },
-    { id: 'narasi2', text: "Sebuah badai besar datang menerjang, membalikkan perahunya, dan menyeret Yanto ke laut dalam.", title: "Narasi" },
-    { id: 'narasi3', text: "Ketika tersadar, Yanto menemukan dirinya di pantai sebuah pulau asing. Ia sendirian, tanpa alat pancing, tanpa keluarganya. Ketakutan menyelimuti dirinya, tetapi ia tahu bahwa ia harus bertahan hidup dan mencari cara untuk kembali ke rumah.", title: "Narasi" }
+    { id: 'title', text: "Perjalanan Menuju Energi Bersih", title: "Prolog" },
+    { id: 'story', text: "Di sebuah desa pesisir, hiduplah keluarga nelayan yang masih bergantung pada bahan bakar fosil untuk perahu mereka. Yanto, anak sulung keluarga tersebut, memiliki mimpi untuk mengembangkan kapal nelayan dengan energi terbarukan.", title: "Cerita" },
+    { id: 'ayahDialog', text: "Tidak, Nak. Kita tidak punya cukup uang untuk teknologi seperti itu. Lagipula bahan bakar sudah biasa digunakan nelayan.", title: "Ayah" },
+    { id: 'yantoDialog', text: "Tapi Ayah, lihat betapa kotornya laut kita sekarang! Dengan energi matahari dan angin, kita bisa melaut tanpa mencemari lingkungan!", title: "Yanto" },
+    { id: 'narasi1', text: "Yanto telah lama mempelajari tentang panel surya dan turbin angin dari internet. Ia yakin teknologi ini bisa membantu komunitas nelayan sekaligus menyelamatkan laut.", title: "Narasi" },
+    { id: 'ayahDialog2', text: "Yanto, jangan nekat! Badai akan datang, berbahaya untuk uji coba sekarang!", title: "Ayah" },
+    { id: 'narasi2', text: "Tekad Yanto sudah bulat. Ia membawa prototype panel surya kecil buatannya, berharap bisa membuktikan bahwa energi bersih adalah masa depan.", title: "Narasi" }
 ];
 
 function updateProgressBar() {
@@ -61,7 +61,7 @@ function showCharacter(id) {
 async function playNextDialog() {
     if (currentDialogIndex >= texts.length) {
         setTimeout(() => {
-            window.location.href = 'game.html';
+            window.location.href = 'prolog2.html';
         }, 2000);
         return;
     }
@@ -85,5 +85,5 @@ async function playNextDialog() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    playNextDialog();
+    playNextDialog();  
 }); 
