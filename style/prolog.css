@@ -11,203 +11,187 @@ body {
     width: 100vw;
     margin: 0;
     overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
 }
 
 .container {
+    position: relative;
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-}
-
-.char {
-    position: absolute;
-    z-index: 1;
-}
-
-.dialog {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 900px;
-    margin: 20px;
     z-index: 2;
 }
 
-.dialog h2 {
-    color: #333;
+.story-container {
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+}
+
+.dialog-container {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.dialog {
+    position: relative;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 15px;
 }
 
-.dialog p {
-    color: #444;
-    margin-bottom: 10px;
-    line-height: 1.5;
-}
-
-.dialog h2,
-.dialog p {
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-}
-
-* {
+.dialog-title {
+    color: #4CAF50;
+    font-size: 1.5rem;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
 }
 
-.container {
-    padding: 20px;
-    width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
-    position: relative;
+.dialog-controls {
+    display: flex;
+    gap: 10px;
 }
 
-.char {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#player {
-    max-width: 200px;
-    height: auto;
-    transition: transform 0.3s;
-}
-
-.dialog {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    padding: 20px;
-    height: auto;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-#dialogText {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #333;
-    min-height: 20px; /* Tinggi minimum untuk dialog kosong */
-}
-
-.controls {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.btn {
-    background: #2196F3;
-    color: white;
+.skip-btn {
+    background: rgba(255, 255, 255, 0.1);
     border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
 }
 
-.btn:hover {
+.skip-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
 }
 
-/* Responsif untuk mobile */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-        width: 95%;
-        margin: 10px auto;
-    }
-
-    #player {
-        max-width: 150px;
-    }
-
-    #dialogText {
-        font-size: 1rem;
-    }
-
-    .dialog {
-        padding: 15px;
-        height: auto;
-    }
-}
-.dialog {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    padding: 20px;
-    height: auto;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.dialog-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #2196F3;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 8px;
-}
-
-#dialogText {
+.dialog-content {
+    color: white;
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #333;
-    min-height: 20px;
+    margin-bottom: 20px;
+    min-height: 100px;
 }
 
-@media (max-width: 768px) {
-    .dialog-title {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-        padding-bottom: 6px;
-    }
+.dialog-progress {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
 }
 
-.hidden {
-    display: none;
+.progress-bar {
+    height: 100%;
+    background: #4CAF50;
+    width: 0;
+    transition: width 0.3s ease;
 }
 
-.slide-in {
-    display: block;
-    animation: slideIn 0.5s ease-out;
-}
-
-@keyframes slideIn {
-    0% {
-        transform: translateY(-100px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-/* Gaya untuk gambar Yanto */
 #yanto {
     position: absolute;
-    top: -150px; /* Posisi gambar di atas dialog */
+    top: -180px;
     left: 50%;
     transform: translateX(-50%);
-    width: 150px; /* Ukuran gambar */
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    opacity: 0;
+    width: 200px;
+    transition: all 0.5s ease-in-out;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
 }
 
 #yanto.visible {
-    opacity: 1; /* Muncul */
-    transform: translateX(-50%) translateY(0); /* Tidak tersembunyi */
+    opacity: 1;
+    transform: translateX(-50%) translateY(20px);
 }
 
 #yanto.hidden {
-    opacity: 0; /* Disembunyikan */
-    transform: translateX(-50%) translateY(-20px); /* Efek menghilang ke atas */
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50px);
+}
+
+.controls-overlay {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3;
+}
+
+.sound-toggle {
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sound-toggle:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .story-container {
+        width: 95%;
+    }
+
+    .dialog-container {
+        padding: 15px;
+    }
+
+    .dialog-title {
+        font-size: 1.2rem;
+    }
+
+    .dialog-content {
+        font-size: 1rem;
+        min-height: 80px;
+    }
+
+    #yanto {
+        width: 150px;
+        top: -130px;
+    }
+
+    .controls-overlay {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dialog-container {
+        padding: 10px;
+    }
+
+    .skip-btn {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+
+    #yanto {
+        width: 120px;
+        top: -100px;
+    }
 }

@@ -6,83 +6,35 @@
     <title>Petualangan Yanto</title>
     <link rel="stylesheet" href="../style/prolog.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="background-overlay"></div>
     <div class="container">
-        <!-- Gambar Yanto -->
-        <div class="char">
-            <img src="../asset/char/Char.svg" alt="char" id="yanto" class="hidden">
+        <div class="story-container">
+            <div class="char">
+                <img src="../asset/char/Char.svg" alt="char" id="yanto" class="hidden">
+            </div>
+            <div class="dialog-container">
+                <div class="dialog">
+                    <div class="dialog-header">
+                        <h2 class="dialog-title" id="dialogTitle"></h2>
+                        <div class="dialog-controls">
+                            <button class="skip-btn" onclick="skipDialog()">
+                                <i class="fas fa-forward"></i> Skip
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dialog-content">
+                        <p id="dialogText"></p>
+                    </div>
+                    <div class="dialog-progress">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Dialog -->
-        <div class="dialog">
-            <h2 class="dialog-title" id="dialogTitle"></h2>
-            <p id="dialogText"></p>
-        </div>
-        
-        <audio id="soundEffect" src="../asset/sound/dialog.mp3"></audio>
-        
-        <script>
-            const texts = [
-                { id: 'title', text: "Badai Kehidupan", title: "Prolog" },
-                { id: 'story', text: "Di sebuah desa pesisir pantai, hiduplah keluarga sederhana yang bergantung pada laut sebagai sumber kehidupan. Yanto, anak sulung dari keluarga tersebut, memiliki mimpi besar untuk menjadi pemancing terbaik. Ia ingin membeli alat pancing yang canggih, tetapi keluarganya tidak mampu.", title: "Cerita" },
-                { id: 'ayahDialog', text: "Ayah: \"Tidak, Nak. Kita harus hemat. Uang ini untuk kebutuhan keluarga\"", title: "Percakapan" },
-                { id: 'yantoDialog', text: "Yanto: \"Ayah tidak pernah mendukung impianku!\"", title: "Percakapan" },
-                { id: 'narasi1', text: "Perdebatan memanas hingga Yanto memutuskan pergi memancing sendirian meski laut sedang tidak bersahabat. Angin mulai bertiup kencang, ombak semakin tinggi, dan Yanto tidak dapat mengendalikan perahunya.", title: "Kejadian" },
-                { id: 'narasi2', text: "Sebuah badai besar datang menerjang, membalikkan perahunya, dan menyeret Yanto ke laut dalam.", title: "Badai" },
-                { id: 'narasi3', text: "Ketika tersadar, Yanto menemukan dirinya di pantai sebuah pulau asing. Ia sendirian, tanpa alat pancing, tanpa keluarganya. Ketakutan menyelimuti dirinya, tetapi ia tahu bahwa ia harus bertahan hidup dan mencari cara untuk kembali ke rumah.", title: "Pulau Asing" }
-            ];
-
-            function typeWriter(elementId, text, speed = 50) {
-                return new Promise((resolve) => {
-                    const element = document.getElementById(elementId);
-                    element.innerHTML = ''; // Reset konten
-                    let i = 0;
-                    function type() {
-                        if (i < text.length) {
-                            element.innerHTML += text.charAt(i);
-                            i++;
-                            setTimeout(type, speed);
-                        } else {
-                            resolve();
-                        }
-                    }
-                    type();
-                });
-            }
-
-            async function playStory() {
-                const dialogElement = document.getElementById('dialogText');
-                const titleElement = document.getElementById('dialogTitle');
-                const yantoElement = document.getElementById('yanto');
-                
-                // Putar suara saat halaman dimuat
-                const soundEffect = document.getElementById('soundEffect');
-                soundEffect.play().catch(error => {
-                    console.error("Audio tidak dapat diputar:", error);
-                });
-
-                for (const { id, text, title } of texts) {
-                    // Tampilkan Yanto dengan animasi untuk dialog tertentu
-                    if (id === 'yantoDialog') {
-                        yantoElement.classList.remove('hidden');
-                        yantoElement.classList.add('visible'); // Animasi fade-in
-                        soundEffect.currentTime = 0; // Reset waktu audio
-                        soundEffect.play(); // Putar suara saat dialog Yanto
-                    } else {
-                        yantoElement.classList.add('hidden');
-                        yantoElement.classList.remove('visible');
-                    }
-
-                    titleElement.textContent = title;
-                    await typeWriter('dialogText', text);
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-                    dialogElement.innerHTML = '';
-                    titleElement.textContent = '';
-                }
-            }
-
-            playStory();
-        </script>
     </div>
+    <script src="../js/prolog.js"></script>
 </body>
 </html>

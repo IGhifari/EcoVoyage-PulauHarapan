@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Game Adventure</title>
     <link rel="stylesheet" href="../style/halamanAwal.css">
+    
 </head>
 <body>
-    <button>
-        <a href="prolog.html">
-            Mulai Game
-        </a>
-    </button>
+    <div class="particles" id="particles-js"></div>
+    <div class="container">
+        <div class="game-title">
+            <h1>Pulau Kehidupan</h1>
+            <p class="subtitle">Mulai Petualanganmu!</p>
+        </div>
+        
+        <div class="menu-buttons">
+            <button class="start-btn pulse" onclick="window.location.href='prolog.html'">
+                <i class="fas fa-play"></i> Mulai Game
+            </button>
+            <button class="option-btn" onclick="window.location.href='pengaturan.html'">
+                <i class="fas fa-cog"></i> Pengaturan
+            </button>
+            <button class="about-btn" onclick="window.location.href='tentang.html'">
+                <i class="fas fa-info-circle"></i> Tentang
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 Pulau Kehidupan</p>
+        </div>
+    </div>  
+    <script src="../js/main.js"></script>
 </body>
 </html>
