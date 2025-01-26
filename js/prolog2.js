@@ -15,7 +15,7 @@ function updateProgressBar() {
     const progress = (currentDialogIndex / texts.length) * 100;
     document.getElementById('progressBar').style.width = `${progress}%`;
 }
-
+    
 function skipDialog() {
     isSkipping = true;
     const dialogText = document.getElementById('dialogText');
