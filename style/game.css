@@ -1,19 +1,19 @@
-img{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 180px;
-    transition: all 0.1s ease-in-out;
+img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 180px;
+  transition: all 0.1s ease-in-out;
 }
 
-.rumah{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    margin-top: 35rem;
-    margin-left: 78rem;
+.rumah {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-top: 35rem;
+  margin-left: 78rem;
 }
 
-.player{
-    height: 130px;
+.player {
+  height: 130px;
 }
