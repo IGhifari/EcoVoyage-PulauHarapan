@@ -17,18 +17,19 @@
       <div class="menu-buttons">
         <button class="start-btn pulse" onclick="window.location.href='prolog.html'"><i class="fas fa-play"></i> Mulai Game</button>
         <button class="option-btn" onclick="window.location.href='pengaturan.html'"><i class="fas fa-cog"></i> Pengaturan</button>
-        <button class="about-btn" onclick="window.location.href='tentang.html'"><i class="fas fa-info-circle"></i> Tentang</button>
+        <button class="about-btn" onclick="toggleAbout()"><i class="fas fa-info-circle"></i> Tentang</button>
       </div>
 
       <div class="footer">
         <p>&copy; 2025 Pulau Kehidupan</p>
       </div>
-      <div class="about-container">
+      <div class="about-container" id="aboutContainer" style="display: none">
         <h1>Tentang</h1>
         <p>
           Pulau Kehidupan adalah game yang mengajak pemain untuk menjelajahi dunia yang penuh dengan misteri dan petualangan. Game ini dirancang untuk menginspirasi pemain untuk menjaga lingkungan dan menghargai keindahan alam yang ada di
           sekitar kita.
         </p>
+        <button class="hide-btn" onclick="toggleAbout()"><i class="fas fa-times"></i> Tutup</button>
       </div>
     </div>
     <script src="../js/main.js"></script>
