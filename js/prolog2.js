@@ -61,7 +61,7 @@ function showCharacter(id) {
 async function playNextDialog() {
     if (currentDialogIndex >= texts.length) {
         setTimeout(() => {
-            window.location.href = 'game.html';
+            window.location.href = 'dialog3.html';
         }, 2000);
         return;
     }
