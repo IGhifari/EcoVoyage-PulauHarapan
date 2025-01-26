@@ -61,7 +61,7 @@ function showCharacter(id) {
 async function playNextDialog() {
     if (currentDialogIndex >= texts.length) {
         setTimeout(() => {
-            window.location.href = 'prolog2.html';
+            window.location.href = 'transition1.html';
         }, 2000);
         return;
     }
