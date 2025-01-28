@@ -10,8 +10,9 @@ body {
   overflow: hidden;
 }
 
-.button .buttonCraft {
-  margin-left: 400px;
+.button{
+  display: flex;
+  justify-content: space-between;
 }
 .pembatas {
   position: fixed;
