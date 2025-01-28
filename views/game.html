@@ -11,41 +11,31 @@
       <div class="button">
         <!-- Tombol untuk kebun -->
         <div class="buttonKebun">
-          <button class="kebun" onclick="MasukKebun()" id="btnKebun" style="display: none;">
-            Masuk Ke Kebun
-          </button>
+          <button class="kebun" onclick="MasukKebun()" id="btnKebun" style="display: none">Masuk Ke Kebun</button>
         </div>
         <!-- Tombol untuk craft -->
         <div class="buttonCraft">
-          <button class="craft" onclick="MasukCraft()" id="btnCraft" style="display: none;">
-            Masuk ke Tempat Craft
-          </button>
+          <button class="craft" onclick="MasukCraft()" id="btnCraft" style="display: none">Masuk ke Tempat Craft</button>
         </div>
         <!-- Tombol untuk rumah -->
         <div class="buttonRumah">
-          <button class="rumah" onclick="MasukRumah()" id="btnRumah" style="display: none;">
-            Masuk ke Halaman Rumah
-          </button>
+          <button class="rumah" onclick="MasukRumah()" id="btnRumah" style="display: none">Masuk ke Halaman Rumah</button>
         </div>
       </div>
       <!-- Karakter -->
-      <img 
-        src="../asset/char/freepik__the-style-is-candid-image-photography-with-natural__47105-removebg-preview.png" 
-        id="player" 
-        class="player" 
-      />
+      <img src="../asset/char/freepik__the-style-is-candid-image-photography-with-natural__47105-removebg-preview.png" id="player" class="player" />
     </div>
     <script src="../script/game.js"></script>
     <script>
-      const btnKebun = document.getElementById('btnKebun');
-      const btnCraft = document.getElementById('btnCraft');
-      const btnRumah = document.getElementById('btnRumah');
+      const btnKebun = document.getElementById("btnKebun");
+      const btnCraft = document.getElementById("btnCraft");
+      const btnRumah = document.getElementById("btnRumah");
 
       // Sesuaikan nilai koordinat berdasarkan layout sebenarnya
       const triggerAreas = {
-        kebun: 150,  
-        craft: 400,  
-        rumah: 650   
+        kebun: 150,
+        craft: 400,
+        rumah: 650,
       };
 
       const triggerDistance = 100;
@@ -55,16 +45,16 @@
         const playerX = playerRect.left;
 
         // Tambahkan console.log untuk debugging
-        console.log('Posisi player:', playerX);
-        console.log('Jarak ke rumah:', Math.abs(playerX - triggerAreas.rumah));
+        console.log("Posisi player:", playerX);
+        console.log("Jarak ke rumah:", Math.abs(playerX - triggerAreas.rumah));
 
-        btnKebun.style.display = Math.abs(playerX - triggerAreas.kebun) < triggerDistance ? 'block' : 'none';
-        btnCraft.style.display = Math.abs(playerX - triggerAreas.craft) < triggerDistance ? 'block' : 'none';
-        btnRumah.style.display = Math.abs(playerX - triggerAreas.rumah) < triggerDistance ? 'block' : 'none';
+        btnKebun.style.display = Math.abs(playerX - triggerAreas.kebun) < triggerDistance ? "block" : "none";
+        btnCraft.style.display = Math.abs(playerX - triggerAreas.craft) < triggerDistance ? "block" : "none";
+        btnRumah.style.display = Math.abs(playerX - triggerAreas.rumah) < triggerDistance ? "block" : "none";
       }
 
-      document.addEventListener('keyup', checkButtonVisibility);
-      window.addEventListener('load', checkButtonVisibility);
+      document.addEventListener("keyup", checkButtonVisibility);
+      window.addEventListener("load", checkButtonVisibility);
 
       // Fungsi navigasi
       function MasukKebun() {
