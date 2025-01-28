@@ -10,3 +10,18 @@ body {
   overflow: hidden;
 }
 
+
+.pembatas {
+  position: fixed;
+  width: 100%;
+  height: 330px; /* sesuaikan dengan tinggi area pasir */
+  bottom: 0;
+  overflow: hidden; /* mencegah karakter keluar dari area pembatas */
+}
+
+.player {
+  position: absolute;
+  height: 180px;
+  left: 0;
+  top: 0;
+}
