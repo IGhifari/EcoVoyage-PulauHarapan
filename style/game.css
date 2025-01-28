@@ -1,19 +1,12 @@
-img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 180px;
-  transition: all 0.1s ease-in-out;
+body {
+  background: url(../asset/latar/Latarawal.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.rumah {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin-top: 35rem;
-  margin-left: 78rem;
-}
-
-.player {
-  height: 130px;
-}
