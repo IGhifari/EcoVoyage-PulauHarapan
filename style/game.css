@@ -10,7 +10,7 @@ body {
   overflow: hidden;
 }
 
-.button{
+.button {
   display: flex;
   justify-content: space-between;
 }
@@ -69,10 +69,4 @@ body {
 .rumah:active {
   transform: translateY(1px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.buttonKebun,
-.buttonCraft,
-.buttonRumah {
-  margin: 10px 0;
 }
