@@ -10,10 +10,6 @@ body {
   overflow: hidden;
 }
 
-.button{
-  display: flex;
-  justify-content: space-between;
-}
 
 .button .buttonCraft{
   margin-left: 400px;
@@ -21,9 +17,9 @@ body {
 .pembatas {
   position: fixed;
   width: 100%;
-  height: 315px; 
+  height: 310px;
   bottom: 0;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .player {
