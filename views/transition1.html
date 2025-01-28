@@ -8,15 +8,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="rain"></div>
+    <div class="lightning"></div>
     <div class="transition-container">
         <div class="transition-text">
-            Beberapa saat kemudian...
+            Beberapa saat setelah Yanto pergi
+        </div>
+        <div class="dramatic-text">
+            Badai pun tiba...
         </div>
     </div>
     <script>
         setTimeout(() => {
             window.location.href = 'prolog2.html';
-        }, 4000); // Redirect setelah 3 detik
+        }, 4000);
+
+        // Efek suara petir
+        const thunderSound = new Audio('../asset/sound/thunder.mp3');
+        setTimeout(() => {
+            thunderSound.play();
+        }, 2000);
     </script>
 </body>
 </html> 
