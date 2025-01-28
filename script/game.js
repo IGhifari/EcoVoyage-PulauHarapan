@@ -1,5 +1,5 @@
 const player = document.getElementById('player');
-const rumah = document.querySelector('.rumah');
+const pembatas = document.querySelector('.pembatas');
 let x = 0;
 let y = 0;
 const speed = 2;
@@ -59,30 +59,34 @@ document.addEventListener('keyup', (e) => {
 });
 
 function updatePosition() {
-    const rumahRect = rumah.getBoundingClientRect();
+    const pembatasRect = pembatas.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
+    const relativeX = x + speed;
+    const relativeY = y + speed;
 
-    if(moveRight && x + speed + playerRect.width <= window.innerWidth && 
-        !(x + speed + playerRect.width > rumahRect.left && y + playerRect.height > rumahRect.top && y < rumahRect.bottom)) {
+    if(moveRight && relativeX + playerRect.width <= pembatasRect.width) {
         x += speed;
         player.style.transform = 'scaleX(-1)';
     }
-    if(moveLeft && x - speed >= 0 && 
-        !(x - speed < rumahRect.right && y + playerRect.height > rumahRect.top && y < rumahRect.bottom)) {
+    if(moveLeft && x - speed >= 0) {
         x -= speed;
         player.style.transform = 'scaleX(1)';
     }
-    if(moveUp && y - speed >= 0 && 
-        !(y - speed < rumahRect.bottom && x + playerRect.width > rumahRect.left && x < rumahRect.right)) {
+    if(moveUp && y - speed >= 0) {
         y -= speed;
     }
-    if(moveDown && y + speed + playerRect.height <= window.innerHeight && 
-        !(y + speed + playerRect.height > rumahRect.top && x + playerRect.width > rumahRect.left && x < rumahRect.right)) {
+    if(moveDown && relativeY + playerRect.height <= pembatasRect.height) {
         y += speed;
     }
 
+    const pembatasHeight = pembatas.offsetHeight;
+    
+    // Batasi posisi Y agar tidak keluar dari area pembatas
+    if (y >= 0 && y <= pembatasHeight - player.offsetHeight) {
+        player.style.top = y + 'px';
+    }
+
     player.style.left = x + 'px';
-    player.style.top = y + 'px';
     
     requestAnimationFrame(updatePosition);
 }
