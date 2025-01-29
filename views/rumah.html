@@ -12,6 +12,21 @@
       <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
       <!-- Tombol masuk ke dalam rumah -->
       <button onclick="window.location.href='dalamrumah.html'" class="enter-btn">Masuk ke Dalam</button>
+      <div class="inventory">
+        <h1>Inventory</h1>
+        <div class="inventory-items">
+          <div class="item">
+            <p>Kayu: <span id="woodCount">4</span></p>
+          </div>
+          <div class="item">
+            <p>Benih: <span id="seedCount">4</span></p>
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="../script/inventory.js"></script>
+    <script>
+      updateInventoryDisplay();
+    </script>
   </body>
 </html>

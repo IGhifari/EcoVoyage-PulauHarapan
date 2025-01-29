@@ -9,7 +9,24 @@
   <body>
     <div class="container">
       <!-- Tombol kembali ke halaman rumah -->
-      <button onclick="window.location.href='rumah.html'" class="back-btn">Keluar</button>
+      <button onclick="window.location.href='rumah.html'" class="back-btn">Kembali</button>
+      
+      <!-- Inventory -->
+      <div class="inventory">
+        <h1>Inventory</h1>
+        <div class="inventory-items">
+          <div class="item">
+            <p>Kayu: <span id="woodCount">4</span></p>
+          </div>
+          <div class="item">
+            <p>Benih: <span id="seedCount">4</span></p>
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="../script/inventory.js"></script>
+    <script>
+      updateInventoryDisplay();
+    </script>
   </body>
 </html>

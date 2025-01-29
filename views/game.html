@@ -12,26 +12,38 @@
         <!-- Tombol untuk kebun -->
         <div class="buttonKebun">
           <button class="kebun" onclick="MasukKebun()" id="btnKebun">
-            Masuk Ke Kebun
+             Kebun
           </button>
         </div>
         <!-- Tombol untuk craft -->
         <div class="buttonCraft">
           <button class="craft" onclick="MasukCraft()" id="btnCraft">
-            Masuk ke Tempat Craft
+            Craft
           </button>
         </div>
         <!-- Tombol untuk rumah -->
         <div class="buttonRumah">
           <button class="rumah" onclick="MasukRumah()" id="btnRumah">
-            Masuk ke Halaman Rumah
+            Rumah
           </button>
         </div>
       </div>
       <!-- Karakter -->
       <img src="../asset/char/depan.png" id="player" class="player" />
+      <div class="inventory">
+        <h1>Inventory</h1>
+        <div class="inventory-items">
+          <div class="item">
+            <p>Kayu: <span id="woodCount">4</span></p>
+          </div>
+          <div class="item">
+            <p>Benih: <span id="seedCount">4</span></p>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="../script/game.js"></script>
+    <script src="../script/inventory.js"></script>
     <script>
       function MasukKebun() {
         window.location.href = "kebun.html";
@@ -42,6 +54,7 @@
       function MasukRumah() {
         window.location.href = "rumah.html";
       }
+      updateInventoryDisplay();
     </script>
   </body>
 </html>
