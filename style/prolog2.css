@@ -103,7 +103,7 @@ body {
 }
 
 #yanto {
-    width: 200px;
+    width: 500px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
