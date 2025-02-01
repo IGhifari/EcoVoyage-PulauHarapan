@@ -8,7 +8,7 @@ function plantTree(x, y) {
   // Cek apakah memiliki benih
   const seedCount = parseInt(document.getElementById("seedCount").textContent);
   if (seedCount <= 0) {
-    alert("Kamu tidak memiliki benih!");
+    alert("Benih kamu telah habis");
     return;
   }
 
