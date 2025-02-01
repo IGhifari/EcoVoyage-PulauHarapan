@@ -17,33 +17,15 @@
             <p>Kayu: <span id="woodCount">4</span></p>
           </div>
           <div class="item">
-            <p>Benih: <span id="seedCount">4</span></p>
+            <p>Benih: <span id="seedCount">100</span></p>
           </div>
         </div>
       </div>
     </div>
     <script src="../script/inventory.js"></script>
-    <script>
-      // Update tampilan awal
-      updateInventoryDisplay();
-      
-      // Event listener untuk klik
-      document.addEventListener('click', function(event) {
-        if (!event.target.closest('.back-btn') && !event.target.closest('.inventory')) {
-          addResources();
-          
-          // Efek visual saat klik
-          const clickEffect = document.createElement('div');
-          clickEffect.className = 'click-effect';
-          clickEffect.style.left = event.clientX + 'px';
-          clickEffect.style.top = event.clientY + 'px';
-          document.body.appendChild(clickEffect);
-          
-          setTimeout(() => {
-            clickEffect.remove();
-          }, 500);
-        }
-      });
-    </script>
+    <script src="../js/kebun.js"></script>
+    <!-- Tambahkan ini sementara untuk test -->
+    <img src="../asset/object/benih.png" style="width: 50px; position: absolute; top: 100px; left: 100px" />
+    <img src="../asset/object/pohon.png" style="width: 50px; position: absolute; top: 100px; left: 200px" />
   </body>
 </html>

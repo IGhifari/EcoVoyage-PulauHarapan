@@ -28,7 +28,7 @@ button:hover {
 
 .inventory {
   background: rgba(255, 255, 255, 0.9);
-  border: 3px solid #8B4513;
+  border: 3px solid #8b4513;
   border-radius: 15px;
   padding: 20px;
   width: 300px;
@@ -39,12 +39,12 @@ button:hover {
 }
 
 .inventory h1 {
-  color: #5C3D2E;
+  color: #5c3d2e;
   text-align: center;
   font-size: 24px;
   margin-bottom: 15px;
   text-transform: uppercase;
-  border-bottom: 2px solid #8B4513;
+  border-bottom: 2px solid #8b4513;
   padding-bottom: 10px;
 }
 
@@ -55,8 +55,8 @@ button:hover {
 }
 
 .item {
-  background: #F5DEB3;
-  border: 2px solid #8B4513;
+  background: #f5deb3;
+  border: 2px solid #8b4513;
   border-radius: 10px;
   padding: 10px;
   text-align: center;
@@ -65,7 +65,7 @@ button:hover {
 
 .item:hover {
   transform: scale(1.05);
-  background: #DEB887;
+  background: #deb887;
 }
 
 .item img {
@@ -76,19 +76,19 @@ button:hover {
 
 .item p {
   margin: 0;
-  color: #5C3D2E;
+  color: #5c3d2e;
   font-weight: bold;
   font-size: 16px;
 }
 
 .item span {
-  color: #8B4513;
+  color: #8b4513;
   font-size: 18px;
 }
 
 /* Styling untuk tombol kembali */
 .back-btn {
-  background: #8B4513;
+  background: #8b4513;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -102,7 +102,7 @@ button:hover {
 }
 
 .back-btn:hover {
-  background: #5C3D2E;
+  background: #5c3d2e;
 }
 
 /* Efek klik */
@@ -110,7 +110,7 @@ button:hover {
   position: fixed;
   width: 20px;
   height: 20px;
-  border: 2px solid #8B4513;
+  border: 2px solid #8b4513;
   border-radius: 50%;
   animation: clickAnimation 0.5s ease-out;
   pointer-events: none;
@@ -123,6 +123,74 @@ button:hover {
   }
   100% {
     transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.tree {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.5s ease;
+  border: none;
+}
+
+.tree.growing {
+  transform: scale(1);
+  opacity: 1;
+  background-image: url("../asset/objek/benih.png");
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  animation: growing 5s linear;
+  border: 1px solid red;
+}
+
+.tree.grown {
+  width: 100px;
+  height: 100px;
+  transform: scale(3);
+  opacity: 1;
+  background-image: url("../asset/Objek/pohon.png");
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  cursor: pointer;
+  border: none;
+}
+
+.tree.cutting {
+  animation: cutting 0.5s ease-in;
+}
+
+@keyframes growing {
+  0% {
+    width: 30px;
+    height: 30px;
+    background-image: url("../asset/objek/benih.png");
+  }
+  90% {
+    width: 30px;
+    height: 30px;
+    background-image: url("../asset/objek/benih.png");
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    background-image: url("../asset/Objek/pohon.png");
+  }
+}
+
+@keyframes cutting {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(45deg);
     opacity: 0;
   }
 }
