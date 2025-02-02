@@ -43,9 +43,25 @@
       <div class="quest-container" id="questContainer">
         <div class="quest-header">
           <h2>Daftar Quest</h2>
-          <button class="close-btn" onclick="toggleQuest()">&times;</button>
+          <div class="header-buttons">
+            <button onclick="resetAllQuests()" class="reset-btn">Reset Quest</button>
+            <button class="close-btn" onclick="toggleQuest()">&times;</button>
+          </div>
         </div>
         <div class="quest-list">
+          <div class="quest-item" id="houseQuest">
+            <h3>Membuat Rumah</h3>
+            <p>Resource yang dibutuhkan:</p>
+            <ul>
+              <li>Kayu: 100 buah</li>
+              <li>Panel Surya: 2 buah</li>
+            </ul>
+            <button onclick="buildHouse()" class="craft-btn">Bangun Rumah</button>
+            <div class="progress-bar">
+              <div class="progress" id="houseProgress"></div>
+            </div>
+          </div>
+
           <div class="quest-item" id="shipQuest">
             <h3>Membuat Kapal</h3>
             <p>Resource yang dibutuhkan:</p>

@@ -84,23 +84,6 @@ body {
 .back-btn:hover {
   background: #5c3d2e;
 }
-.craft-btn {
-  position: absolute;
-  bottom: 26%; /* Sesuaikan posisi dari bawah */
-  left: 66%; /* Posisi horizontal di tengah */
-  transform: translateX(-50%); /* Membuat tombol benar-benar di tengah */
-  padding: 10px 20px;
-  background-color: #8b4513; /* Warna coklat kayu */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.craft-btn:hover {
-  background-color: #654321; /* Warna lebih gelap saat hover */
-}
 .task-icon {
   position: fixed;
   top: 20px;
@@ -143,15 +126,15 @@ body {
   }
 }
 
-/* Quest styling */
+/* Quest Container styling */
 .quest-container {
-  display: none; /* Hidden by default */
+  display: none;
   background: rgba(255, 255, 255, 0.95);
   border: 3px solid #8b4513;
   border-radius: 15px;
   padding: 20px;
   width: 600px;
-  margin: 100px auto;
+  max-height: 80vh; /* Batasi tinggi maksimum */
   position: fixed;
   top: 50%;
   left: 50%;
@@ -191,21 +174,51 @@ body {
   transform: scale(1.1);
 }
 
+/* Quest list dengan scrollbar */
 .quest-list {
-  display: grid;
-  gap: 20px;
+  max-height: calc(80vh - 100px);
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-right: -10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
+/* Styling untuk scrollbar */
+.quest-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quest-list::-webkit-scrollbar-track {
+  background: #f5deb3;
+  border-radius: 4px;
+}
+
+.quest-list::-webkit-scrollbar-thumb {
+  background: #8b4513;
+  border-radius: 4px;
+}
+
+.quest-list::-webkit-scrollbar-thumb:hover {
+  background: #5c3d2e;
+}
+
+/* Quest item styling */
 .quest-item {
   background: #f5deb3;
   border: 2px solid #8b4513;
   border-radius: 10px;
   padding: 20px;
+  margin-bottom: 15px;
   transition: transform 0.2s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-.quest-item:hover {
-  transform: scale(1.02);
+.quest-item:last-child {
+  margin-bottom: 0;
 }
 
 .quest-item h3 {
@@ -240,6 +253,7 @@ body {
   padding-left: 20px;
 }
 
+/* Craft button styling */
 .craft-btn {
   background: #8b4513;
   color: white;
@@ -247,8 +261,14 @@ body {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 15px;
   transition: all 0.3s ease;
+  display: block;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .craft-btn:hover {
@@ -259,8 +279,10 @@ body {
 .craft-btn:disabled {
   background: #cccccc;
   cursor: not-allowed;
+  transform: none;
 }
 
+/* Progress bar styling */
 .progress-bar {
   width: 100%;
   height: 10px;
@@ -333,4 +355,26 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reset-btn {
+  background: #8b4513;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+  background: #5c3d2e;
+  transform: translateY(-2px);
 }

@@ -11,7 +11,7 @@
       <!-- Tombol kembali ke halaman utama -->
       <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
       <!-- Tombol masuk ke dalam rumah -->
-      <button onclick="window.location.href='dalamrumah.html'" class="enter-btn">Masuk ke Dalam</button>
+      <button onclick="checkHouseAccess()" class="enter-btn">Masuk ke Dalam</button>
 
       <!-- Task Icon -->
       <div class="task-icon" onclick="toggleInventory()">
@@ -63,6 +63,18 @@
       });
 
       updateInventoryDisplay();
+
+      // Tambahkan fungsi checkHouseAccess
+      function checkHouseAccess() {
+        const houseBuilt = localStorage.getItem("houseBuilt") === "true";
+
+        if (!houseBuilt) {
+          alert("Rumah belum bisa dibuka! Kamu harus membangun rumah terlebih dahulu. Kembali ke halaman craft untuk menyelesaikan quest pembangunan rumah.");
+          return;
+        }
+
+        window.location.href = "dalamrumah.html";
+      }
     </script>
   </body>
 </html>
