@@ -10,26 +10,104 @@
     <div class="particles" id="particles-js"></div>
     <div class="container">
       <div class="game-title">
-        <h1>Pulau Kehidupan</h1>
-        <p class="subtitle">Mulai Petualanganmu!</p>
+        <h1>EcoVoyage: Pulau Harapan</h1>
+        <p class="subtitle">Petualangan Menuju Masa Depan Hijau</p>
       </div>
 
       <div class="menu-buttons">
-        <button class="start-btn pulse" onclick="window.location.href='prolog.html'"><i class="fas fa-play"></i> Mulai Game</button>
-        <button class="option-btn" onclick="window.location.href='pengaturan.html'"><i class="fas fa-cog"></i> Pengaturan</button>
-        <button class="about-btn" onclick="toggleAbout()"><i class="fas fa-info-circle"></i> Tentang</button>
+        <button class="start-btn pulse" onclick="window.location.href='prolog.html'">
+           Mulai Petualangan
+        </button>
+        <button class="option-btn" onclick="window.location.href='pengaturan.html'">
+           Pengaturan
+        </button>
+        <button class="about-btn" onclick="toggleAbout()">
+          <i class="fas fa-info-circle"></i> Tentang
+        </button>
       </div>
 
       <div class="footer">
-        <p>&copy; 2025 Pulau Kehidupan</p>
+        <p>&copy; 2025 EcoVoyage</p>
       </div>
+
       <div class="about-container" id="aboutContainer" style="display: none">
-        <h1>Tentang</h1>
-        <p>
-          Pulau Kehidupan adalah game yang mengajak pemain untuk menjelajahi dunia yang penuh dengan misteri dan petualangan. Game ini dirancang untuk menginspirasi pemain untuk menjaga lingkungan dan menghargai keindahan alam yang ada di
-          sekitar kita.
-        </p>
-        <button class="hide-btn" onclick="toggleAbout()"><i class="fas fa-times"></i> Tutup</button>
+        <div class="about-header">
+          <h1>Selamat Datang di EcoVoyage</h1>
+          <button class="hide-btn" onclick="toggleAbout()">×</button>
+        </div>
+        
+        <div class="about-content">
+          <div class="game-description">
+            <h2>Kisah Perjalanan</h2>
+            <p>
+              Di tengah lautan yang luas, Yanto, seorang pemuda visioner terdampar di sebuah pulau misterius. 
+              Namun, takdir membawanya pada sebuah penemuan besar yang dapat mengubah masa depan dunia.
+              Dengan tekad yang kuat dan impian akan energi bersih, ia memulai petualangan yang akan mengubah hidupnya selamanya.
+            </p>
+          </div>
+
+          <div class="game-features">
+            <h3>Fitur Petualangan:</h3>
+            <ul>
+              <li>🌱 Sistem Berkebun yang Inovatif
+                <span class="feature-desc">Tanam, rawat, dan kembangkan kebunmu dengan sistem yang unik</span>
+              </li>
+              <li>⚒️ Crafting Kreatif
+                <span class="feature-desc">Ciptakan alat dan teknologi dari sumber daya yang kamu temukan</span>
+              </li>
+              <li>🏠 Bangun Rumah Impian
+                <span class="feature-desc">Desain dan bangun tempat tinggal yang ramah lingkungan</span>
+              </li>
+              <li>🌍 Eksplorasi Pulau
+                <span class="feature-desc">Jelajahi pulau misterius dan temukan rahasia-rahasia tersembunyi</span>
+              </li>
+              <li>♻️ Teknologi Hijau
+                <span class="feature-desc">Pelajari dan terapkan teknologi ramah lingkungan</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="game-goal">
+            <h3>Misi Utama</h3>
+            <div class="mission-content">
+              <p>
+                <span class="highlight">🎯 Tujuan:</span> Bangun kapal bertenaga energi terbarukan untuk kembali ke kampung halaman
+              </p>
+              <p>
+                <span class="highlight">🌟 Tantangan:</span> Kumpulkan resource, pecahkan teka-teki, dan hadapi rintangan alam
+              </p>
+              <p>
+                <span class="highlight">🌿 Dampak:</span> Pelajari pentingnya menjaga lingkungan dan penggunaan energi bersih
+              </p>
+            </div>
+          </div>
+
+          <div class="educational-value">
+            <h3>Nilai Edukasi</h3>
+            <div class="edu-points">
+              <div class="edu-point">
+                <span class="edu-icon">🌱</span>
+                <p>Pemahaman tentang energi terbarukan</p>
+              </div>
+              <div class="edu-point">
+                <span class="edu-icon">♻️</span>
+                <p>Pentingnya menjaga lingkungan</p>
+              </div>
+              <div class="edu-point">
+                <span class="edu-icon">💡</span>
+                <p>Kreativitas dalam pemecahan masalah</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="credits">
+            <h3>Tim Pengembang</h3>
+            <div class="team-info">
+              <p>Dibuat dengan ❤️ oleh Tim EcoVoyage</p>
+              <p class="version">Versi 1.0.0 Beta</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="../js/main.js"></script>

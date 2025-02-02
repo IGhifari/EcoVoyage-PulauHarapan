@@ -111,25 +111,172 @@ button a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.95);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: left;
+  max-width: 800px;
+  width: 90%;
+  z-index: 1000;
+  box-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+  border: 1px solid rgba(76, 175, 80, 0.5);
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.about-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(76, 175, 80, 0.5);
+  padding-bottom: 10px;
+}
+
+.about-header h1 {
+  color: #4CAF50;
+  margin: 0;
+  font-size: 2.2em;
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
+.game-description {
+  margin-bottom: 25px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.game-description h2 {
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.game-features {
+  margin-bottom: 20px;
+}
+
+.game-features h3 {
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.game-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.game-features li {
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+}
+
+.feature-desc {
+  display: block;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 5px;
+}
+
+.game-goal {
+  background: rgba(76, 175, 80, 0.15);
+  border-radius: 15px;
   padding: 20px;
+  margin: 25px 0;
+}
+
+.game-goal h3 {
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.mission-content p {
+  margin: 10px 0;
+}
+
+.highlight {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.educational-value {
+  margin: 25px 0;
+}
+
+.edu-points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.edu-point {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
   border-radius: 10px;
   text-align: center;
-  max-width: 500px;
-  z-index: 1000;
+}
+
+.edu-icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.credits {
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 10px;
+}
+
+.team-info {
+  margin-top: 10px;
+}
+
+.credits h3 {
+  color: #4CAF50;
+  margin-bottom: 5px;
+}
+
+.version {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9em;
+  margin-top: 5px;
 }
 
 .hide-btn {
-  margin-top: 15px;
-  padding: 8px 20px;
-  background-color: #ff4444;
-  color: white;
+  background: transparent;
   border: none;
-  border-radius: 5px;
+  color: #4CAF50;
+  font-size: 2em;
   cursor: pointer;
-  transition: background-color 0.3s;
+  padding: 5px 15px;
+  transition: all 0.3s ease;
+  border-radius: 50%;
 }
 
 .hide-btn:hover {
-  background-color: #cc0000;
+  background: rgba(76, 175, 80, 0.2);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .about-header h1 {
+    font-size: 1.8em;
+  }
+
+  .edu-points {
+    grid-template-columns: 1fr;
+  }
 }
