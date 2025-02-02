@@ -76,9 +76,62 @@ function updateResource(resourceId, amount) {
   element.textContent = currentValue + amount;
 }
 
-// Event listener untuk klik di kebun
-document.addEventListener("click", function (event) {
-  if (!event.target.closest(".back-btn") && !event.target.closest(".inventory") && !event.target.closest(".tree")) {
-    plantTree(event.clientX, event.clientY);
+// Ganti dengan fungsi tanam yang baru
+function tanam(event) {
+  const kebundalem = document.querySelector('.kebundalem');
+  const rect = kebundalem.getBoundingClientRect();
+  
+  // Cek apakah klik berada di dalam area kebundalem
+  if (event.clientX >= rect.left && 
+      event.clientX <= rect.right && 
+      event.clientY >= rect.top && 
+      event.clientY <= rect.bottom) {
+    // Hitung posisi relatif terhadap kebundalem
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    // Tambahkan pohon ke dalam kebundalem, bukan ke body
+    if (!event.target.closest(".tree")) {
+      const tree = document.createElement("div");
+      tree.className = "tree growing";
+      tree.style.left = x + "px";
+      tree.style.top = y + "px";
+      
+      kebundalem.appendChild(tree); // Tambahkan ke kebundalem, bukan ke body
+      
+      // Sisa kode plantTree tetap sama
+      const seedCount = parseInt(document.getElementById("seedCount").textContent);
+      if (seedCount <= 0) {
+        alert("Benih kamu telah habis");
+        return;
+      }
+      
+      updateResource("seedCount", -1);
+      
+      growingTrees.push({
+        element: tree,
+        plantTime: Date.now(),
+        x: x,
+        y: y,
+      });
+      
+      setTimeout(() => {
+        if (tree.parentNode) {
+          tree.classList.remove("growing");
+          tree.classList.add("grown");
+          tree.addEventListener("click", () => cutTree(tree));
+        }
+      }, 5000);
+    }
+  } else {
+    alert('Anda hanya bisa menanam di dalam area kebun!');
   }
-});
+}
+
+// Pastikan event click hanya ada di kebundalem
+document.addEventListener("click", function(event) {
+  // Hentikan penanaman jika klik di luar kebundalem
+  if (!event.target.closest(".kebundalem")) {
+    return;
+  }
+}); 
