@@ -10,26 +10,40 @@
     <div class="container">
       <!-- Tombol kembali ke halaman utama -->
       <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
-      <div class="inventory">
+
+      <!-- Task Icon -->
+      <div class="task-icon" onclick="toggleInventory()">
+        <img src="../asset/icon/task.png" alt="Task" />
+      </div>
+
+      <!-- Inventory (tersembunyi secara default) -->
+      <div class="inventory" id="inventory">
         <h1>Inventory</h1>
         <div class="inventory-items">
           <div class="item">
-            <img src="../asset/Objek/pohon.png" alt="">
+            <img src="../asset/Objek/pohon.png" alt="" />
             <p>Kayu: <span id="woodCount">0</span></p>
           </div>
           <div class="item">
-            <img src="../asset/Objek/benih.png" alt="">
+            <img src="../asset/Objek/benih.png" alt="" />
             <p>Benih: <span id="seedCount">8</span></p>
           </div>
         </div>
       </div>
     </div>
-    <div class="kebundalem" onclick="tanam(event)">
-      
-    </div>
+    <div class="kebundalem" onclick="tanam(event)"></div>
     <script src="../script/inventory.js"></script>
     <script src="../js/kebun.js"></script>
-    <!-- Tambahkan ini sementara untuk test -->
-    
+    <script>
+      // Fungsi untuk toggle inventory
+      function toggleInventory() {
+        const inventory = document.getElementById("inventory");
+        if (inventory.classList.contains("show")) {
+          inventory.classList.remove("show");
+        } else {
+          inventory.classList.add("show");
+        }
+      }
+    </script>
   </body>
 </html>

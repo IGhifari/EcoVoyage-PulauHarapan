@@ -76,101 +76,93 @@ function updateResource(resourceId, amount) {
   element.textContent = currentValue + amount;
 }
 
-// Ganti dengan fungsi tanam yang baru
-function tanam(event) {
-  const kebundalem = document.querySelector('.kebundalem');
-  const rect = kebundalem.getBoundingClientRect();
-  
-  // Cek apakah klik berada di dalam area kebundalem
-  if (event.clientX >= rect.left && 
-      event.clientX <= rect.right && 
-      event.clientY >= rect.top && 
-      event.clientY <= rect.bottom) {
-    // Hitung posisi relatif terhadap kebundalem
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    
-    // Tambahkan pohon ke dalam kebundalem, bukan ke body
-    if (!event.target.closest(".tree")) {
-      // Cek jumlah benih dari localStorage
-      let seedCount = parseInt(localStorage.getItem('seedCount')) || 4; // Default 4 jika belum ada
-      
-      if (seedCount <= 0) {
-        alert("Benih kamu telah habis! Silakan dapatkan benih terlebih dahulu.");
-        return;
-      }
-      
-      const tree = document.createElement("div");
-      tree.className = "tree growing";
-      tree.style.left = x + "px";
-      tree.style.top = y + "px";
-      
-      kebundalem.appendChild(tree);
-      
-      // Kurangi benih dan update localStorage
-      seedCount -= 1;
-      localStorage.setItem('seedCount', seedCount.toString());
-      updateInventoryDisplay();
-      
-      alert(`Benih berhasil ditanam! Sisa benih: ${seedCount}`);
-      
-      growingTrees.push({
-        element: tree,
-        plantTime: Date.now(),
-        x: x,
-        y: y,
-      });
-      
-      setTimeout(() => {
-        if (tree.parentNode) {
-          tree.classList.remove("growing");
-          tree.classList.add("grown");
-          tree.addEventListener("click", () => cutTree(tree));
-          alert("Pohon telah tumbuh! Klik pohon untuk menebangnya.");
-        }
-      }, 5000);
-    } else {
-      alert("Tidak bisa menanam di atas pohon yang sudah ada!");
-    }
+// Fungsi untuk toggle inventory
+function toggleInventory() {
+  const inventory = document.getElementById("inventory");
+  if (inventory.classList.contains("show")) {
+    inventory.classList.remove("show");
   } else {
-    alert('Anda hanya bisa menanam di dalam area kebun yang ditandai!');
+    inventory.classList.add("show");
   }
 }
 
-// Fungsi untuk menebang pohon yang diperbarui
-function cutTree(tree) {
-  // Ambil nilai dari localStorage dengan nilai default
-  let woodCount = parseInt(localStorage.getItem('woodCount')) || 0;
-  let seedCount = parseInt(localStorage.getItem('seedCount')) || 4;
-  
+// Fungsi untuk menanam pohon
+function tanam(event) {
+  // Periksa apakah masih memiliki benih
+  const seedCount = parseInt(document.getElementById("seedCount").textContent);
+  if (seedCount <= 0) {
+    alert("Kamu tidak memiliki benih!");
+    return;
+  }
+
+  // Dapatkan posisi klik
+  const rect = event.target.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  // Buat elemen pohon baru
+  const tree = document.createElement("div");
+  tree.className = "tree growing";
+  tree.style.left = x + "px";
+  tree.style.top = y + "px";
+
+  // Tambahkan pohon ke kebun
+  document.querySelector(".kebundalem").appendChild(tree);
+
+  // Kurangi jumlah benih
+  document.getElementById("seedCount").textContent = seedCount - 1;
+
+  // Setelah 5 detik, pohon tumbuh
+  setTimeout(() => {
+    tree.className = "tree grown";
+    // Tambahkan event listener untuk menebang
+    tree.onclick = function (e) {
+      e.stopPropagation(); // Mencegah event tanam
+      tebang(tree);
+    };
+  }, 5000);
+}
+
+// Fungsi untuk menebang pohon
+function tebang(tree) {
+  tree.className = "tree cutting";
+
   // Tambah resource
-  woodCount += 5;
-  seedCount += 3;
-  
-  // Simpan kembali ke localStorage
-  localStorage.setItem('woodCount', woodCount.toString());
-  localStorage.setItem('seedCount', seedCount.toString());
-  
-  // Update tampilan
-  updateInventoryDisplay();
-  
-  // Efek visual
-  tree.classList.add("cutting");
+  const woodCount = parseInt(document.getElementById("woodCount").textContent);
+  const seedCount = parseInt(document.getElementById("seedCount").textContent);
+
+  document.getElementById("woodCount").textContent = woodCount + 5;
+  document.getElementById("seedCount").textContent = seedCount + 3;
+
+  // Hapus pohon setelah animasi selesai
   setTimeout(() => {
     tree.remove();
   }, 500);
-  
-  alert(`Kamu mendapatkan:\n5 Kayu\n3 Benih Pohon\nTotal Kayu: ${woodCount}\nTotal Benih: ${seedCount}`);
 }
 
+// Inisialisasi saat halaman dimuat
+document.addEventListener("DOMContentLoaded", function () {
+  // Sembunyikan inventory saat awal
+  document.getElementById("inventory").classList.remove("show");
+
+  // Tutup inventory saat mengklik di luar
+  document.addEventListener("click", function (event) {
+    const inventory = document.getElementById("inventory");
+    const taskIcon = document.querySelector(".task-icon");
+    if (!inventory.contains(event.target) && !taskIcon.contains(event.target)) {
+      inventory.classList.remove("show");
+    }
+  });
+});
+
 // Pastikan data inventory dimuat saat halaman dibuka
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Inisialisasi nilai awal jika belum ada
-  if (!localStorage.getItem('woodCount')) {
-    localStorage.setItem('woodCount', '0');
+  if (!localStorage.getItem("woodCount")) {
+    localStorage.setItem("woodCount", "0");
   }
-  if (!localStorage.getItem('seedCount')) {
-    localStorage.setItem('seedCount', '4');
+  if (!localStorage.getItem("seedCount")) {
+    localStorage.setItem("seedCount", "4");
   }
   updateInventoryDisplay();
-}); 
+});

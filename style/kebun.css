@@ -7,7 +7,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 button {
@@ -27,6 +27,32 @@ button:hover {
   background-color: rgb(200, 50, 50);
 }
 
+.task-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #8b4513;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.task-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.task-icon:hover {
+  transform: scale(1.1);
+  background: #5c3d2e;
+}
+
 .inventory {
   background: rgba(255, 255, 255, 0.9);
   border: 3px solid #8b4513;
@@ -38,7 +64,7 @@ button:hover {
   top: 20px;
   right: 20px;
 }
-.kebundalem{
+.kebundalem {
   border-radius: 15px;
   padding: 20px;
   width: 880px;
@@ -205,5 +231,25 @@ button:hover {
   100% {
     transform: scale(0) rotate(45deg);
     opacity: 0;
+  }
+}
+.inventory {
+  display: none;
+  /* ... style lainnya ... */
+}
+
+.inventory.show {
+  display: block;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

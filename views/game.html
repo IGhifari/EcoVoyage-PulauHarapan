@@ -24,7 +24,10 @@
       </div>
       <!-- Karakter -->
       <img src="../asset/char/depan.png" id="player" class="player" />
-      <div class="inventory">
+      <div class="task-icon" onclick="toggleInventory()">
+        <img src="../asset/icon/task.png" alt="Task" />
+      </div>
+      <div class="inventory" id="inventory">
         <h1>Inventory</h1>
         <div class="inventory-items">
           <div class="item">
@@ -51,6 +54,14 @@
         window.location.href = "rumah.html";
       }
       updateInventoryDisplay();
+      function toggleInventory() {
+        const inventory = document.getElementById("inventory");
+        if (inventory.classList.contains("show")) {
+          inventory.classList.remove("show");
+        } else {
+          inventory.classList.add("show");
+        }
+      }
     </script>
   </body>
 </html>

@@ -9,7 +9,6 @@ const seedDisplay = document.getElementById("seedCount");
 // Posisi awal player
 let playerX = 0;
 let playerY = 0;
-const MOVE_SPEED = 5;
 
 // Object untuk melacak tombol yang sedang ditekan
 const keys = {

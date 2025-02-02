@@ -12,25 +12,56 @@
       <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
       <!-- Tombol masuk ke dalam rumah -->
       <button onclick="window.location.href='dalamrumah.html'" class="enter-btn">Masuk ke Dalam</button>
-      <div class="inventory">
+
+      <!-- Task Icon -->
+      <div class="task-icon" onclick="toggleInventory()">
+        <img src="../asset/icon/task.png" alt="Task" />
+      </div>
+
+      <!-- Inventory -->
+      <div class="inventory" id="inventory">
         <h1>Inventory</h1>
         <div class="inventory-items">
           <div class="item">
-            <img src="../asset/Objek/pohon.png" alt="">
+            <img src="../asset/Objek/pohon.png" alt="" />
             <p>Kayu: <span id="woodCount">0</span></p>
           </div>
           <div class="item">
-            <img src="../asset/Objek/benih.png" alt="">
+            <img src="../asset/Objek/benih.png" alt="" />
             <p>Benih: <span id="seedCount">4</span></p>
           </div>
         </div>
       </div>
     </div>
     <div class="reruntuhankapal">
-<img src="../asset/Objek/reruntuhankapal.png" alt="">
+      <img src="../asset/Objek/reruntuhankapal.png" alt="" />
     </div>
     <script src="../script/inventory.js"></script>
     <script>
+      // Fungsi toggle inventory
+      function toggleInventory() {
+        const inventory = document.getElementById("inventory");
+        if (inventory.classList.contains("show")) {
+          inventory.classList.remove("show");
+        } else {
+          inventory.classList.add("show");
+        }
+      }
+
+      // Sembunyikan inventory saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("inventory").classList.remove("show");
+      });
+
+      // Tutup inventory saat mengklik di luar
+      document.addEventListener("click", function (event) {
+        const inventory = document.getElementById("inventory");
+        const taskIcon = document.querySelector(".task-icon");
+        if (!inventory.contains(event.target) && !taskIcon.contains(event.target)) {
+          inventory.classList.remove("show");
+        }
+      });
+
       updateInventoryDisplay();
     </script>
   </body>
