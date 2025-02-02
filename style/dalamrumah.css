@@ -8,17 +8,19 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
 }
 .inventory {
   background: rgba(255, 255, 255, 0.9);
   border: 3px solid #8B4513;
   border-radius: 15px;
   padding: 20px;
-  width: 300px;
+  width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 20px;
   right: 20px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .inventory h1 {
@@ -44,6 +46,8 @@ body {
   padding: 10px;
   text-align: center;
   transition: transform 0.2s;
+  display: flex;
+  align-items: center;
 }
 
 .item:hover {
@@ -52,7 +56,7 @@ body {
 }
 
 .item img {
-  width: 50px;
+  width: 80px;
   height: 50px;
   margin-bottom: 8px;
 }
