@@ -9,44 +9,74 @@
   <body>
     <div class="container">
       <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
+
+      <!-- Task Icon -->
+      <div class="task-icon" onclick="toggleInventory()">
+        <img src="../asset/icon/task.png" alt="Task" />
+      </div>
+
+      <!-- Inventory -->
       <div class="inventory" id="inventory">
         <h1>Inventory</h1>
         <div class="inventory-items">
           <div class="item">
             <img src="../asset/Objek/pohon.png" alt="" />
-            <p>Kayu: <span id="woodCount">0</span></p>
+            <p>Kayu: <span id="woodCount">100</span></p>
           </div>
           <div class="item">
             <img src="../asset/Objek/benih.png" alt="" />
             <p>Benih: <span id="seedCount">4</span></p>
           </div>
+          <div class="item">
+            <img src="../asset/icon/panelsurya.png" alt="" />
+            <p>Panel Surya: <span id="solarPanelCount">0</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quest Button -->
+      <button class="quest-btn" onclick="toggleQuest()">
+        <img src="../asset/icon/quest.png" alt="Quest" />
+      </button>
+
+      <!-- Quest Container -->
+      <div class="quest-container" id="questContainer">
+        <div class="quest-header">
+          <h2>Daftar Quest</h2>
+          <button class="close-btn" onclick="toggleQuest()">&times;</button>
+        </div>
+        <div class="quest-list">
+          <div class="quest-item" id="shipQuest">
+            <h3>Membuat Kapal</h3>
+            <p>Resource yang dibutuhkan:</p>
+            <ul>
+              <li>Kayu: 50 buah</li>
+              <li>Panel Surya: 1 buah</li>
+            </ul>
+            <button onclick="craftShip()" class="craft-btn">Craft Kapal</button>
+            <div class="progress-bar">
+              <div class="progress" id="shipProgress"></div>
+            </div>
+          </div>
+
+          <div class="quest-item" id="solarQuest">
+            <h3>Panel Surya</h3>
+            <p>Resource yang dibutuhkan:</p>
+            <ul>
+              <li>Kayu: 30 buah</li>
+            </ul>
+            <button onclick="craftSolar()" class="craft-btn">Craft Panel Surya</button>
+            <div class="progress-bar">
+              <div class="progress" id="solarProgress"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <!-- Task Icon -->
-    <div class="task-icon" onclick="toggleInventory()">
-      <img src="../asset/icon/task.png" alt="Task" />
-    </div>
-
-    <!-- Inventory -->
-    <div class="inventory" id="inventory">
-      <h1>Inventory</h1>
-      <div class="inventory-items">
-        <div class="item">
-          <img src="../asset/Objek/pohon.png" alt="" />
-          <p>Kayu: <span id="woodCount">0</span></p>
-        </div>
-        <div class="item">
-          <img src="../asset/Objek/benih.png" alt="" />
-          <p>Benih: <span id="seedCount">4</span></p>
-        </div>
-      </div>
-    </div>
-
-    <button class="craft-btn">Craft</button>
     <script src="../script/inventory.js"></script>
+    <script src="../js/craft.js"></script>
     <script>
-      updateInventoryDisplay();
+      // Fungsi untuk toggle inventory
       function toggleInventory() {
         const inventory = document.getElementById("inventory");
         if (inventory.classList.contains("show")) {
@@ -55,8 +85,19 @@
           inventory.classList.add("show");
         }
       }
-      // Pastikan inventory tersembunyi saat halaman dimuat
+
+      // Tutup inventory saat klik di luar
+      document.addEventListener("click", function (event) {
+        const inventory = document.getElementById("inventory");
+        const taskIcon = document.querySelector(".task-icon");
+        if (!inventory.contains(event.target) && !taskIcon.contains(event.target)) {
+          inventory.classList.remove("show");
+        }
+      });
+
+      // Inisialisasi
       document.addEventListener("DOMContentLoaded", function () {
+        updateInventoryDisplay();
         document.getElementById("inventory").classList.remove("show");
       });
     </script>

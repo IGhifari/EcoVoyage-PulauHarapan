@@ -127,12 +127,21 @@ function tanam(event) {
 function tebang(tree) {
   tree.className = "tree cutting";
 
-  // Tambah resource
-  const woodCount = parseInt(document.getElementById("woodCount").textContent);
-  const seedCount = parseInt(document.getElementById("seedCount").textContent);
+  // Ambil nilai saat ini dari localStorage
+  const currentWoodCount = parseInt(localStorage.getItem("woodCount")) || 0;
+  const currentSeedCount = parseInt(localStorage.getItem("seedCount")) || 0;
 
-  document.getElementById("woodCount").textContent = woodCount + 5;
-  document.getElementById("seedCount").textContent = seedCount + 3;
+  // Tambah resource
+  const newWoodCount = currentWoodCount + 5;
+  const newSeedCount = currentSeedCount + 3;
+
+  // Update tampilan
+  document.getElementById("woodCount").textContent = newWoodCount;
+  document.getElementById("seedCount").textContent = newSeedCount;
+
+  // Simpan ke localStorage
+  localStorage.setItem("woodCount", newWoodCount.toString());
+  localStorage.setItem("seedCount", newSeedCount.toString());
 
   // Hapus pohon setelah animasi selesai
   setTimeout(() => {
@@ -157,12 +166,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Pastikan data inventory dimuat saat halaman dibuka
 document.addEventListener("DOMContentLoaded", () => {
-  // Inisialisasi nilai awal jika belum ada
-  if (!localStorage.getItem("woodCount")) {
-    localStorage.setItem("woodCount", "0");
-  }
-  if (!localStorage.getItem("seedCount")) {
-    localStorage.setItem("seedCount", "4");
-  }
-  updateInventoryDisplay();
+  // Load nilai dari localStorage
+  const savedWoodCount = localStorage.getItem("woodCount") || "0";
+  const savedSeedCount = localStorage.getItem("seedCount") || "4";
+
+  // Update tampilan dengan nilai yang tersimpan
+  document.getElementById("woodCount").textContent = savedWoodCount;
+  document.getElementById("seedCount").textContent = savedSeedCount;
 });
+
+// Fungsi untuk update tampilan inventory
+function updateInventoryDisplay() {
+  const woodCount = localStorage.getItem("woodCount") || "0";
+  const seedCount = localStorage.getItem("seedCount") || "4";
+
+  document.getElementById("woodCount").textContent = woodCount;
+  document.getElementById("seedCount").textContent = seedCount;
+}
