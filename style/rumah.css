@@ -163,33 +163,3 @@ body {
     transform: translateY(0);
   }
 }
-
-/* Quest Button dan Container styling (sama seperti di craft.css) */
-.quest-btn {
-  position: fixed;
-  top: 20px;
-  right: 100px;
-  width: 50px;
-  height: 50px;
-  background: #8b4513;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-
-.quest-btn img {
-  width: 30px;
-  height: 30px;
-  transition: transform 0.3s ease;
-}
-
-.quest-btn:hover {
-  background: #5c3d2e;
-}
-
-/* ... tambahkan styling quest container lainnya dari craft.css ... */

@@ -5,12 +5,16 @@ if (!localStorage.getItem("woodCount")) {
 if (!localStorage.getItem("seedCount")) {
   localStorage.setItem("seedCount", "4");
 }
+if (!localStorage.getItem("blueprintCount")) {
+  localStorage.setItem("blueprintCount", "0");
+}
 
 // Fungsi untuk memperbarui tampilan inventory
 function updateInventoryDisplay() {
   const woodCount = localStorage.getItem("woodCount") || "0";
   const seedCount = localStorage.getItem("seedCount") || "4";
   const solarPanelCount = localStorage.getItem("solarPanelCount") || "0";
+  const blueprintCount = localStorage.getItem("blueprintCount") || "0";
 
   if (document.getElementById("woodCount")) {
     document.getElementById("woodCount").textContent = woodCount;
@@ -20,6 +24,9 @@ function updateInventoryDisplay() {
   }
   if (document.getElementById("solarPanelCount")) {
     document.getElementById("solarPanelCount").textContent = solarPanelCount;
+  }
+  if (document.getElementById("blueprintCount")) {
+    document.getElementById("blueprintCount").textContent = blueprintCount;
   }
 }
 
