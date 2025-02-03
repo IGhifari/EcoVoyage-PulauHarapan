@@ -9,7 +9,7 @@ body {
   border: 3px solid #8b4513;
   border-radius: 15px;
   padding: 20px;
-  width: 400px;
+  width: 450px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 80px;
@@ -50,7 +50,7 @@ body {
 }
 
 .item img {
-  width: 30px;
+  width: 80px;
   height: 30px;
   object-fit: contain;
   margin-right: 10px;
