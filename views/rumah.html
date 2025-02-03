@@ -41,8 +41,9 @@
         </div>
       </div>
     </div>
-    <div class="reruntuhankapal">
-      <img src="../asset/Objek/reruntuhankapal.png" alt="" />
+    <div id="kapalContainer" class="reruntuhankapal">
+      <img src="../asset/Objek/reruntuhankapal.png" alt="" id="kapalImage" />
+      <button onclick="enterKapal()" class="enter-kapal-btn" id="enterKapalBtn" style="display: none">Masuk Kapal</button>
     </div>
     <script src="../script/inventory.js"></script>
     <script>
@@ -83,6 +84,32 @@
 
         window.location.href = "dalamrumah.html";
       }
+
+      // Tambahkan fungsi untuk mengecek status kapal
+      function checkKapalStatus() {
+        const shipBuilt = localStorage.getItem("shipBuilt") === "true";
+        const kapalImage = document.getElementById("kapalImage");
+        const enterKapalBtn = document.getElementById("enterKapalBtn");
+
+        if (shipBuilt) {
+          kapalImage.src = "../asset/Objek/kapal.png"; // Ganti dengan gambar kapal yang sudah jadi
+          enterKapalBtn.style.display = "block";
+        } else {
+          kapalImage.src = "../asset/Objek/reruntuhankapal.png";
+          enterKapalBtn.style.display = "none";
+        }
+      }
+
+      // Fungsi untuk masuk ke kapal
+      function enterKapal() {
+        window.location.href = "dalamkapal.html"; // Halaman baru untuk dalam kapal
+      }
+
+      // Panggil checkKapalStatus saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", function () {
+        checkKapalStatus();
+        updateInventoryDisplay();
+      });
     </script>
   </body>
 </html>

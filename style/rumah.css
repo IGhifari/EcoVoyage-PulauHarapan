@@ -111,17 +111,48 @@ body {
 
 .reruntuhankapal {
   position: fixed;
-  bottom: -5%; /* Sesuaikan dengan posisi laut di background */
-  right: 20%; /* Sesuaikan dengan posisi horizontal yang diinginkan */
-  z-index: 1; /* Memastikan kapal berada di atas background tapi di bawah elemen lain */
+  bottom: 0%; /* Sesuaikan ke dasar layar */
+  right: 10%; /* Geser sedikit ke kanan */
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .reruntuhankapal img {
-  width: 500px; /* Sesuaikan ukuran kapal */
+  width: 800px; /* Sedikit lebih kecil agar proporsional */
   height: auto;
-  transform: rotate(-10deg); /* Memberikan efek miring sedikit */
-  opacity: 0.9; /* Memberikan efek sedikit transparan agar menyatu dengan background */
+  transform: rotate(-5deg); /* Kurangi kemiringan agar lebih natural */
+  opacity: 0.9;
+  transition: all 0.3s ease;
 }
+
+.enter-kapal-btn {
+  position: absolute;
+  bottom: 70%; /* Sesuaikan posisi tombol */
+  left: 45%; /* Geser sedikit ke kiri */
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.enter-kapal-btn:hover {
+  background-color: #2980b9;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.reruntuhankapal:hover img {
+  transform: rotate(-10deg) scale(1.02);
+  opacity: 1;
+}
+
 .task-icon {
   position: fixed;
   top: 20px;
