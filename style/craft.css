@@ -378,3 +378,49 @@ body {
   background: #5c3d2e;
   transform: translateY(-2px);
 }
+
+/* Ganti dengan animasi pulse */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.craft-btn.crafting {
+  position: relative;
+  background: #5c3d2e;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* Progress bar animation */
+@keyframes progressFill {
+  from {
+    width: 0%;
+    background: linear-gradient(90deg, #45a049, #2ecc71);
+  }
+  to {
+    width: 100%;
+    background: linear-gradient(90deg, #2ecc71, #45a049);
+  }
+}
+
+.progress.active {
+  animation: progressFill 5s linear forwards;
+  background-size: 200% auto;
+  transition: all 0.3s ease;
+}
+
+/* Tambahkan efek hover saat crafting */
+.craft-btn.crafting:hover {
+  transform: none;
+  background: #5c3d2e;
+}

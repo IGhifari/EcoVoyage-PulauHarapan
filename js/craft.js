@@ -2,6 +2,7 @@
 const SHIP_REQUIREMENTS = {
   wood: 50,
   solarPanel: 1,
+  blueprint: 1,
 };
 
 const SOLAR_REQUIREMENTS = {
@@ -42,6 +43,12 @@ function toggleQuest() {
 function craftShip() {
   const woodCount = parseInt(document.getElementById("woodCount").textContent);
   const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
+  const blueprintCount = parseInt(document.getElementById("blueprintCount").textContent);
+
+  if (blueprintCount < SHIP_REQUIREMENTS.blueprint) {
+    alert("Kamu membutuhkan Blueprint Kapal! Cari blueprint di dalam rumah.");
+    return;
+  }
 
   if (woodCount < SHIP_REQUIREMENTS.wood) {
     alert(`Kayu tidak cukup! Dibutuhkan ${SHIP_REQUIREMENTS.wood} kayu, kamu hanya punya ${woodCount} kayu.`);
@@ -54,39 +61,26 @@ function craftShip() {
   }
 
   const craftBtn = event.target;
-  craftBtn.disabled = true;
-  craftBtn.textContent = "Crafting...";
-  craftBtn.classList.add("crafting");
-
-  let progress = 0;
   const progressBar = document.getElementById("shipProgress");
 
-  const craftingInterval = setInterval(() => {
-    progress += 1;
-    progressBar.style.width = `${progress}%`;
-
-    if (progress >= 100) {
-      clearInterval(craftingInterval);
-      completeCraftShip();
-      craftBtn.disabled = false;
-      craftBtn.textContent = "Craft Kapal";
-      craftBtn.classList.remove("crafting");
-    }
-  }, 50);
+  startCrafting(craftBtn, progressBar, completeCraftShip);
 }
 
 function completeCraftShip() {
   // Kurangi resource
   const woodCount = parseInt(document.getElementById("woodCount").textContent);
   const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
+  const blueprintCount = parseInt(document.getElementById("blueprintCount").textContent);
 
   document.getElementById("woodCount").textContent = woodCount - SHIP_REQUIREMENTS.wood;
   document.getElementById("solarPanelCount").textContent = solarPanelCount - SHIP_REQUIREMENTS.solarPanel;
+  document.getElementById("blueprintCount").textContent = blueprintCount - SHIP_REQUIREMENTS.blueprint;
 
   // Simpan progress
   localStorage.setItem("shipBuilt", "true");
-  localStorage.setItem("woodCount", woodCount - SHIP_REQUIREMENTS.wood);
-  localStorage.setItem("solarPanelCount", solarPanelCount - SHIP_REQUIREMENTS.solarPanel);
+  localStorage.setItem("woodCount", (woodCount - SHIP_REQUIREMENTS.wood).toString());
+  localStorage.setItem("solarPanelCount", (solarPanelCount - SHIP_REQUIREMENTS.solarPanel).toString());
+  localStorage.setItem("blueprintCount", (blueprintCount - SHIP_REQUIREMENTS.blueprint).toString());
 
   alert("Selamat! Kamu berhasil membuat kapal!");
 }
@@ -101,25 +95,9 @@ function craftSolar() {
   }
 
   const craftBtn = event.target;
-  craftBtn.disabled = true;
-  craftBtn.textContent = "Crafting...";
-  craftBtn.classList.add("crafting");
-
-  let progress = 0;
   const progressBar = document.getElementById("solarProgress");
 
-  const craftingInterval = setInterval(() => {
-    progress += 1;
-    progressBar.style.width = `${progress}%`;
-
-    if (progress >= 100) {
-      clearInterval(craftingInterval);
-      completeCraftSolar();
-      craftBtn.disabled = false;
-      craftBtn.textContent = "Craft Panel Surya";
-      craftBtn.classList.remove("crafting");
-    }
-  }, 50);
+  startCrafting(craftBtn, progressBar, completeCraftSolar);
 }
 
 function completeCraftSolar() {
@@ -238,25 +216,9 @@ function buildHouse() {
   }
 
   const craftBtn = event.target;
-  craftBtn.disabled = true;
-  craftBtn.textContent = "Membangun...";
-  craftBtn.classList.add("crafting");
-
-  let progress = 0;
   const progressBar = document.getElementById("houseProgress");
 
-  const buildingInterval = setInterval(() => {
-    progress += 1;
-    progressBar.style.width = `${progress}%`;
-
-    if (progress >= 100) {
-      clearInterval(buildingInterval);
-      completeHouseBuilding();
-      craftBtn.disabled = false;
-      craftBtn.textContent = "Bangun Rumah";
-      craftBtn.classList.remove("crafting");
-    }
-  }, 50);
+  startCrafting(craftBtn, progressBar, completeHouseBuilding);
 }
 
 function completeHouseBuilding() {
@@ -282,6 +244,7 @@ function resetAllQuests() {
     localStorage.removeItem("shipBuilt");
     localStorage.removeItem("solarBuilt");
     localStorage.removeItem("houseBuilt");
+    localStorage.setItem("blueprintCount", "0"); // Reset blueprint juga
 
     // Reset progress bar
     document.getElementById("shipProgress").style.width = "0%";
@@ -305,4 +268,24 @@ function resetAllQuests() {
 
     alert("Semua quest telah direset! Kamu bisa memulai kembali dari awal.");
   }
+}
+
+// Fungsi umum untuk memulai crafting
+function startCrafting(button, progressBar, completeCallback) {
+  button.disabled = true;
+  button.classList.add("crafting");
+  button.textContent = "Crafting...";
+
+  progressBar.style.width = "0%";
+  progressBar.classList.add("active");
+
+  // Durasi crafting 5 detik
+  setTimeout(() => {
+    button.disabled = false;
+    button.classList.remove("crafting");
+    button.textContent = "Selesai";
+    progressBar.classList.remove("active");
+    progressBar.style.width = "100%";
+    completeCallback();
+  }, 5000);
 }
