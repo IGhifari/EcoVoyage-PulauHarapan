@@ -3,20 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kebun</title>
-    <link rel="stylesheet" href="../style/kebun.css" />
+    <title>Kolam Ikan</title>
+    <link rel="stylesheet" href="../style/kolam.css" />
   </head>
   <body>
     <div class="container">
-      <!-- Tombol kembali ke halaman utama -->
-      <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
+      <button onclick="window.location.href='rumah.html'" class="back-btn">Kembali ke Rumah</button>
 
       <!-- Task Icon -->
       <div class="task-icon" onclick="toggleInventory()">
         <img src="../asset/icon/task.png" alt="Task" />
       </div>
 
-      <!-- Inventory (tersembunyi secara default) -->
+      <!-- Inventory -->
       <div class="inventory" id="inventory">
         <h1>Inventory</h1>
         <div class="inventory-items">
@@ -26,7 +25,7 @@
           </div>
           <div class="item">
             <img src="../asset/Objek/benih.png" alt="" />
-            <p>Benih: <span id="seedCount">8</span></p>
+            <p>Benih: <span id="seedCount">4</span></p>
           </div>
           <div class="item">
             <img src="../asset/icon/blueprint.PNG" alt="" />
@@ -42,20 +41,25 @@
           </div>
         </div>
       </div>
+
+      <!-- Tambahkan setelah container dan sebelum button actions -->
+      <div class="fish-container" id="fishContainer">
+        <!-- Ikan akan ditambahkan secara dinamis di sini -->
+      </div>
+
+      <!-- Tambahkan indikator kebersihan setelah task icon -->
+      <div class="cleanliness-indicator">
+        Kebersihan Kolam
+        <div class="clean-timer" id="cleanTimer"></div>
+      </div>
+
+      <!-- Button Actions -->
+      <div class="pond-actions">
+        <button onclick="cleanWater()" class="clean-btn">Bersihkan Air</button>
+        <button onclick="catchFish()" class="fish-btn">Ambil Ikan</button>
+      </div>
     </div>
-    <div class="kebundalem" onclick="tanam(event)"></div>
     <script src="../script/inventory.js"></script>
-    <script src="../js/kebun.js"></script>
-    <script>
-      // Fungsi untuk toggle inventory
-      function toggleInventory() {
-        const inventory = document.getElementById("inventory");
-        if (inventory.classList.contains("show")) {
-          inventory.classList.remove("show");
-        } else {
-          inventory.classList.add("show");
-        }
-      }
-    </script>
+    <script src="../js/kolam.js"></script>
   </body>
 </html>

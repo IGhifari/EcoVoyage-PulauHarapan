@@ -1,0 +1,225 @@
+body {
+  background: url(../asset/latar/kolamikan.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgb(158, 33, 33);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: rgb(128, 26, 26);
+  transform: translateY(-2px);
+}
+
+.pond-actions {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.clean-btn,
+.fish-btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clean-btn {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+}
+
+.fish-btn {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+.clean-btn:hover,
+.fish-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.clean-btn:active,
+.fish-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Inventory styles */
+.inventory {
+  display: none;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid #8b4513;
+  border-radius: 15px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 999;
+}
+
+.inventory.show {
+  display: block;
+}
+
+.inventory-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.item {
+  background: #f5deb3;
+  border: 2px solid #8b4513;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.item p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.task-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #8b4513;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.task-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.task-icon:hover {
+  transform: scale(1.1);
+  background: #5c3d2e;
+}
+
+.fish-container {
+  position: absolute;
+  width: 100%;
+  height: 70vh;
+  top: 15vh;
+  overflow: hidden;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.fish {
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  background: url(../asset/Objek/ikan.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  animation: swim 15s linear infinite;
+}
+
+.fish:hover {
+  transform: scale(1.1);
+}
+
+@keyframes swim {
+  0% {
+    transform: translateX(-100%) scaleX(1);
+  }
+  45% {
+    transform: translateX(100%) scaleX(1);
+  }
+  50% {
+    transform: translateX(100%) scaleX(-1);
+  }
+  95% {
+    transform: translateX(-100%) scaleX(-1);
+  }
+  100% {
+    transform: translateX(-100%) scaleX(1);
+  }
+}
+
+/* Variasi kecepatan berenang */
+.fish:nth-child(2n) {
+  animation-duration: 20s;
+}
+
+.fish:nth-child(3n) {
+  animation-duration: 18s;
+}
+
+.fish:nth-child(4n) {
+  animation-duration: 25s;
+}
+
+/* Tambahkan indikator kebersihan */
+.cleanliness-indicator {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+.clean-timer {
+  height: 3px;
+  background: #2ecc71;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transition: width 1s linear;
+}

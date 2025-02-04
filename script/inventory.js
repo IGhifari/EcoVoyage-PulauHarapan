@@ -11,22 +11,26 @@ if (!localStorage.getItem("blueprintCount")) {
 
 // Fungsi untuk memperbarui tampilan inventory
 function updateInventoryDisplay() {
-  const woodCount = localStorage.getItem("woodCount") || "0";
-  const seedCount = localStorage.getItem("seedCount") || "4";
-  const solarPanelCount = localStorage.getItem("solarPanelCount") || "0";
-  const blueprintCount = localStorage.getItem("blueprintCount") || "0";
+  const woodCount = localStorage.getItem("woodCount");
+  const seedCount = localStorage.getItem("seedCount");
+  const blueprintCount = localStorage.getItem("blueprintCount");
+  const solarPanelCount = localStorage.getItem("solarPanelCount");
+  const fishCount = localStorage.getItem("fishCount");
 
   if (document.getElementById("woodCount")) {
-    document.getElementById("woodCount").textContent = woodCount;
+    document.getElementById("woodCount").textContent = woodCount || "0";
   }
   if (document.getElementById("seedCount")) {
-    document.getElementById("seedCount").textContent = seedCount;
-  }
-  if (document.getElementById("solarPanelCount")) {
-    document.getElementById("solarPanelCount").textContent = solarPanelCount;
+    document.getElementById("seedCount").textContent = seedCount || "4";
   }
   if (document.getElementById("blueprintCount")) {
-    document.getElementById("blueprintCount").textContent = blueprintCount;
+    document.getElementById("blueprintCount").textContent = blueprintCount || "0";
+  }
+  if (document.getElementById("solarPanelCount")) {
+    document.getElementById("solarPanelCount").textContent = solarPanelCount || "0";
+  }
+  if (document.getElementById("fishCount")) {
+    document.getElementById("fishCount").textContent = fishCount || "0";
   }
 }
 
