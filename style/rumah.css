@@ -111,7 +111,7 @@ body {
 
 .reruntuhankapal {
   position: fixed;
-  bottom: 0%; /* Sesuaikan ke dasar layar */
+  top: 70%; /* Sesuaikan ke dasar layar */
   right: 10%; /* Geser sedikit ke kanan */
   z-index: 1;
   display: flex;
@@ -120,7 +120,7 @@ body {
 }
 
 .reruntuhankapal img {
-  width: 800px; /* Sedikit lebih kecil agar proporsional */
+  width: 500px; /* Sedikit lebih kecil agar proporsional */
   height: auto;
   transform: rotate(-5deg); /* Kurangi kemiringan agar lebih natural */
   opacity: 0.9;
