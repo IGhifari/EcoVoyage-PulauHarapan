@@ -29,6 +29,11 @@ const dialogData = [
 let currentDialogIndex = 0;
 
 function showDialog() {
+    // Cek apakah dialog sudah pernah ditampilkan
+    if (localStorage.getItem('dalamRumahDialogShown')) {
+        return; // Jika sudah pernah ditampilkan, langsung keluar dari fungsi
+    }
+
     const dialogBox = document.getElementById('dialogBox');
     const dialogText = document.getElementById('dialogText');
     const characterName = document.getElementById('characterName');
@@ -42,6 +47,8 @@ function showDialog() {
         dialogBox.style.display = 'none';
         // Setelah dialog selesai, tambahkan blueprint ke inventory
         addBlueprint();
+        // Tandai bahwa dialog sudah ditampilkan
+        localStorage.setItem('dalamRumahDialogShown', 'true');
     }
 }
 
