@@ -15,6 +15,19 @@ const HOUSE_REQUIREMENTS = {
   solarPanel: 2,
 };
 
+// Tambahkan requirement untuk mesin
+const ENGINE_REQUIREMENTS = {
+  wood: 80,
+  solarPanel: 3,
+};
+
+// Tambahkan requirement untuk kebun 2
+const GARDEN2_REQUIREMENTS = {
+  wood: 100,
+  solarPanel: 2,
+  seed: 20,
+};
+
 // Fungsi untuk toggle quest
 function toggleQuest() {
   const questContainer = document.getElementById("questContainer");
@@ -176,6 +189,38 @@ document.addEventListener("DOMContentLoaded", () => {
     houseBtn.textContent = "Selesai";
     document.getElementById("houseProgress").style.width = "100%";
   }
+
+  // Check quest mesin kapal
+  const hasEnteredShip = localStorage.getItem("hasEnteredShip") === "true";
+  const engineQuest = document.getElementById("engineQuest");
+  const shipBuilt = localStorage.getItem("shipBuilt") === "true";
+
+  // Tampilkan quest mesin hanya jika kapal sudah dibangun dan sudah masuk kapal
+  if (engineQuest) {
+    engineQuest.style.display = shipBuilt && hasEnteredShip ? "block" : "none";
+  }
+
+  // Check quest kebun 2
+  const garden2Quest = document.getElementById("garden2Quest");
+  const stayedInIsland = localStorage.getItem("stayedInIsland") === "true";
+
+  // Tampilkan quest kebun 2 hanya jika player memilih menetap
+  if (garden2Quest) {
+    garden2Quest.style.display = stayedInIsland ? "block" : "none";
+  }
+
+  // Check progress quest yang sudah selesai
+  if (localStorage.getItem("engineBuilt") === "true" && engineQuest) {
+    document.getElementById("engineProgress").style.width = "100%";
+    const engineBtn = document.querySelector("#engineQuest .craft-btn");
+    if (engineBtn) engineBtn.textContent = "Selesai";
+  }
+
+  if (localStorage.getItem("garden2Unlocked") === "true" && garden2Quest) {
+    document.getElementById("garden2Progress").style.width = "100%";
+    const garden2Btn = document.querySelector("#garden2Quest .craft-btn");
+    if (garden2Btn) garden2Btn.textContent = "Selesai";
+  }
 });
 
 // Fungsi untuk toggle inventory
@@ -266,6 +311,31 @@ function resetAllQuests() {
       btn.textContent = btn.textContent.replace("Selesai", "Craft");
     });
 
+    // Reset garden2 status
+    localStorage.removeItem("garden2Unlocked");
+    document.getElementById("garden2Progress").style.width = "0%";
+
+    // Reset status masuk kapal dan quest terkait
+    localStorage.removeItem("hasEnteredShip");
+    localStorage.removeItem("engineBuilt");
+
+    // Reset progress bar
+    const engineProgress = document.getElementById("engineProgress");
+    const garden2Progress = document.getElementById("garden2Progress");
+
+    if (engineProgress) engineProgress.style.width = "0%";
+    if (garden2Progress) garden2Progress.style.width = "0%";
+
+    // Sembunyikan quest yang belum bisa diakses
+    const engineQuest = document.getElementById("engineQuest");
+    const garden2Quest = document.getElementById("garden2Quest");
+
+    if (engineQuest) engineQuest.style.display = "none";
+    if (garden2Quest) garden2Quest.style.display = "none";
+
+    // Reset status menetap di pulau
+    localStorage.removeItem("stayedInIsland");
+
     alert("Semua quest telah direset! Kamu bisa memulai kembali dari awal.");
   }
 }
@@ -288,4 +358,83 @@ function startCrafting(button, progressBar, completeCallback) {
     progressBar.style.width = "100%";
     completeCallback();
   }, 5000);
+}
+
+// Fungsi untuk craft mesin kapal
+function craftEngine() {
+  const woodCount = parseInt(document.getElementById("woodCount").textContent);
+  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
+
+  if (woodCount < ENGINE_REQUIREMENTS.wood) {
+    alert(`Kayu tidak cukup! Dibutuhkan ${ENGINE_REQUIREMENTS.wood} kayu, kamu hanya punya ${woodCount} kayu.`);
+    return;
+  }
+
+  if (solarPanelCount < ENGINE_REQUIREMENTS.solarPanel) {
+    alert(`Panel Surya tidak cukup! Dibutuhkan ${ENGINE_REQUIREMENTS.solarPanel} panel, kamu hanya punya ${solarPanelCount} panel.`);
+    return;
+  }
+
+  const craftBtn = event.target;
+  const progressBar = document.getElementById("engineProgress");
+
+  startCrafting(craftBtn, progressBar, completeEngineBuilding);
+}
+
+function completeEngineBuilding() {
+  const woodCount = parseInt(document.getElementById("woodCount").textContent);
+  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
+
+  document.getElementById("woodCount").textContent = woodCount - ENGINE_REQUIREMENTS.wood;
+  document.getElementById("solarPanelCount").textContent = solarPanelCount - ENGINE_REQUIREMENTS.solarPanel;
+
+  localStorage.setItem("engineBuilt", "true");
+  localStorage.setItem("woodCount", (woodCount - ENGINE_REQUIREMENTS.wood).toString());
+  localStorage.setItem("solarPanelCount", (solarPanelCount - ENGINE_REQUIREMENTS.solarPanel).toString());
+
+  alert("Selamat! Kamu berhasil membuat Mesin Kapal! Sekarang kapalmu bisa berlayar.");
+}
+
+// Fungsi untuk membuka kebun 2
+function unlockGarden2() {
+  const woodCount = parseInt(document.getElementById("woodCount").textContent);
+  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
+  const seedCount = parseInt(document.getElementById("seedCount").textContent);
+
+  if (woodCount < GARDEN2_REQUIREMENTS.wood) {
+    alert(`Kayu tidak cukup! Dibutuhkan ${GARDEN2_REQUIREMENTS.wood} kayu, kamu hanya punya ${woodCount} kayu.`);
+    return;
+  }
+
+  if (solarPanelCount < GARDEN2_REQUIREMENTS.solarPanel) {
+    alert(`Panel Surya tidak cukup! Dibutuhkan ${GARDEN2_REQUIREMENTS.solarPanel} panel, kamu hanya punya ${solarPanelCount} panel.`);
+    return;
+  }
+
+  if (seedCount < GARDEN2_REQUIREMENTS.seed) {
+    alert(`Benih tidak cukup! Dibutuhkan ${GARDEN2_REQUIREMENTS.seed} benih, kamu hanya punya ${seedCount} benih.`);
+    return;
+  }
+
+  const craftBtn = event.target;
+  const progressBar = document.getElementById("garden2Progress");
+
+  startCrafting(craftBtn, progressBar, completeGarden2Unlock);
+}
+
+function completeGarden2Unlock() {
+  const woodCount = parseInt(document.getElementById("woodCount").textContent);
+  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
+  const seedCount = parseInt(document.getElementById("seedCount").textContent);
+
+  document.getElementById("woodCount").textContent = woodCount - GARDEN2_REQUIREMENTS.wood;
+  document.getElementById("solarPanelCount").textContent = solarPanelCount - GARDEN2_REQUIREMENTS.solarPanel;
+  document.getElementById("seedCount").textContent = seedCount - GARDEN2_REQUIREMENTS.seed;
+
+  localStorage.setItem("garden2Unlocked", "true");
+  localStorage.setItem("woodCount", (woodCount - GARDEN2_REQUIREMENTS.wood).toString());
+  localStorage.setItem("solarPanelCount", (solarPanelCount - GARDEN2_REQUIREMENTS.solarPanel).toString());
+  localStorage.setItem("seedCount", (seedCount - GARDEN2_REQUIREMENTS.seed).toString());
+
+  alert("Selamat! Kamu berhasil membuka Kebun 2! Kamu bisa mengaksesnya dari halaman kebun.");
 }

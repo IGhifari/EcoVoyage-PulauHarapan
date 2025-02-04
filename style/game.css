@@ -186,3 +186,28 @@ body {
     transform: translateY(0);
   }
 }
+
+.kebun2 {
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(45deg, #27ae60, #2ecc71);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-right: 10px;
+}
+
+.kebun2:hover {
+  background: linear-gradient(45deg, #219a52, #27ae60);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.kebun2:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}

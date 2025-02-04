@@ -58,9 +58,9 @@ function plantTree(x, y) {
 // Fungsi untuk menebang pohon
 function cutTree(tree) {
   // Tambah resource kayu
-  updateResource("woodCount", 5);
+  updateResource("woodCount", 500);
   // Tambah benih
-  updateResource("seedCount", 3);
+  updateResource("seedCount", 300);
 
   // Efek visual
   tree.classList.add("cutting");

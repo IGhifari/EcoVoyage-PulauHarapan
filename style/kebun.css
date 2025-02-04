@@ -253,3 +253,12 @@ button:hover {
     transform: translateY(0);
   }
 }
+
+/* Update warna untuk opsi menetap */
+.sail-option-btn.stay {
+  border-left: 5px solid #27ae60;
+}
+
+.sail-option-btn.stay:hover {
+  background: #f0fff4;
+}

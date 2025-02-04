@@ -13,6 +13,8 @@
         <div class="buttonKebun">
           <button class="kebun" onclick="MasukKebun()" id="btnKebun">Kebun</button>
         </div>
+        <!-- Tombol untuk kebun 2 -->
+        <button onclick="checkGarden2Access()" id="garden2Button" class="kebun2" style="display: none">Kebun 2</button>
         <!-- Tombol untuk craft -->
         <div class="buttonCraft">
           <button class="craft" onclick="MasukCraft()" id="btnCraft">Craft</button>
@@ -69,6 +71,25 @@
         } else {
           inventory.classList.add("show");
         }
+      }
+      // Tambahkan script untuk mengecek akses kebun 2
+      document.addEventListener("DOMContentLoaded", function () {
+        const garden2Unlocked = localStorage.getItem("garden2Unlocked") === "true";
+        const garden2Button = document.getElementById("garden2Button");
+
+        if (garden2Unlocked) {
+          garden2Button.style.display = "block";
+        }
+      });
+      function checkGarden2Access() {
+        const garden2Unlocked = localStorage.getItem("garden2Unlocked") === "true";
+
+        if (!garden2Unlocked) {
+          alert("Kamu belum membuka Kebun 2! Selesaikan quest pembukaan Kebun 2 di halaman craft terlebih dahulu.");
+          return;
+        }
+
+        window.location.href = "kebun2.html";
       }
     </script>
   </body>

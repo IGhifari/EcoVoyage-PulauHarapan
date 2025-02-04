@@ -1,0 +1,94 @@
+body {
+  background: url(../asset/latar/kebun2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgb(158, 33, 33);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: rgb(128, 26, 26);
+  transform: translateY(-2px);
+}
+
+/* Copy inventory styles dari kebun.css */
+.inventory {
+  display: none;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid #8b4513;
+  border-radius: 15px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 999;
+}
+
+.inventory.show {
+  display: block;
+  animation: slideIn 0.3s ease-out;
+}
+
+.kebundalem2 {
+  width: 100%;
+  height: 100vh;
+  cursor: pointer;
+}
+
+/* Task icon styles */
+.task-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #8b4513;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.task-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.task-icon:hover {
+  transform: scale(1.1);
+  background: #5c3d2e;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

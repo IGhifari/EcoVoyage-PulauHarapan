@@ -37,7 +37,30 @@
           </div>
         </div>
       </div>
+
+      <!-- Tambahkan setelah inventory -->
+      <button id="sailButton" class="sail-btn" onclick="checkEngine()" style="display: none">Berlayar</button>
     </div>
+
+    <!-- Tambahkan dialog pilihan setelah button berlayar -->
+    <div id="sailDialog" class="sail-dialog" style="display: none">
+      <div class="sail-dialog-content">
+        <h2>Pilih Tujuan Berlayar</h2>
+        <p>Apa yang ingin kamu lakukan?</p>
+        <div class="sail-options">
+          <button onclick="sailHome()" class="sail-option-btn home">
+            <span class="option-title">Pulang ke Rumah</span>
+            <span class="option-desc">Akhiri petualangan dan kembali ke rumah</span>
+          </button>
+          <button onclick="stayAndContinue()" class="sail-option-btn stay">
+            <span class="option-title">Menetap di Pulau</span>
+            <span class="option-desc">Lanjutkan petualangan dengan quest baru di pulau ini</span>
+          </button>
+        </div>
+        <button onclick="closeSailDialog()" class="close-dialog-btn">Batal</button>
+      </div>
+    </div>
+
     <script src="../script/inventory.js"></script>
     <script>
       // Fungsi toggle inventory
@@ -51,8 +74,49 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
+        // Set flag bahwa player sudah masuk kapal
+        localStorage.setItem("hasEnteredShip", "true");
+
+        // Check mesin
+        const engineBuilt = localStorage.getItem("engineBuilt") === "true";
+        const sailButton = document.getElementById("sailButton");
+
+        if (engineBuilt) {
+          sailButton.style.display = "block";
+        }
+
         updateInventoryDisplay();
       });
+
+      function checkEngine() {
+        const engineBuilt = localStorage.getItem("engineBuilt") === "true";
+
+        if (!engineBuilt) {
+          alert("Kapal belum bisa berlayar! Kamu harus membuat mesin kapal terlebih dahulu di halaman craft.");
+          return;
+        }
+
+        // Tampilkan dialog pilihan
+        document.getElementById("sailDialog").style.display = "flex";
+      }
+
+      function closeSailDialog() {
+        document.getElementById("sailDialog").style.display = "none";
+      }
+
+      function sailHome() {
+        if (confirm("Apakah kamu yakin ingin pulang? Petualanganmu akan berakhir.")) {
+          window.location.href = "ending.html";
+        }
+      }
+
+      function stayAndContinue() {
+        if (confirm("Apakah kamu yakin ingin menetap dan melanjutkan petualangan di pulau ini?")) {
+          localStorage.setItem("stayedInIsland", "true"); // Simpan status menetap
+          alert("Kamu memutuskan untuk menetap! Quest Kebun 2 telah terbuka di halaman craft.");
+          window.location.href = "game.html";
+        }
+      }
     </script>
   </body>
 </html>
