@@ -55,8 +55,7 @@ function updateHungerTimer() {
     if (timeLeft <= 0) {
       clearInterval(hungerInterval);
       alert("Yanto pingsan karena kelaparan!");
-      resetHungerSystem();
-      window.location.href = "index.html";
+      resetGame();
     }
   }
 }
@@ -108,6 +107,67 @@ function cookFood() {
   } else {
     alert("Ikan tidak cukup! Diperlukan 2 ikan untuk memasak.");
   }
+}
+
+// Update fungsi resetGame
+function resetGame() {
+  // Reset hunger system
+  resetHungerSystem();
+
+  // Reset inventory
+  localStorage.setItem("woodCount", "0");
+  localStorage.setItem("seedCount", "8");
+  localStorage.setItem("blueprintCount", "0");
+  localStorage.setItem("solarPanelCount", "0");
+  localStorage.setItem("fishCount", "0");
+  localStorage.setItem("foodCount", "0");
+
+  // Reset ALL quest progress
+  localStorage.removeItem("questProgress");
+  localStorage.removeItem("questCompleted");
+  localStorage.removeItem("engineBuilt");
+  localStorage.removeItem("hasEnteredShip");
+  localStorage.removeItem("questStarted");
+  localStorage.removeItem("currentQuest");
+  localStorage.removeItem("completedQuests");
+  localStorage.removeItem("questStatus");
+  localStorage.removeItem("shipBuilt");
+  localStorage.removeItem("dialogProgress");
+  localStorage.removeItem("dialogShown");
+  localStorage.removeItem("prologueShown");
+  localStorage.removeItem("craftTutorialShown");
+  localStorage.removeItem("questTutorialShown");
+
+  // Reset kolam
+  localStorage.removeItem("fishState");
+  localStorage.removeItem("lastCleanedTime");
+  localStorage.removeItem("cleaningWarningShown");
+  localStorage.removeItem("pondDirtyShown");
+  localStorage.removeItem("pondBuilt");
+
+  // Reset kebun
+  localStorage.removeItem("trees");
+  localStorage.removeItem("lastPlantedTime");
+  localStorage.removeItem("plantTutorialShown");
+  localStorage.removeItem("gardenUnlocked");
+
+  // Reset semua dialog
+  localStorage.removeItem("dialogIndex");
+  localStorage.removeItem("currentDialogIndex");
+  localStorage.removeItem("dialogCompleted");
+
+  // Reset semua tutorial
+  localStorage.removeItem("tutorialShown");
+  localStorage.removeItem("tutorialCompleted");
+  localStorage.removeItem("firstTimeVisit");
+
+  // Reset semua progress
+  localStorage.removeItem("gameProgress");
+  localStorage.removeItem("achievementsUnlocked");
+  localStorage.removeItem("lastSaveTime");
+
+  // Redirect ke halaman awal
+  window.location.href = "halamanAwal.html";
 }
 
 // Inisialisasi saat halaman dimuat

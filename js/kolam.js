@@ -8,7 +8,54 @@ let cleaningTimer;
 const CLEANING_INTERVAL = 300000; // 5 menit
 const DIRTY_WARNING_TIME = 60000 * 4; // 4 menit (1 menit sebelum kotor)
 
+// Tambahkan fungsi untuk menyimpan status ikan
+function saveFishState() {
+  const fishState = {
+    count: fishElements.length,
+    positions: fishElements.map((fish) => ({
+      top: fish.style.top,
+      scale: fish.style.transform,
+    })),
+  };
+  localStorage.setItem("fishState", JSON.stringify(fishState));
+}
+
+// Fungsi untuk memuat status ikan
+function loadFishState() {
+  const fishState = localStorage.getItem("fishState");
+  if (fishState) {
+    const state = JSON.parse(fishState);
+    fishElements = [];
+    const container = document.getElementById("fishContainer");
+    container.innerHTML = ""; // Bersihkan container
+
+    // Buat ikan sesuai state yang tersimpan
+    state.positions.forEach((pos) => {
+      const fish = document.createElement("div");
+      fish.className = "fish";
+      fish.style.top = pos.top;
+      fish.style.transform = pos.scale;
+      container.appendChild(fish);
+      fishElements.push(fish);
+
+      // Tambahkan event listener untuk menangkap ikan
+      fish.addEventListener("click", () => {
+        fish.remove();
+        fishElements = fishElements.filter((f) => f !== fish);
+        saveFishState();
+      });
+    });
+  } else {
+    // Jika belum ada state, buat 5 ikan awal
+    for (let i = 0; i < 5; i++) {
+      createFish();
+    }
+  }
+}
+
 function createFish() {
+  if (fishElements.length >= MAX_FISH) return; // Batasi jumlah ikan
+
   const fish = document.createElement("div");
   fish.className = "fish";
 
@@ -27,7 +74,10 @@ function createFish() {
   fish.addEventListener("click", () => {
     fish.remove();
     fishElements = fishElements.filter((f) => f !== fish);
+    saveFishState();
   });
+
+  saveFishState();
 }
 
 function reproduceFish() {
@@ -36,7 +86,7 @@ function reproduceFish() {
   // Hanya berkembang biak jika jumlah ikan < maksimum
   if (fishElements.length < MAX_FISH) {
     const newFishCount = Math.min(
-      fishElements.length, // Jumlah ikan baru = jumlah ikan saat ini
+      Math.floor(fishElements.length / 2), // Setengah dari jumlah ikan saat ini
       MAX_FISH - fishElements.length // Atau sisa kapasitas kolam
     );
 
@@ -133,6 +183,12 @@ function showFish(show) {
   if (show) {
     fishContainer.style.opacity = "1";
     fishContainer.style.filter = "none";
+    // Jika kolam bersih dan tidak ada ikan, mulai dengan 5 ikan
+    if (fishElements.length === 0) {
+      for (let i = 0; i < 5; i++) {
+        createFish();
+      }
+    }
   } else {
     fishContainer.style.opacity = "0.3";
     fishContainer.style.filter = "brightness(0.5)";
@@ -141,21 +197,31 @@ function showFish(show) {
 
 // Inisialisasi kolam
 document.addEventListener("DOMContentLoaded", function () {
-  // Buat 5 ikan awal
-  for (let i = 0; i < 5; i++) {
-    createFish();
-  }
+  // Muat status ikan yang tersimpan
+  loadFishState();
 
   // Mulai reproduksi setiap 1 menit
   setInterval(() => {
-    if (isClean) {
-      // Hanya berkembang biak jika kolam bersih
+    if (isClean && fishElements.length < MAX_FISH) {
       reproduceFish();
     }
   }, 60000);
 
   // Inisialisasi sistem kebersihan kolam
   initCleaningSystem();
+
+  // Update tampilan berdasarkan status kebersihan
+  const lastCleanedTime = parseInt(localStorage.getItem("lastCleanedTime"));
+  const currentTime = Date.now();
+  const timeElapsed = currentTime - lastCleanedTime;
+
+  if (timeElapsed >= CLEANING_INTERVAL) {
+    isClean = false;
+    showFish(false);
+  } else {
+    isClean = true;
+    showFish(true);
+  }
 
   // Load saved fish count dan update inventory
   updateInventoryDisplay();
@@ -189,13 +255,14 @@ function catchFish() {
     }
   }
   fishElements = fishElements.slice(fishToRemove);
+  saveFishState(); // Simpan perubahan status ikan
 
   // Update inventory
   const currentFishCount = parseInt(localStorage.getItem("fishCount") || "0");
   const newFishCount = currentFishCount + randomFish;
 
   localStorage.setItem("fishCount", newFishCount.toString());
-  updateInventoryDisplay(); // Panggil fungsi untuk update tampilan
+  updateInventoryDisplay();
 
   alert(`Kamu mendapatkan ${randomFish} ikan!`);
 }
