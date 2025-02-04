@@ -4,8 +4,8 @@ const MAX_FISH = 20; // Maksimum jumlah ikan di kolam
 
 // Tambahkan variabel untuk tracking kebersihan kolam
 let isClean = true;
-let cleanlinessTimer;
-const CLEANING_INTERVAL = 60000 * 5; // 5 menit
+let cleaningTimer;
+const CLEANING_INTERVAL = 300000; // 5 menit
 const DIRTY_WARNING_TIME = 60000 * 4; // 4 menit (1 menit sebelum kotor)
 
 function createFish() {
@@ -46,50 +46,86 @@ function reproduceFish() {
   }
 }
 
-function startCleanlinessTimer() {
-  clearTimeout(cleanlinessTimer);
+// Inisialisasi sistem kebersihan kolam
+function initCleaningSystem() {
+  if (!localStorage.getItem("lastCleanedTime")) {
+    resetCleaningSystem();
+  }
+
+  // Pastikan interval dibersihkan sebelum membuat yang baru
+  if (cleaningTimer) {
+    clearInterval(cleaningTimer);
+  }
+
+  startCleaningTimer();
+}
+
+// Reset sistem kebersihan
+function resetCleaningSystem() {
+  localStorage.setItem("lastCleanedTime", Date.now().toString());
+  localStorage.removeItem("cleaningWarningShown");
   isClean = true;
   showFish(true);
+}
 
-  // Reset clean timer bar
+// Update timer kebersihan
+function updateCleaningTimer() {
+  const lastCleanedTime = parseInt(localStorage.getItem("lastCleanedTime"));
+  const currentTime = Date.now();
+  const timeElapsed = currentTime - lastCleanedTime;
+  const timeLeft = Math.max(0, CLEANING_INTERVAL - timeElapsed);
+
   const cleanTimer = document.getElementById("cleanTimer");
-  cleanTimer.style.width = "100%";
-  cleanTimer.style.background = "#2ecc71"; // Hijau
+  if (cleanTimer) {
+    const percentage = (timeLeft / CLEANING_INTERVAL) * 100;
+    cleanTimer.style.width = `${percentage}%`;
 
-  // Total waktu dalam detik (5 menit = 300 detik)
-  let timeLeft = 300;
-  
-  const interval = setInterval(() => {
-    timeLeft--;
-    const percentage = (timeLeft / 300) * 100;
-    cleanTimer.style.width = percentage + "%";
-    
     // Ubah warna berdasarkan waktu tersisa
-    if (timeLeft <= 120) { // 2 menit terakhir
-      cleanTimer.style.background = "#e74c3c"; // Merah
-    } else if (timeLeft <= 180) { // 3 menit terakhir
-      cleanTimer.style.background = "#f1c40f"; // Kuning
+    if (timeLeft <= 120000) {
+      // 2 menit terakhir
+      cleanTimer.style.backgroundColor = "#e74c3c";
+      if (!localStorage.getItem("cleaningWarningShown")) {
+        alert("Kolam mulai kotor! Bersihkan segera sebelum ikan-ikan bersembunyi!");
+        localStorage.setItem("cleaningWarningShown", "true");
+      }
+    } else if (timeLeft <= 180000) {
+      // 3 menit terakhir
+      cleanTimer.style.backgroundColor = "#f1c40f";
+    } else {
+      cleanTimer.style.backgroundColor = "#2ecc71";
     }
 
-    if (timeLeft === 0) {
-      clearInterval(interval);
+    // Cek apakah waktu habis
+    if (timeLeft <= 0) {
+      isClean = false;
+      showFish(false);
+      if (!localStorage.getItem("pondDirtyShown")) {
+        alert("Kolam sudah kotor! Ikan-ikan bersembunyi. Bersihkan kolam untuk memunculkan ikan kembali.");
+        localStorage.setItem("pondDirtyShown", "true");
+      }
     }
-  }, 1000); // Update setiap 1 detik
+  }
+}
 
-  // Timer untuk peringatan
-  setTimeout(() => {
-    if (isClean) {
-      alert("Kolam akan kotor dalam 1 menit! Segera bersihkan kolam!");
+// Mulai timer kebersihan
+function startCleaningTimer() {
+  clearInterval(cleaningTimer);
+  localStorage.removeItem("cleaningWarningShown");
+  localStorage.removeItem("pondDirtyShown");
+
+  // Update timer setiap detik
+  cleaningTimer = setInterval(() => {
+    const cleanTimer = document.getElementById("cleanTimer");
+    if (cleanTimer) {
+      updateCleaningTimer();
+    } else {
+      // Jika elemen timer tidak ditemukan, bersihkan interval
+      clearInterval(cleaningTimer);
     }
-  }, DIRTY_WARNING_TIME);
+  }, 1000);
 
-  // Timer untuk kolam kotor
-  cleanlinessTimer = setTimeout(() => {
-    isClean = false;
-    showFish(false);
-    clearInterval(interval);
-    alert("Kolam sudah kotor! Ikan-ikan bersembunyi. Bersihkan kolam untuk memunculkan ikan kembali.");
-  }, CLEANING_INTERVAL);
+  // Update pertama kali
+  updateCleaningTimer();
 }
 
 function showFish(show) {
@@ -118,8 +154,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }, 60000);
 
-  // Mulai timer kebersihan
-  startCleanlinessTimer();
+  // Inisialisasi sistem kebersihan kolam
+  initCleaningSystem();
 
   // Load saved fish count dan update inventory
   updateInventoryDisplay();
@@ -164,6 +200,7 @@ function catchFish() {
   alert(`Kamu mendapatkan ${randomFish} ikan!`);
 }
 
+// Update fungsi cleanWater
 function cleanWater() {
   const cleaningTime = 3000; // 3 detik
   const cleanBtn = document.querySelector(".clean-btn");
@@ -174,8 +211,8 @@ function cleanWater() {
   setTimeout(() => {
     cleanBtn.disabled = false;
     cleanBtn.textContent = "Bersihkan Air";
+    resetCleaningSystem();
     alert("Air kolam telah dibersihkan!");
-    startCleanlinessTimer(); // Mulai timer baru setelah dibersihkan
   }, cleaningTime);
 }
 
