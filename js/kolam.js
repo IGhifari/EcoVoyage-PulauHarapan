@@ -51,6 +51,31 @@ function startCleanlinessTimer() {
   isClean = true;
   showFish(true);
 
+  // Reset clean timer bar
+  const cleanTimer = document.getElementById("cleanTimer");
+  cleanTimer.style.width = "100%";
+  cleanTimer.style.background = "#2ecc71"; // Hijau
+
+  // Total waktu dalam detik (5 menit = 300 detik)
+  let timeLeft = 300;
+  
+  const interval = setInterval(() => {
+    timeLeft--;
+    const percentage = (timeLeft / 300) * 100;
+    cleanTimer.style.width = percentage + "%";
+    
+    // Ubah warna berdasarkan waktu tersisa
+    if (timeLeft <= 120) { // 2 menit terakhir
+      cleanTimer.style.background = "#e74c3c"; // Merah
+    } else if (timeLeft <= 180) { // 3 menit terakhir
+      cleanTimer.style.background = "#f1c40f"; // Kuning
+    }
+
+    if (timeLeft === 0) {
+      clearInterval(interval);
+    }
+  }, 1000); // Update setiap 1 detik
+
   // Timer untuk peringatan
   setTimeout(() => {
     if (isClean) {
@@ -62,6 +87,7 @@ function startCleanlinessTimer() {
   cleanlinessTimer = setTimeout(() => {
     isClean = false;
     showFish(false);
+    clearInterval(interval);
     alert("Kolam sudah kotor! Ikan-ikan bersembunyi. Bersihkan kolam untuk memunculkan ikan kembali.");
   }, CLEANING_INTERVAL);
 }
