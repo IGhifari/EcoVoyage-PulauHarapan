@@ -1,31 +1,31 @@
 // Resource requirements
 const SHIP_REQUIREMENTS = {
-  wood: 50,
+  wood: 5,
   solarPanel: 1,
   blueprint: 1,
 };
 
 const SOLAR_REQUIREMENTS = {
-  wood: 30,
+  wood: 3,
 };
 
 // Tambahkan requirement untuk rumah
 const HOUSE_REQUIREMENTS = {
-  wood: 100,
+  wood: 1,
   solarPanel: 2,
 };
 
 // Tambahkan requirement untuk mesin
 const ENGINE_REQUIREMENTS = {
-  wood: 80,
+  wood: 8,
   solarPanel: 3,
 };
 
 // Tambahkan requirement untuk kebun 2
 const GARDEN2_REQUIREMENTS = {
-  wood: 100,
+  wood: 1,
   solarPanel: 2,
-  seed: 20,
+  seed: 2,
 };
 
 // Fungsi untuk toggle quest
