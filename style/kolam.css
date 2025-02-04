@@ -32,7 +32,7 @@ body {
 .pond-actions {
   position: fixed;
   bottom: 40px;
-  left: 50%;
+  left: 19%;
   transform: translateX(-50%);
   display: flex;
   gap: 20px;
@@ -84,7 +84,10 @@ body {
   right: 20px;
   z-index: 999;
 }
-
+.inventory h1 {
+  text-align: center;
+  color: #8b4513;
+}
 .inventory.show {
   display: block;
 }
