@@ -242,6 +242,7 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
+<<<<<<< HEAD
 /* Tambahkan efek ripple saat diklik */
 .kebun::after, .craft::after, .rumah::after {
   content: '';
@@ -259,4 +260,37 @@ body {
 .kebun:active::after, .craft:active::after, .rumah:active::after {
   width: 300px;
   height: 300px;
+=======
+.hunger-indicator {
+  position: fixed;
+  top: 20px;
+  left: 100px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 15px;
+  border-radius: 20px;
+  z-index: 1000;
+}
+
+.hunger-indicator img {
+  width: 24px;
+  height: 24px;
+}
+
+.hunger-bar {
+  width: 100px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hunger-timer {
+  height: 100%;
+  width: 100%;
+  background: #27ae60;
+  transition: width 1s linear, background-color 0.5s ease;
+>>>>>>> 5072e2542a697339847ad9de44a25a5046461117
 }

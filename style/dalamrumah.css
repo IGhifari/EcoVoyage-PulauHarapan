@@ -131,3 +131,48 @@ body {
     transform: translateY(0);
   }
 }
+
+.cooking-area {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.cook-btn,
+.feed-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cook-btn {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+}
+
+.feed-btn {
+  background: linear-gradient(45deg, #27ae60, #2ecc71);
+}
+
+.cook-btn:hover,
+.feed-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.food-count {
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+}
