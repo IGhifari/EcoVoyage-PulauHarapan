@@ -16,6 +16,7 @@ function updateInventoryDisplay() {
   const blueprintCount = localStorage.getItem("blueprintCount");
   const solarPanelCount = localStorage.getItem("solarPanelCount");
   const fishCount = localStorage.getItem("fishCount");
+  const foodCount = localStorage.getItem("foodCount");
 
   if (document.getElementById("woodCount")) {
     document.getElementById("woodCount").textContent = woodCount || "0";
@@ -31,6 +32,9 @@ function updateInventoryDisplay() {
   }
   if (document.getElementById("fishCount")) {
     document.getElementById("fishCount").textContent = fishCount || "0";
+  }
+  if (document.getElementById("foodCount")) {
+    document.getElementById("foodCount").textContent = foodCount || "0";
   }
 }
 

@@ -68,6 +68,13 @@
         </div>
       </div>
 
+      <!-- Tambahkan setelah inventory -->
+      <div class="cooking-area">
+        <button onclick="cookFood()" class="cook-btn">Masak (2 Ikan)</button>
+        <button onclick="feedYanto()" class="feed-btn">Makan</button>
+        <div class="food-count">Makanan: <span id="foodCount">0</span></div>
+      </div>
+
       <!-- Dialog Box -->
       <div class="dialog-box" id="dialogBox" onclick="nextDialog()">
         <div class="character-name" id="characterName"></div>
@@ -112,5 +119,6 @@
         updateInventoryDisplay();
       });
     </script>
+    <script src="../js/hunger.js"></script>
   </body>
 </html>

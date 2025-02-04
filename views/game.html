@@ -6,10 +6,8 @@
     <title>Game</title>
     <link rel="stylesheet" href="../style/game.css" />
   </head>
-  
-  <body>
 
-    </svg>
+  <body>
     <div class="pembatas">
       <div class="button">
         <!-- Tombol untuk kebun -->
@@ -31,6 +29,12 @@
       <img src="../asset/char/depan.png" id="player" class="player" />
       <div class="task-icon" onclick="toggleInventory()">
         <img src="../asset/icon/task.png" alt="Task" />
+      </div>
+      <div class="hunger-indicator">
+        <img src="../asset/icon/eat.png" alt="Hunger" />
+        <div class="hunger-bar">
+          <div class="hunger-timer" id="hungerTimer"></div>
+        </div>
       </div>
       <div class="inventory" id="inventory">
         <h1>Inventory</h1>
@@ -58,6 +62,7 @@
         </div>
       </div>
     </div>
+    <script src="../js/hunger.js"></script>
     <script src="../script/game.js"></script>
     <script src="../script/inventory.js"></script>
     <script>
