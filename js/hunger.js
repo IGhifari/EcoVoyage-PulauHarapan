@@ -1,5 +1,5 @@
 // Konstanta untuk sistem hunger
-const HUNGER_INTERVAL = 600000; // 10 menit
+const HUNGER_INTERVAL = 60000; // 10 menit
 const HUNGER_WARNING_TIME = 480000; // 8 menit
 let hungerInterval;
 
@@ -114,59 +114,62 @@ function resetGame() {
   // Reset hunger system
   resetHungerSystem();
 
-  // Reset inventory
-  localStorage.setItem("woodCount", "0");
-  localStorage.setItem("seedCount", "8");
-  localStorage.setItem("blueprintCount", "0");
+  // Reset inventory ke nilai awal
+  localStorage.setItem("woodCount", "100"); // Set ke nilai awal 100
+  localStorage.setItem("seedCount", "4");   // Set ke nilai awal 4
   localStorage.setItem("solarPanelCount", "0");
   localStorage.setItem("fishCount", "0");
   localStorage.setItem("foodCount", "0");
+  localStorage.setItem("blueprintCount", "0");
 
-  // Reset ALL quest progress
-  localStorage.removeItem("questProgress");
-  localStorage.removeItem("questCompleted");
-  localStorage.removeItem("engineBuilt");
-  localStorage.removeItem("hasEnteredShip");
-  localStorage.removeItem("questStarted");
-  localStorage.removeItem("currentQuest");
-  localStorage.removeItem("completedQuests");
-  localStorage.removeItem("questStatus");
+  // Reset semua quest
   localStorage.removeItem("shipBuilt");
-  localStorage.removeItem("dialogProgress");
-  localStorage.removeItem("dialogShown");
-  localStorage.removeItem("prologueShown");
-  localStorage.removeItem("craftTutorialShown");
-  localStorage.removeItem("questTutorialShown");
+  localStorage.removeItem("solarBuilt");
+  localStorage.removeItem("houseBuilt");
+  localStorage.removeItem("engineBuilt");
+  localStorage.removeItem("garden2Unlocked");
+  localStorage.removeItem("hasEnteredShip");
+  localStorage.removeItem("stayedInIsland");
 
-  // Reset kolam
-  localStorage.removeItem("fishState");
-  localStorage.removeItem("lastCleanedTime");
-  localStorage.removeItem("cleaningWarningShown");
-  localStorage.removeItem("pondDirtyShown");
-  localStorage.removeItem("pondBuilt");
+  // Reset progress bar untuk semua quest
+  const progressBars = [
+    "shipProgress",
+    "solarProgress", 
+    "houseProgress",
+    "engineProgress",
+    "garden2Progress"
+  ];
 
-  // Reset kebun
-  localStorage.removeItem("trees");
-  localStorage.removeItem("lastPlantedTime");
-  localStorage.removeItem("plantTutorialShown");
-  localStorage.removeItem("gardenUnlocked");
+  progressBars.forEach(progressId => {
+    const progressBar = document.getElementById(progressId);
+    if (progressBar) {
+      progressBar.style.width = "0%";
+    }
+  });
 
-  // Reset semua dialog
-  localStorage.removeItem("dialogIndex");
-  localStorage.removeItem("currentDialogIndex");
-  localStorage.removeItem("dialogCompleted");
+  // Reset status quest yang tersembunyi
+  const questsToHide = [
+    "engineQuest",
+    "garden2Quest"
+  ];
 
-  // Reset semua tutorial
-  localStorage.removeItem("tutorialShown");
-  localStorage.removeItem("tutorialCompleted");
-  localStorage.removeItem("firstTimeVisit");
+  questsToHide.forEach(questId => {
+    const quest = document.getElementById(questId);
+    if (quest) {
+      quest.style.display = "none";
+    }
+  });
 
-  // Reset semua progress
-  localStorage.removeItem("gameProgress");
-  localStorage.removeItem("achievementsUnlocked");
-  localStorage.removeItem("lastSaveTime");
+  // Reset tombol craft
+  const craftButtons = document.querySelectorAll(".craft-btn");
+  craftButtons.forEach(btn => {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = btn.textContent.replace("Selesai", "Craft");
+    }
+  });
 
-  // Redirect ke halaman awal
+  alert("Yanto telah pingsan! Semua quest telah direset. Silakan mulai kembali dari awal.");
   window.location.href = "halamanAwal.html";
 }
 
