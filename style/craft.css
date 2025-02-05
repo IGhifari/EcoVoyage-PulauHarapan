@@ -212,51 +212,36 @@ body {
 
 /* Quest item styling */
 .quest-item {
-  background: #f5deb3;
+  background: rgba(255, 255, 255, 0.9);
   border: 2px solid #8b4513;
-  border-radius: 10px;
+  border-radius: 15px;
   padding: 20px;
-  margin-bottom: 15px;
-  transition: transform 0.2s;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.quest-item:last-child {
-  margin-bottom: 0;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
 .quest-item h3 {
   color: #5c3d2e;
-  margin: 0 0 15px 0;
+  margin-top: 0;
+  margin-bottom: 15px;
   font-size: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
-.quest-item h3::before {
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-#shipQuest h3::before {
-  background-image: url("../asset/icon/kapal.png");
-}
-
-#solarQuest h3::before {
-  background-image: url("../asset/icon/panel.png");
+.quest-item p {
+  color: #666;
+  margin-bottom: 10px;
 }
 
 .quest-item ul {
-  color: #8b4513;
-  margin: 10px 0;
-  padding-left: 20px;
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.quest-item li {
+  color: #5c3d2e;
+  margin-bottom: 5px;
+  font-size: 16px;
 }
 
 /* Craft button styling */
@@ -465,7 +450,7 @@ body {
   transition: width 1s linear, background-color 0.5s ease;
 }
 
-/* Tambahkan styling untuk quest yang selesai */
+/* Styling untuk quest yang selesai */
 .quest-item.completed {
   background: #e8f5e9;
   border-color: #2ecc71;

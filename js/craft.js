@@ -238,6 +238,8 @@ document.addEventListener("DOMContentLoaded", () => {
     waterFilterQuest.querySelector(".craft-btn").disabled = true;
     waterFilterQuest.querySelector(".craft-btn").textContent = "Selesai";
   }
+
+  checkAvailableQuests();
 });
 
 // Fungsi untuk toggle inventory
@@ -352,6 +354,10 @@ function resetAllQuests() {
 
     // Reset status menetap di pulau
     localStorage.removeItem("stayedInIsland");
+
+    // Reset water filter status
+    localStorage.removeItem("waterFilterBuilt");
+    localStorage.removeItem("filterFirstTimeMessage");
 
     alert("Semua quest telah direset! Kamu bisa memulai kembali dari awal.");
   }
@@ -501,5 +507,16 @@ function buildWaterFilter() {
     updateInventoryDisplay();
   } else {
     alert(`Material yang dibutuhkan:\n- ${WATER_FILTER_REQUIREMENTS.wood} Kayu\n- ${WATER_FILTER_REQUIREMENTS.fish} Ikan\n- ${WATER_FILTER_REQUIREMENTS.solarPanel} Panel Surya`);
+  }
+}
+
+// Update fungsi untuk mengecek quest yang tersedia
+function checkAvailableQuests() {
+  const stayedInIsland = localStorage.getItem("stayedInIsland") === "true";
+  const garden2Quest = document.getElementById("garden2Quest");
+
+  // Sembunyikan quest kebun2 jika belum memilih menetap
+  if (garden2Quest) {
+    garden2Quest.style.display = stayedInIsland ? "block" : "none";
   }
 }
