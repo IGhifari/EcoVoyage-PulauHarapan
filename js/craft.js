@@ -28,6 +28,13 @@ const GARDEN2_REQUIREMENTS = {
   seed: 2,
 };
 
+// Tambahkan quest filtrasi air
+const WATER_FILTER_REQUIREMENTS = {
+  wood: 10,
+  fish: 5,
+  solarPanel: 1,
+};
+
 // Fungsi untuk toggle quest
 function toggleQuest() {
   const questContainer = document.getElementById("questContainer");
@@ -220,6 +227,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("garden2Progress").style.width = "100%";
     const garden2Btn = document.querySelector("#garden2Quest .craft-btn");
     if (garden2Btn) garden2Btn.textContent = "Selesai";
+  }
+
+  // Cek status water filter quest
+  const waterFilterBuilt = localStorage.getItem("waterFilterBuilt") === "true";
+  const waterFilterQuest = document.getElementById("waterFilterQuest");
+
+  if (waterFilterBuilt && waterFilterQuest) {
+    waterFilterQuest.classList.add("completed");
+    waterFilterQuest.querySelector(".craft-btn").disabled = true;
+    waterFilterQuest.querySelector(".craft-btn").textContent = "Selesai";
   }
 });
 
@@ -437,4 +454,52 @@ function completeGarden2Unlock() {
   localStorage.setItem("seedCount", (seedCount - GARDEN2_REQUIREMENTS.seed).toString());
 
   alert("Selamat! Kamu berhasil membuka Kebun 2! Kamu bisa mengaksesnya dari halaman kebun.");
+}
+
+function checkWaterFilterQuest() {
+  const woodCount = parseInt(localStorage.getItem("woodCount") || "0");
+  const fishCount = parseInt(localStorage.getItem("fishCount") || "0");
+  const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount") || "0");
+  const filterBuilt = localStorage.getItem("waterFilterBuilt") === "true";
+
+  if (!filterBuilt && woodCount >= WATER_FILTER_REQUIREMENTS.wood && fishCount >= WATER_FILTER_REQUIREMENTS.fish && solarPanelCount >= WATER_FILTER_REQUIREMENTS.solarPanel) {
+    return true;
+  }
+  return false;
+}
+
+function buildWaterFilter() {
+  if (checkWaterFilterQuest()) {
+    // Kurangi material
+    const woodCount = parseInt(localStorage.getItem("woodCount"));
+    const fishCount = parseInt(localStorage.getItem("fishCount"));
+    const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount"));
+
+    localStorage.setItem("woodCount", (woodCount - WATER_FILTER_REQUIREMENTS.wood).toString());
+    localStorage.setItem("fishCount", (fishCount - WATER_FILTER_REQUIREMENTS.fish).toString());
+    localStorage.setItem("solarPanelCount", (solarPanelCount - WATER_FILTER_REQUIREMENTS.solarPanel).toString());
+
+    // Set status filter telah dibangun
+    localStorage.setItem("waterFilterBuilt", "true");
+
+    // Tandai quest selesai
+    const completedQuests = JSON.parse(localStorage.getItem("completedQuests") || "[]");
+    if (!completedQuests.includes("waterFilter")) {
+      completedQuests.push("waterFilter");
+      localStorage.setItem("completedQuests", JSON.stringify(completedQuests));
+
+      // Update tampilan quest
+      const questItem = document.getElementById("waterFilterQuest");
+      if (questItem) {
+        questItem.classList.add("completed");
+        questItem.querySelector(".craft-btn").disabled = true;
+        questItem.querySelector(".craft-btn").textContent = "Selesai";
+      }
+    }
+
+    alert("Sistem Filtrasi Air berhasil dibangun! Sekarang air kolam akan dibersihkan secara otomatis.");
+    updateInventoryDisplay();
+  } else {
+    alert(`Material yang dibutuhkan:\n- ${WATER_FILTER_REQUIREMENTS.wood} Kayu\n- ${WATER_FILTER_REQUIREMENTS.fish} Ikan\n- ${WATER_FILTER_REQUIREMENTS.solarPanel} Panel Surya`);
+  }
 }
