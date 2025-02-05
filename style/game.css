@@ -82,7 +82,9 @@ body {
   text-align: center;
   transition: transform 0.2s;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .item:hover {
@@ -91,8 +93,8 @@ body {
 }
 
 .item img {
-  width: 60px;
-  height: 40px;
+  width: 83px;
+  height: 60px;
   margin-bottom: 8px;
 }
 

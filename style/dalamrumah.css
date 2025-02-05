@@ -48,7 +48,9 @@ body {
   text-align: center;
   transition: transform 0.2s;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .item:hover {
