@@ -18,7 +18,7 @@ body {
   width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: fixed;
-  top: 20px;
+  top: 80px;
   right: 20px;
   z-index: 999;
   display: none;
@@ -48,9 +48,7 @@ body {
   text-align: center;
   transition: transform 0.2s;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .item:hover {
@@ -59,9 +57,9 @@ body {
 }
 
 .item img {
-  width: 83px;
-  height: 60px;
-  margin-bottom: 8px;
+  width: 80px;
+  height: 50px;
+  margin-right: 10px;
 }
 
 .item p {
