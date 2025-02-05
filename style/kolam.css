@@ -297,3 +297,49 @@ body {
   background: #27ae60;
   transition: width 1s linear, background-color 0.5s ease;
 }
+
+/* Update styling untuk water filter */
+.water-filter {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.water-filter img {
+  width: 500px;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(46, 204, 113, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.water-filter img:hover {
+  transform: scale(1.1);
+}
+
+.filter-status {
+  background: rgba(46, 204, 113, 0.8);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -98,16 +98,41 @@ function reproduceFish() {
 
 // Inisialisasi sistem kebersihan kolam
 function initCleaningSystem() {
-  if (!localStorage.getItem("lastCleanedTime")) {
-    resetCleaningSystem();
-  }
+  const filterBuilt = localStorage.getItem("waterFilterBuilt") === "true";
 
-  // Pastikan interval dibersihkan sebelum membuat yang baru
-  if (cleaningTimer) {
-    clearInterval(cleaningTimer);
-  }
+  if (filterBuilt) {
+    // Jika filter sudah dibangun, kolam selalu bersih
+    isClean = true;
+    showFish(true);
 
-  startCleaningTimer();
+    // Sembunyikan tombol bersihkan dan indikator kebersihan
+    const cleanBtn = document.querySelector(".clean-btn");
+    const cleanlinessIndicator = document.querySelector(".cleanliness-indicator");
+    if (cleanBtn) cleanBtn.style.display = "none";
+    if (cleanlinessIndicator) cleanlinessIndicator.style.display = "none";
+
+    // Tampilkan objek filtrasi air
+    const waterFilter = document.getElementById("waterFilter");
+    if (waterFilter) {
+      waterFilter.style.display = "flex";
+
+      // Tampilkan pesan selamat saat pertama kali dibangun
+      if (!localStorage.getItem("filterFirstTimeMessage")) {
+        alert("Selamat! Sistem Filtrasi Air telah aktif. Kamu tidak perlu lagi membersihkan kolam secara manual.");
+        localStorage.setItem("filterFirstTimeMessage", "true");
+      }
+    }
+
+    // Hentikan timer kebersihan yang berjalan
+    if (cleaningTimer) {
+      clearInterval(cleaningTimer);
+    }
+  } else {
+    if (!localStorage.getItem("lastCleanedTime")) {
+      resetCleaningSystem();
+    }
+    startCleaningTimer();
+  }
 }
 
 // Reset sistem kebersihan
@@ -211,16 +236,19 @@ document.addEventListener("DOMContentLoaded", function () {
   initCleaningSystem();
 
   // Update tampilan berdasarkan status kebersihan
-  const lastCleanedTime = parseInt(localStorage.getItem("lastCleanedTime"));
-  const currentTime = Date.now();
-  const timeElapsed = currentTime - lastCleanedTime;
+  const filterBuilt = localStorage.getItem("waterFilterBuilt") === "true";
+  if (!filterBuilt) {
+    const lastCleanedTime = parseInt(localStorage.getItem("lastCleanedTime"));
+    const currentTime = Date.now();
+    const timeElapsed = currentTime - lastCleanedTime;
 
-  if (timeElapsed >= CLEANING_INTERVAL) {
-    isClean = false;
-    showFish(false);
-  } else {
-    isClean = true;
-    showFish(true);
+    if (timeElapsed >= CLEANING_INTERVAL) {
+      isClean = false;
+      showFish(false);
+    } else {
+      isClean = true;
+      showFish(true);
+    }
   }
 
   // Load saved fish count dan update inventory
@@ -269,9 +297,13 @@ function catchFish() {
 
 // Update fungsi cleanWater
 function cleanWater() {
-  const cleaningTime = 3000; // 3 detik
-  const cleanBtn = document.querySelector(".clean-btn");
+  const filterBuilt = localStorage.getItem("waterFilterBuilt") === "true";
+  if (filterBuilt) {
+    return; // Jika filter sudah dibangun, fungsi ini tidak digunakan
+  }
 
+  const cleaningTime = 3000;
+  const cleanBtn = document.querySelector(".clean-btn");
   cleanBtn.disabled = true;
   cleanBtn.textContent = "Membersihkan...";
 
@@ -279,7 +311,6 @@ function cleanWater() {
     cleanBtn.disabled = false;
     cleanBtn.textContent = "Bersihkan Air";
     resetCleaningSystem();
-    alert("Air kolam telah dibersihkan!");
   }, cleaningTime);
 }
 

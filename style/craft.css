@@ -458,3 +458,31 @@ body {
   background: #27ae60;
   transition: width 1s linear, background-color 0.5s ease;
 }
+
+/* Tambahkan styling untuk quest yang selesai */
+.quest-item.completed {
+  background: #e8f5e9;
+  border-color: #2ecc71;
+  opacity: 0.8;
+}
+
+.quest-item.completed h3 {
+  color: #27ae60;
+}
+
+.quest-item.completed h3::after {
+  content: "✓";
+  color: #27ae60;
+  margin-left: 10px;
+}
+
+.quest-item.completed .craft-btn {
+  background: #27ae60;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.quest-item.completed .craft-btn:hover {
+  transform: none;
+  box-shadow: none;
+}

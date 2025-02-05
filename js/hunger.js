@@ -1,6 +1,6 @@
 // Konstanta untuk sistem hunger
-const HUNGER_INTERVAL = 600000; // 10 menit
-const HUNGER_WARNING_TIME = 480000; // 8 menit
+const HUNGER_INTERVAL = 6000000; // 10 menit
+const HUNGER_WARNING_TIME = 4800000; // 8 menit
 let hungerInterval;
 
 // Inisialisasi sistem hunger
