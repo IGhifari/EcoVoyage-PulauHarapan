@@ -4,17 +4,17 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 .inventory {
-  display: none;
   background: rgba(255, 255, 255, 0.9);
   border: 3px solid #8b4513;
   border-radius: 15px;
   padding: 20px;
-  width: 450px;
+  width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: fixed;
-  top: 80px;
+  top: 20px;
   right: 20px;
-  z-index: 1001;
+  z-index: 999;
+  display: none;
 }
 
 .inventory h1 {
@@ -50,10 +50,9 @@ body {
 }
 
 .item img {
-  width: 80px;
-  height: 30px;
-  object-fit: contain;
-  margin-right: 10px;
+  width: 83px;
+  height: 60px;
+  margin-bottom: 8px;
 }
 
 .item p {
@@ -67,6 +66,7 @@ body {
   color: #8b4513;
   font-size: 18px;
 }
+
 .back-btn {
   background: #8b4513;
   color: white;
