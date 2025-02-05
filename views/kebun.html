@@ -22,7 +22,9 @@
             <span class="hunger-text">Makan</span>
             <img src="../asset/icon/eat.png" alt="Hunger" />
             <div class="hunger-bar">
-        <div class="hunger-timer" id="hungerTimer"></div>
+              <div class="hunger-timer" id="hungerTimer"></div>
+            </div>
+        </div>
       </div>
 
       <!-- Inventory (tersembunyi secara default) -->
@@ -52,11 +54,14 @@
         </div>
       </div>
     </div>
+
+    <!-- Area untuk menanam -->
     <div class="kebundalem" onclick="tanam(event)"></div>
-    <script src="../script/inventory.js"></script>
+
+    <script src="../js/hunger.js"></script>
     <script src="../js/kebun.js"></script>
+    <script src="../script/inventory.js"></script>
     <script>
-      // Fungsi untuk toggle inventory
       function toggleInventory() {
         const inventory = document.getElementById("inventory");
         if (inventory.classList.contains("show")) {
@@ -66,6 +71,5 @@
         }
       }
     </script>
-    <script src="../js/hunger.js"></script>
   </body>
 </html>

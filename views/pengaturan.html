@@ -95,6 +95,13 @@
         </div>
     </div>
 
-    <script src="../js/craft.js"></script>
+    <script src="../js/hunger.js"></script>
+    <script>
+        function resetAllQuests() {
+            if (confirm("Apakah anda yakin ingin mereset semua quest dan progress?")) {
+                resetFromStartPage(); // Memanggil fungsi dari hunger.js yang akan mereset hunger dan quest
+            }
+        }
+    </script>
 </body>
 </html>
