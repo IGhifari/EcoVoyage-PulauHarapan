@@ -99,7 +99,14 @@ button:hover {
   transform: scale(1.05);
   background: #deb887;
 }
-
+.kebundalem {
+  position: absolute;
+  top: 21rem;
+  left: 10rem;
+  width: 57.5%;
+  height: 35%;
+  z-index: 1;
+}
 .item img {
   width: 80px;
   height: 50px;
