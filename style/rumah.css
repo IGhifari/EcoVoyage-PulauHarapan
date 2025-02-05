@@ -252,3 +252,9 @@ body {
   background: #27ae60;
   transition: width 1s linear, background-color 0.5s ease;
 }
+.hunger-text {
+  color: white;
+  margin-right: 10px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+}
