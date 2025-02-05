@@ -1,10 +1,19 @@
 // Konstanta untuk sistem hunger
-const HUNGER_INTERVAL = 60000; // 10 menit
+const HUNGER_INTERVAL = 600000; // 10 menit
 const HUNGER_WARNING_TIME = 480000; // 8 menit
 let hungerInterval;
 
+// Daftar halaman yang menggunakan sistem hunger
+const HUNGER_PAGES = ["game.html", "kebun.html", "kebun2.html", "dalamkapal.html", "dalamrumah.html", "kolam.html", "rumah.html", "craft.html"];
+
 // Inisialisasi sistem hunger
 function initHungerSystem() {
+  // Cek apakah halaman saat ini menggunakan sistem hunger
+  const currentPage = window.location.pathname.split("/").pop();
+  if (!HUNGER_PAGES.includes(currentPage)) {
+    return; // Jika bukan halaman yang ditentukan, jangan inisialisasi sistem hunger
+  }
+
   if (!localStorage.getItem("lastFedTime")) {
     resetHungerSystem();
   }
@@ -22,10 +31,28 @@ function resetHungerSystem() {
   localStorage.setItem("lastFedTime", Date.now().toString());
   localStorage.setItem("foodCount", "0");
   localStorage.removeItem("hungerWarningShown");
+  localStorage.removeItem("pageHiddenTime");
+
+  // Reset hunger timer jika ada
+  const hungerTimer = document.getElementById("hungerTimer");
+  if (hungerTimer) {
+    hungerTimer.style.width = "100%";
+    hungerTimer.style.backgroundColor = "#27ae60";
+  }
+
+  // Bersihkan interval yang sedang berjalan
+  if (hungerInterval) {
+    clearInterval(hungerInterval);
+  }
 }
 
 // Update timer kelaparan
 function updateHungerTimer() {
+  const currentPage = window.location.pathname.split("/").pop();
+  if (!HUNGER_PAGES.includes(currentPage)) {
+    return; // Jangan update timer jika bukan di halaman yang ditentukan
+  }
+
   const lastFedTime = parseInt(localStorage.getItem("lastFedTime"));
   const currentTime = Date.now();
   const timeElapsed = currentTime - lastFedTime;
@@ -111,12 +138,12 @@ function cookFood() {
 
 // Update fungsi resetGame
 function resetGame() {
-  // Reset hunger system
+  // Reset hunger system terlebih dahulu
   resetHungerSystem();
 
   // Reset inventory ke nilai awal
-  localStorage.setItem("woodCount", "100"); // Set ke nilai awal 100
-  localStorage.setItem("seedCount", "4");   // Set ke nilai awal 4
+  localStorage.setItem("woodCount", "100");
+  localStorage.setItem("seedCount", "4");
   localStorage.setItem("solarPanelCount", "0");
   localStorage.setItem("fishCount", "0");
   localStorage.setItem("foodCount", "0");
@@ -131,16 +158,14 @@ function resetGame() {
   localStorage.removeItem("hasEnteredShip");
   localStorage.removeItem("stayedInIsland");
 
-  // Reset progress bar untuk semua quest
-  const progressBars = [
-    "shipProgress",
-    "solarProgress", 
-    "houseProgress",
-    "engineProgress",
-    "garden2Progress"
-  ];
+  // Reset quest filtrasi air
+  localStorage.removeItem("waterFilterBuilt");
+  localStorage.removeItem("filterFirstTimeMessage");
 
-  progressBars.forEach(progressId => {
+  // Reset progress bar untuk semua quest
+  const progressBars = ["shipProgress", "solarProgress", "houseProgress", "engineProgress", "garden2Progress", "waterFilterProgress"];
+
+  progressBars.forEach((progressId) => {
     const progressBar = document.getElementById(progressId);
     if (progressBar) {
       progressBar.style.width = "0%";
@@ -148,24 +173,23 @@ function resetGame() {
   });
 
   // Reset status quest yang tersembunyi
-  const questsToHide = [
-    "engineQuest",
-    "garden2Quest"
-  ];
+  const questsToHide = ["engineQuest", "garden2Quest"];
 
-  questsToHide.forEach(questId => {
+  questsToHide.forEach((questId) => {
     const quest = document.getElementById(questId);
     if (quest) {
       quest.style.display = "none";
     }
   });
 
-  // Reset tombol craft
-  const craftButtons = document.querySelectorAll(".craft-btn");
-  craftButtons.forEach(btn => {
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = btn.textContent.replace("Selesai", "Craft");
+  // Reset tombol craft dan status quest
+  const questItems = document.querySelectorAll(".quest-item");
+  questItems.forEach((item) => {
+    item.classList.remove("completed");
+    const craftBtn = item.querySelector(".craft-btn");
+    if (craftBtn) {
+      craftBtn.disabled = false;
+      craftBtn.textContent = "Craft";
     }
   });
 
@@ -173,5 +197,83 @@ function resetGame() {
   window.location.href = "halamanAwal.html";
 }
 
-// Inisialisasi saat halaman dimuat
-document.addEventListener("DOMContentLoaded", initHungerSystem);
+// Update fungsi resetFromStartPage
+function resetFromStartPage() {
+  // Reset hunger system
+  resetHungerSystem();
+
+  // Pastikan timer kelaparan kembali penuh
+  const hungerTimer = document.getElementById("hungerTimer");
+  if (hungerTimer) {
+    hungerTimer.style.width = "100%";
+    hungerTimer.style.backgroundColor = "#27ae60";
+  }
+
+  // Bersihkan interval yang sedang berjalan
+  if (hungerInterval) {
+    clearInterval(hungerInterval);
+  }
+
+  // Set ulang waktu makan terakhir ke waktu saat ini
+  localStorage.setItem("lastFedTime", Date.now().toString());
+
+  // Reset semua data game seperti di resetGame
+  localStorage.setItem("woodCount", "100");
+  localStorage.setItem("seedCount", "4");
+  localStorage.setItem("solarPanelCount", "0");
+  localStorage.setItem("fishCount", "0");
+  localStorage.setItem("foodCount", "0");
+  localStorage.setItem("blueprintCount", "0");
+
+  // Reset semua quest
+  localStorage.removeItem("shipBuilt");
+  localStorage.removeItem("solarBuilt");
+  localStorage.removeItem("houseBuilt");
+  localStorage.removeItem("engineBuilt");
+  localStorage.removeItem("garden2Unlocked");
+  localStorage.removeItem("hasEnteredShip");
+  localStorage.removeItem("stayedInIsland");
+  localStorage.removeItem("waterFilterBuilt");
+  localStorage.removeItem("filterFirstTimeMessage");
+
+  // Hapus semua status hunger
+  localStorage.removeItem("hungerWarningShown");
+  localStorage.removeItem("pageHiddenTime");
+  localStorage.removeItem("pondDirtyShown");
+
+  alert("Game telah direset! Silakan mulai petualangan baru.");
+  window.location.reload();
+}
+
+// Export fungsi untuk digunakan di halaman awal
+window.resetFromStartPage = resetFromStartPage;
+
+// Modifikasi event listener
+document.addEventListener("DOMContentLoaded", () => {
+  const currentPage = window.location.pathname.split("/").pop();
+  if (HUNGER_PAGES.includes(currentPage)) {
+    initHungerSystem();
+  }
+});
+
+// Tambahkan event listener untuk visibility change
+document.addEventListener("visibilitychange", () => {
+  const currentPage = window.location.pathname.split("/").pop();
+  if (HUNGER_PAGES.includes(currentPage)) {
+    if (document.hidden) {
+      // Simpan waktu saat halaman disembunyikan
+      localStorage.setItem("pageHiddenTime", Date.now().toString());
+      clearInterval(hungerInterval);
+    } else {
+      // Update lastFedTime berdasarkan waktu yang berlalu
+      const hiddenTime = parseInt(localStorage.getItem("pageHiddenTime") || Date.now());
+      const lastFedTime = parseInt(localStorage.getItem("lastFedTime"));
+      const timeElapsed = Date.now() - hiddenTime;
+
+      localStorage.setItem("lastFedTime", (lastFedTime + timeElapsed).toString());
+      localStorage.removeItem("pageHiddenTime");
+
+      startHungerTimer();
+    }
+  }
+});
