@@ -18,6 +18,9 @@ const keys = {
   d: false,
 };
 
+// Kecepatan gerakan
+const MOVE_SPEED = 5;
+
 // Event listener untuk tombol ditekan
 document.addEventListener("keydown", (e) => {
   switch (e.key.toLowerCase()) {
@@ -79,15 +82,21 @@ function movePlayer() {
   player.style.left = playerX + "px";
   player.style.top = playerY + "px";
 
-  // Periksa jarak dengan pohon setiap kali bergerak
-  checkDistance();
-
   // Panggil fungsi ini lagi di frame berikutnya
   requestAnimationFrame(movePlayer);
 }
 
 // Mulai animasi pergerakan
-movePlayer();
+document.addEventListener("DOMContentLoaded", () => {
+  // Set posisi awal di tengah layar
+  playerX = window.innerWidth / 2 - player.offsetWidth / 2;
+  playerY = window.innerHeight / 2 - player.offsetHeight / 2;
+  player.style.left = playerX + "px";
+  player.style.top = playerY + "px";
+
+  // Mulai pergerakan
+  movePlayer();
+});
 
 // Fungsi untuk mengecek jarak antara player dan pohon
 function checkDistance() {

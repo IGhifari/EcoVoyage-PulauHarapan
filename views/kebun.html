@@ -11,6 +11,11 @@
       <!-- Tombol kembali ke halaman utama -->
       <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
 
+      <!-- Pembatas dan karakter -->
+      <div class="pembatas">
+        <img src="../asset/char/depan.png" id="player" class="player" />
+      </div>
+
       <!-- Task Icon -->
       <div class="task-icon" onclick="toggleInventory()">
         <img src="../asset/icon/task.png" alt="Task" />
@@ -19,11 +24,11 @@
       <!-- Hunger Indicator -->
       <div class="addEventListener">
         <div class="hunger-indicator">
-            <span class="hunger-text">Makan</span>
-            <img src="../asset/icon/eat.png" alt="Hunger" />
-            <div class="hunger-bar">
-              <div class="hunger-timer" id="hungerTimer"></div>
-            </div>
+          <span class="hunger-text">Makan</span>
+          <img src="../asset/icon/eat.png" alt="Hunger" />
+          <div class="hunger-bar">
+            <div class="hunger-timer" id="hungerTimer"></div>
+          </div>
         </div>
       </div>
 
@@ -61,6 +66,7 @@
     <script src="../js/hunger.js"></script>
     <script src="../js/kebun.js"></script>
     <script src="../script/inventory.js"></script>
+    <script src="../script/game.js"></script>
     <script>
       function toggleInventory() {
         const inventory = document.getElementById("inventory");

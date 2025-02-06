@@ -10,6 +10,16 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 
+.player {
+  position: absolute;
+  height: 180px;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 100;
+  pointer-events: none;
+}
+
 button {
   position: absolute;
   top: 10px;
@@ -27,32 +37,31 @@ button:hover {
   background-color: rgb(200, 50, 50);
 }
 
+.task-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #8b4513;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
 
-  .task-icon {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: #8b4513;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
-    z-index: 1000;
-  }
-  
-  .task-icon img {
-    width: 30px;
-    height: 30px;
-  }
-  
-  .task-icon:hover {
-    transform: scale(1.1);
-    background: #5c3d2e;
-  }
+.task-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.task-icon:hover {
+  transform: scale(1.1);
+  background: #5c3d2e;
+}
 
 .inventory {
   background: rgba(255, 255, 255, 0.9);
@@ -66,6 +75,12 @@ button:hover {
   right: 20px;
   z-index: 999;
   display: none;
+}
+
+.item img {
+  width: 83px;
+  height: 60px;
+  margin-bottom: 8px;
 }
 
 .inventory h1 {
@@ -302,5 +317,14 @@ button:hover {
   color: white;
   margin-right: 10px;
   font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.pembatas {
+  position: fixed;
+  width: 100%;
+  height: 310px;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 50;
 }

@@ -256,5 +256,25 @@ body {
   color: white;
   margin-right: 10px;
   font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.player {
+  position: absolute;
+  height: 400px; /* Ukuran karakter dibuat lebih besar */
+  width: auto;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.pembatas {
+  position: fixed;
+  width: 100%;
+  height: 500px; /* Sesuaikan dengan ukuran karakter */
+  bottom: 0;
+  overflow: hidden;
+  z-index: 50;
 }
