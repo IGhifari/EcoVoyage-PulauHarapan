@@ -520,3 +520,13 @@ function checkAvailableQuests() {
     garden2Quest.style.display = stayedInIsland ? "block" : "none";
   }
 }
+window.onload = function() {
+  // Cek apakah user memiliki akses yang valid
+  const hasValidAccess = sessionStorage.getItem('gameAccess');
+  
+  // Jika tidak memiliki akses valid, redirect ke halaman utama
+  if (!hasValidAccess) {
+      window.location.href = 'index.html';
+      return;
+  }
+}
