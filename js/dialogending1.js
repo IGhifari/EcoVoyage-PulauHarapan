@@ -1,3 +1,33 @@
+class TypeWriter {
+  constructor(dialogText, speed = 50) {
+    this.dialogText = dialogText;
+    this.speed = speed;
+    this.text = '';
+    this.index = 0;
+    this.isTyping = false;
+  }
+
+  type(callback) {
+    if (this.index < this.dialogText.length) {
+      this.isTyping = true;
+      this.text += this.dialogText.charAt(this.index);
+      this.index++;
+      setTimeout(() => this.type(callback), this.speed);
+    } else {
+      this.isTyping = false;
+      if (callback) callback();
+    }
+    return this.text;
+  }
+
+  skipTyping() {
+    this.text = this.dialogText;
+    this.index = this.dialogText.length;
+    this.isTyping = false;
+    return this.text;
+  }
+}
+
 const texts = [
   {
     id: "narasi1",
@@ -31,28 +61,49 @@ const texts = [
   },
 ];
 
-let currentDialogIndex = 0;
+let currentDialog = 0;
+let typeWriter = null;
 
-function showDialog(dialogData) {
-  const characterName = document.getElementById("characterName");
-  const dialogText = document.getElementById("dialogText");
+function showDialog() {
+  const dialogBox = document.getElementById('dialogBox');
+  const characterName = document.getElementById('characterName');
+  const dialogText = document.getElementById('dialogText');
 
-  characterName.textContent = dialogData.title;
-  dialogText.textContent = dialogData.text;
-}
-
-function nextDialog() {
-  if (currentDialogIndex < texts.length) {
-    showDialog(texts[currentDialogIndex]);
-    currentDialogIndex++;
-  } else {
-    // Langsung ke ending2 setelah dialog selesai
+  if (currentDialog >= texts.length) {
+    // Pindah ke ending2 setelah dialog selesai
     setTimeout(() => {
       window.location.href = "ending2.html";
     }, 2000);
+    return;
   }
+
+  characterName.textContent = texts[currentDialog].title;
+  typeWriter = new TypeWriter(texts[currentDialog].text);
+  
+  function updateText() {
+    dialogText.textContent = typeWriter.text;
+  }
+
+  typeWriter.type(updateText);
+  requestAnimationFrame(function animate() {
+    updateText();
+    if (typeWriter.isTyping) {
+      requestAnimationFrame(animate);
+    }
+  });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  nextDialog();
+function nextDialog() {
+  if (typeWriter && typeWriter.isTyping) {
+    typeWriter.skipTyping();
+    return;
+  }
+
+  currentDialog++;
+  showDialog();
+}
+
+// Mulai dialog saat halaman dimuat
+document.addEventListener('DOMContentLoaded', () => {
+  showDialog();
 });

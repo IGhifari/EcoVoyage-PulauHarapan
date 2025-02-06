@@ -1,3 +1,33 @@
+class TypeWriter {
+  constructor(dialogText, speed = 50) {
+    this.dialogText = dialogText;
+    this.speed = speed;
+    this.text = '';
+    this.index = 0;
+    this.isTyping = false;
+  }
+
+  type(callback) {
+    if (this.index < this.dialogText.length) {
+      this.isTyping = true;
+      this.text += this.dialogText.charAt(this.index);
+      this.index++;
+      setTimeout(() => this.type(callback), this.speed);
+    } else {
+      this.isTyping = false;
+      if (callback) callback();
+    }
+    return this.text;
+  }
+
+  skipTyping() {
+    this.text = this.dialogText;
+    this.index = this.dialogText.length;
+    this.isTyping = false;
+    return this.text;
+  }
+}
+
 const texts = [
   {
     id: "narasi1",
@@ -51,33 +81,96 @@ const texts = [
   },
   {
     id: "credits2",
-    text: "Dibuat dengan ❤️ oleh Tim Pengembang Game Clevio. Sampai jumpa di petualangan berikutnya!",
+    text: "Dibuat oleh Tim Pengembang Game Clevio. Sampai jumpa di petualangan berikutnya!",
     title: "Credits",
   },
 ];
 
-let currentDialogIndex = 0;
+let currentDialog = 0;
+let typeWriter = null;
 
-function showDialog(dialogData) {
-  const characterName = document.getElementById("characterName");
-  const dialogText = document.getElementById("dialogText");
+function showCredits() {
+  const credits = [
+    { type: 'title', text: 'EcoVoyage: Pulau Harapan' },
+    { type: 'role', text: 'Game Developer' },
+    { type: 'name', text: 'Tim Pengembang Clevio' },
+    { type: 'role', text: 'Story Writer' },
+    { type: 'name', text: 'Tim Pengembang Clevio' },
+    { type: 'role', text: 'Art & Design' },
+    { type: 'name', text: 'Tim Pengembang Clevio' },
+    { type: 'role', text: 'Sound Design' },
+    { type: 'name', text: 'Tim Audio Clevio' },
+    { type: 'special', text: 'Terima Kasih Telah Bermain!' }
+  ];
 
-  characterName.textContent = dialogData.title;
-  dialogText.textContent = dialogData.text;
+  const creditContainer = document.createElement('div');
+  creditContainer.className = 'credit-container';
+  document.body.appendChild(creditContainer);
+
+  // Buat elemen untuk setiap credit
+  credits.forEach((credit, index) => {
+    const element = document.createElement('div');
+    element.className = `credit-item credit-${credit.type}`;
+    element.textContent = credit.text;
+    creditContainer.appendChild(element);
+  });
+
+  // Mulai animasi credit
+  setTimeout(() => {
+    creditContainer.classList.add('show');
+    
+    // Animasi setiap item credit
+    const items = document.querySelectorAll('.credit-item');
+    items.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.add('show');
+      }, index * 1000); // Delay 1 detik untuk setiap item
+    });
+
+    // Redirect ke halaman awal setelah credit selesai
+    setTimeout(() => {
+    }, (items.length + 2) * 1000); // Tambah 2 detik untuk transisi akhir
+  }, 1000);
+}
+
+function showDialog() {
+  const dialogBox = document.getElementById('dialogBox');
+  const characterName = document.getElementById('characterName');
+  const dialogText = document.getElementById('dialogText');
+
+  if (currentDialog >= texts.length) {
+    dialogBox.style.display = 'none'; // Sembunyikan dialog box
+    showCredits(); // Tampilkan credit scene
+    return;
+  }
+
+  characterName.textContent = texts[currentDialog].title;
+  typeWriter = new TypeWriter(texts[currentDialog].text);
+  
+  function updateText() {
+    dialogText.textContent = typeWriter.text;
+  }
+
+  typeWriter.type(updateText);
+  requestAnimationFrame(function animate() {
+    updateText();
+    if (typeWriter.isTyping) {
+      requestAnimationFrame(animate);
+    }
+  });
 }
 
 function nextDialog() {
-  if (currentDialogIndex < texts.length) {
-    showDialog(texts[currentDialogIndex]);
-    currentDialogIndex++;
-  } else {
-    // Kembali ke halaman awal setelah ending selesai
-    setTimeout(() => {
-      window.location.href = "halamanAwal.html";
-    }, 3000);
+  if (typeWriter && typeWriter.isTyping) {
+    typeWriter.skipTyping();
+    return;
   }
+
+  currentDialog++;
+  showDialog();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  nextDialog();
+// Mulai dialog saat halaman dimuat
+document.addEventListener('DOMContentLoaded', () => {
+  showDialog();
 });

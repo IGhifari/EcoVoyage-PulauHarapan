@@ -216,7 +216,9 @@ body {
   display: flex;
   flex-direction: column;
 }
-
+.quest-item p {
+  color: #5c3d2e;
+}
 .quest-item:last-child {
   margin-bottom: 0;
 }

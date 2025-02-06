@@ -1,38 +1,84 @@
-const texts = [
-  {
-    id: "narasi1",
-    text: "Kapal Yanto akhirnya merapat di sebuah dermaga kecil di desanya. Langit senja memberikan semburat keemasan, dan suara riuh dari desa perlahan terdengar. Yanto turun dari kapal, menginjak tanah yang sudah lama tidak ia pijak.",
-    title: "Narasi",
-  },
-  { id: "yantoDialog", text: "Aku… aku benar-benar sudah pulang. Aku bisa kembali ke rumah, bertemu keluargaku, menjalani hidup seperti dulu…", title: "Yanto" },
-  { id: "narasi2", text: "Dari kejauhan, seorang pria paruh baya dengan tubuh tegap berjalan mendekat. Matanya membelalak, seakan tak percaya dengan apa yang dilihatnya.", title: "Narasi" },
-  { id: "ayahDialog", text: "Yanto…? Apakah ini benar-benar kau?", title: "Ayah Yanto" },
-  { id: "narasi3", text: "Yanto terpaku sejenak, sebelum akhirnya langkahnya berlari menuju ayahnya. Mereka bertemu di tengah, dan sang ayah langsung merengkuh Yanto dalam pelukan erat. ", title: "Narasi" },
-  { id: "yantoDialog2", text: "Ayah… Aku pulang…", title: "Yanto" },
+class TypeWriter {
+  constructor(dialogText, speed = 50) {
+    this.dialogText = dialogText;
+    this.speed = speed;
+    this.text = '';
+    this.index = 0;
+    this.isTyping = false;
+  }
+
+  type(callback) {
+    if (this.index < this.dialogText.length) {
+      this.isTyping = true;
+      this.text += this.dialogText.charAt(this.index);
+      this.index++;
+      setTimeout(() => this.type(callback), this.speed);
+    } else {
+      this.isTyping = false;
+      if (callback) callback();
+    }
+    return this.text;
+  }
+
+  skipTyping() {
+    this.text = this.dialogText;
+    this.index = this.dialogText.length;
+    this.isTyping = false;
+    return this.text;
+  }
+}
+
+const dialogs = [
+  { name: "Yanto", text: "Aku… aku benar-benar sudah pulang." },
+  { name: "Narator", text: "Dari kejauhan, seorang pria paruh baya dengan tubuh tegap berjalan mendekat. Matanya membelalak, seakan tak percaya dengan apa yang dilihatnya." },
+  { name: "Ayah", text: "Yanto…? Apakah ini benar-benar kau?" },
+  { name: "Narator", text: "Yanto terpaku sejenak, sebelum akhirnya langkahnya berlari menuju ayahnya. Mereka bertemu di tengah, dan sang ayah langsung merengkuh Yanto dalam pelukan erat." },
+  { name: "Yanto", text: "Ayah… Aku pulang…" },
+  { name: "Narator", text: "Ayahnya menghela napas panjang, berusaha menahan emosi, tapi Yanto bisa merasakan genggaman tangan yang erat di pundaknya." },
+  { name: "Ayah", text: "Aku pikir… aku sudah kehilanganmu, Nak. Tapi lihatlah kau sekarang… kau kembali dengan selamat."},
+  { name: "Narator", text: "Penduduk desa mulai berdatangan, wajah mereka penuh keterkejutan dan kebahagiaan."},
 ];
 
-let currentDialogIndex = 0;
+let currentDialog = 0;
+let typeWriter = null;
 
-function showDialog(dialogData) {
-  const characterName = document.getElementById("characterName");
-  const dialogText = document.getElementById("dialogText");
+function startDialog() {
+  const dialogBox = document.getElementById('dialogBox');
+  const characterName = document.getElementById('characterName');
+  const dialogText = document.getElementById('dialogText');
 
-  characterName.textContent = dialogData.title;
-  dialogText.textContent = dialogData.text;
+  characterName.textContent = dialogs[currentDialog].name;
+  typeWriter = new TypeWriter(dialogs[currentDialog].text);
+  
+  function updateText() {
+    dialogText.textContent = typeWriter.text;
+  }
+
+  typeWriter.type(updateText);
+  requestAnimationFrame(function animate() {
+    updateText();
+    if (typeWriter.isTyping) {
+      requestAnimationFrame(animate);
+    }
+  });
 }
 
 function nextDialog() {
-  if (currentDialogIndex < texts.length) {
-    showDialog(texts[currentDialogIndex]);
-    currentDialogIndex++;
+  if (typeWriter && typeWriter.isTyping) {
+    typeWriter.skipTyping();
+    return;
+  }
+
+  currentDialog++;
+  if (currentDialog < dialogs.length) {
+    startDialog();
   } else {
-    // Langsung ke ending1 setelah dialog selesai
+    // Kembali ke halaman utama setelah dialog selesai
     setTimeout(() => {
-      window.location.href = "ending1.html";
+      window.location.href = 'ending1.html';
     }, 2000);
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  nextDialog();
-});
+// Mulai dialog saat halaman dimuat
+document.addEventListener('DOMContentLoaded', startDialog);
