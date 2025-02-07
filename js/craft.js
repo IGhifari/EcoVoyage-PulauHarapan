@@ -1,17 +1,17 @@
 // Resource requirements
 const SHIP_REQUIREMENTS = {
-  wood: 5,
-  solarPanel: 1,
+  wood: 50,
+  solarPanel: 3,
   blueprint: 1,
 };
 
 const SOLAR_REQUIREMENTS = {
-  wood: 3,
+  wood: 30,
 };
 
 // Tambahkan requirement untuk rumah
 const HOUSE_REQUIREMENTS = {
-  wood: 1,
+  wood: 100,
   solarPanel: 2,
 };
 
@@ -129,11 +129,11 @@ function completeCraftSolar() {
   document.getElementById("solarPanelCount").textContent = solarPanelCount + 1; // Tambah 1 panel surya
 
   // Simpan progress
-  localStorage.setItem("solarBuilt", "true");
-  localStorage.setItem("woodCount", woodCount - SOLAR_REQUIREMENTS.wood);
-  localStorage.setItem("solarPanelCount", solarPanelCount + 1);
+  localStorage.setItem("woodCount", (woodCount - SOLAR_REQUIREMENTS.wood).toString());
+  localStorage.setItem("solarPanelCount", (solarPanelCount + 1).toString());
 
   alert("Selamat! Kamu berhasil membuat Panel Surya!");
+  updateInventoryDisplay();
 }
 
 // Event listener untuk menutup quest saat klik di luar
@@ -518,15 +518,5 @@ function checkAvailableQuests() {
   // Sembunyikan quest kebun2 jika belum memilih menetap
   if (garden2Quest) {
     garden2Quest.style.display = stayedInIsland ? "block" : "none";
-  }
-}
-window.onload = function() {
-  // Cek apakah user memiliki akses yang valid
-  const hasValidAccess = sessionStorage.getItem('gameAccess');
-  
-  // Jika tidak memiliki akses valid, redirect ke halaman utama
-  if (!hasValidAccess) {
-      window.location.href = 'index.html';
-      return;
   }
 }

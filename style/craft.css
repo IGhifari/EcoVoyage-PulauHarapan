@@ -216,9 +216,7 @@ body {
   display: flex;
   flex-direction: column;
 }
-.quest-item p {
-  color: #5c3d2e;
-}
+
 .quest-item:last-child {
   margin-bottom: 0;
 }
@@ -250,11 +248,16 @@ body {
 }
 
 .quest-item ul {
-  color: gray;
+  color: #8b4513;
   margin: 10px 0;
   padding-left: 20px;
 }
 
+.quest-item p {
+  color: #8b4513;
+  margin: 10px 0;
+  padding-left: 20px;
+}
 /* Craft button styling */
 .craft-btn {
   background: #8b4513;

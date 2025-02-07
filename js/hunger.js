@@ -4,7 +4,7 @@ const HUNGER_WARNING_TIME = 480000; // 8 menit
 let hungerInterval;
 
 // Daftar halaman yang menggunakan sistem hunger
-const HUNGER_PAGES = ["game.html", "kebun.html", "kebun2.html", "dalamkapal.html", "dalamrumah.html", "kolam.html", "rumah.html", "craft.html"];
+const HUNGER_PAGES = ["game.html", "kebun.html", "kebun2.html", "kolam.html", "kapal.html", "dalamkapal.html", "craft.html", "rumah.html", "dalamrumah.html"];
 
 // Inisialisasi sistem hunger
 function initHungerSystem() {
