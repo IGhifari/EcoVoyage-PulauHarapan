@@ -86,8 +86,6 @@ button a {
   opacity: 0.5;
 }
 
-
-
 .about-container {
   position: fixed;
   top: 50%;
@@ -261,4 +259,68 @@ button a {
   .edu-points {
     grid-template-columns: 1fr;
   }
+}
+
+/* Styling untuk tombol cara bermain */
+.how-to-play-btn {
+  background: #3498db;
+  margin-bottom: 10px;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.how-to-play-btn:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+
+/* Styling untuk popup cara bermain */
+.how-to-play-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.95);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: left;
+  max-width: 800px;
+  width: 90%;
+  z-index: 1000;
+  box-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+  border: 1px solid rgba(76, 175, 80, 0.5);
+  display: none;
+  color: white;
+}
+
+.how-to-play-content {
+  margin: 20px 0;
+}
+
+.control-list {
+  list-style: none;
+  padding: 0;
+}
+
+.control-list li {
+  margin: 10px 0;
+  padding: 10px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 5px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #4caf50;
+  font-size: 24px;
+  cursor: pointer;
 }

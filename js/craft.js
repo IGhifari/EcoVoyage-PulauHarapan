@@ -1,17 +1,17 @@
 // Resource requirements
 const SHIP_REQUIREMENTS = {
-  wood: 5,
-  solarPanel: 1,
+  wood: 50,
+  solarPanel: 3,
   blueprint: 1,
 };
 
 const SOLAR_REQUIREMENTS = {
-  wood: 3,
+  wood: 30,
 };
 
 // Tambahkan requirement untuk rumah
 const HOUSE_REQUIREMENTS = {
-  wood: 1,
+  wood: 100,
   solarPanel: 2,
 };
 
@@ -129,11 +129,11 @@ function completeCraftSolar() {
   document.getElementById("solarPanelCount").textContent = solarPanelCount + 1; // Tambah 1 panel surya
 
   // Simpan progress
-  localStorage.setItem("solarBuilt", "true");
-  localStorage.setItem("woodCount", woodCount - SOLAR_REQUIREMENTS.wood);
-  localStorage.setItem("solarPanelCount", solarPanelCount + 1);
+  localStorage.setItem("woodCount", (woodCount - SOLAR_REQUIREMENTS.wood).toString());
+  localStorage.setItem("solarPanelCount", (solarPanelCount + 1).toString());
 
   alert("Selamat! Kamu berhasil membuat Panel Surya!");
+  updateInventoryDisplay();
 }
 
 // Event listener untuk menutup quest saat klik di luar

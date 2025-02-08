@@ -11,17 +11,43 @@
     <div class="container">
       <div class="game-title">
         <h1>EcoVoyage: Pulau Harapan</h1>
-        <p class="subtitle">Petualangan Menuju Masa Depan Hijau</p>
+        <div class="subtitle">Selamat datang di petualangan!</div>
       </div>
 
       <div class="menu-buttons">
-        <button class="start-btn pulse" onclick="window.location.href='prolog.html'">Mulai Petualangan</button>
-        <button class="option-btn" onclick="window.location.href='pengaturan.html'">Pengaturan</button>
-        <button class="about-btn" onclick="toggleAbout()"><i class="fas fa-info-circle"></i> Tentang</button>
+        <button onclick="window.location.href='prolog.html'" class="start-btn pulse">Mulai Petualangan</button>
+        <button class="how-to-play-btn" onclick="toggleHowToPlay()">Cara Bermain</button>
+        <button onclick="toggleAbout()" class="about-btn">Tentang Game</button>
+        <button onclick="resetGame()" class="reset-btn">Reset Progress</button>
       </div>
 
-      <div class="footer">
-        <p>&copy; 2025 EcoVoyage</p>
+      <div id="howToPlayContainer" class="how-to-play-container">
+        <button class="close-btn" onclick="toggleHowToPlay()">&times;</button>
+        <h2>Cara Bermain</h2>
+        <div class="how-to-play-content">
+          <h3>Kontrol Karakter:</h3>
+          <ul class="control-list">
+            <li>W atau ↑ : Bergerak ke atas</li>
+            <li>S atau ↓ : Bergerak ke bawah</li>
+            <li>A atau ← : Bergerak ke kiri</li>
+            <li>D atau → : Bergerak ke kanan</li>
+          </ul>
+
+          <h3>Fitur Utama:</h3>
+          <ul class="control-list">
+            <li>Tanam pohon di kebun untuk mendapatkan kayu dan benih</li>
+            <li>Craft berbagai item untuk membangun kapal</li>
+            <li>Jaga indikator lapar dengan mencari makanan</li>
+            <li>Kumpulkan resource untuk menyelesaikan quest</li>
+          </ul>
+
+          <h3>Tips:</h3>
+          <ul class="control-list">
+            <li>Perhatikan indikator lapar agar tidak pingsan</li>
+            <li>Kumpulkan kayu sebanyak mungkin untuk crafting</li>
+            <li>Jelajahi semua area untuk menemukan resource</li>
+          </ul>
+        </div>
       </div>
 
       <div class="about-container" id="aboutContainer" style="display: none">
