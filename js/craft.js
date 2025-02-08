@@ -17,7 +17,7 @@ const HOUSE_REQUIREMENTS = {
 
 // Tambahkan requirement untuk mesin
 const ENGINE_REQUIREMENTS = {
-  wood: 8,
+  wood: 80,
   solarPanel: 3,
 };
 

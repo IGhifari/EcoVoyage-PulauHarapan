@@ -30,6 +30,35 @@ const textpilihan1 = [
   },
 ];
 
+function typeWriter(element, text, speed = 50) {
+  let index = 0;
+  element.textContent = '';
+  let intervalId;
+  
+  return new Promise((resolve) => {
+    function type() {
+      if (index < text.length) {
+        element.textContent += text.charAt(index);
+        index++;
+        intervalId = setTimeout(type, speed);
+      } else {
+        element.dataset.typing = 'finished';
+        resolve();
+      }
+    }
+    
+    // Menambahkan properti untuk menyimpan fungsi complete
+    element.completeTyping = () => {
+      clearTimeout(intervalId);
+      element.textContent = text;
+      element.dataset.typing = 'finished';
+      resolve();
+    };
+    
+    type();
+  });
+}
+
 function showDialog(dialogTexts) {
   const dialogBox = document.getElementById("dialogBox");
   const characterName = document.getElementById("characterName");
@@ -38,16 +67,18 @@ function showDialog(dialogTexts) {
   if (currentDialogIndex < dialogTexts.length) {
     dialogBox.style.display = "block";
     characterName.textContent = dialogTexts[currentDialogIndex].title;
-    dialogText.textContent = dialogTexts[currentDialogIndex].text;
+    
+    // Menggunakan efek typewriter
+    dialogText.dataset.typing = 'ongoing';
+    typeWriter(dialogText, dialogTexts[currentDialogIndex].text);
+    
   } else {
     dialogBox.style.display = "none";
     currentDialogIndex = 0;
 
-    // Tampilkan dialog pilihan setelah dialog awal selesai
     if (dialogTexts === texts) {
       document.getElementById("sailDialog").style.display = "flex";
     } else {
-      // Jika dialog pilihan selesai, lanjutkan ke tujuan masing-masing
       if (dialogTexts === textpilihan2) {
         localStorage.setItem("stayedInIsland", "true");
         alert("Yanto memutuskan untuk menetap di pulau!, Quest baru akan segera menantikanmu!");
@@ -63,8 +94,17 @@ function showDialog(dialogTexts) {
 }
 
 function nextDialog() {
-  if (document.getElementById("dialogBox").style.display === "block") {
-    showDialog(currentDialogTexts);
+  const dialogText = document.getElementById("dialogText");
+  
+  if (dialogText.dataset.typing === 'ongoing') {
+    // Jika masih mengetik, selesaikan langsung
+    dialogText.completeTyping();
+  } else if (dialogText.dataset.typing === 'finished') {
+    // Jika sudah selesai, lanjut ke dialog berikutnya
+    dialogText.dataset.typing = '';
+    if (document.getElementById("dialogBox").style.display === "block") {
+      showDialog(currentDialogTexts);
+    }
   }
 }
 
