@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Craft</title>
     <link rel="stylesheet" href="../style/craft.css" />
+    <script src="../js/audio.js"></script>
   </head>
   <body>
     <div class="container">
       <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
 
       <!-- Task Icon -->
-      <div class="task-icon" onclick="toggleInventory()">
+      <div class="task-icon" onclick="playInventorySound(); toggleInventory()">
         <img src="../asset/icon/task.png" alt="Task" />
       </div>
 
@@ -86,7 +87,7 @@
               <li>Panel Surya: 1 buah</li>
               <li>Blueprint: 1 buah</li>
             </ul>
-            <button onclick="craftShip()" class="craft-btn">Craft Kapal</button>
+            <button onclick="playCraftSound(); craftItem('ship');" class="craft-btn">Craft</button>
             <div class="progress-bar">
               <div class="progress" id="shipProgress"></div>
             </div>
@@ -98,7 +99,7 @@
             <ul>
               <li>Kayu: 30 buah</li>
             </ul>
-            <button onclick="craftSolar()" class="craft-btn" id="solarBtn">
+            <button onclick="playCraftSound(); craftItem('solar');" class="craft-btn" id="solarBtn">
               Buat Panel Surya
             </button>
             <div class="progress-bar">
@@ -113,7 +114,7 @@
               <li>Panel Surya: 3 buah</li>
               <li>Kayu: 80 buah</li>
             </ul>
-            <button onclick="craftEngine()" class="craft-btn">Craft Mesin</button>
+            <button onclick="playCraftSound(); craftItem('engine');" class="craft-btn">Craft Mesin</button>
             <div class="progress-bar">
               <div class="progress" id="engineProgress"></div>
             </div>
@@ -142,7 +143,7 @@
               <li>5 Ikan</li>
               <li>1 Panel Surya</li>
             </ul>
-            <button onclick="buildWaterFilter()" class="craft-btn">Craft</button>
+            <button onclick="playCraftSound(); buildWaterFilter()" class="craft-btn">Craft</button>
             <div class="progress-bar">
               <div class="progress" id="waterFilterProgress"></div>
             </div>

@@ -19,6 +19,9 @@ const keys = {
   d: false,
 };
 
+// Tambahkan variabel untuk status pause
+let isGamePaused = false;
+
 // Event listener untuk tombol ditekan
 document.addEventListener("keydown", (e) => {
   switch (e.key.toLowerCase()) {
@@ -34,6 +37,9 @@ document.addEventListener("keydown", (e) => {
     case "d":
       keys.d = true;
       break;
+  }
+  if (e.key === "Escape") {
+    togglePauseMenu();
   }
 });
 
@@ -134,3 +140,26 @@ cutButton.addEventListener("click", () => {
   // Tampilkan notifikasi
   alert("Kamu mendapatkan:\n5 Kayu\n3 Benih Pohon");
 });
+
+// Fungsi untuk toggle pause menu
+function togglePauseMenu() {
+  isGamePaused = !isGamePaused;
+  const pauseMenu = document.getElementById("pauseMenu");
+
+  if (isGamePaused) {
+    pauseMenu.style.display = "flex";
+    // Pause game systems
+    if (hungerInterval) clearInterval(hungerInterval);
+  } else {
+    pauseMenu.style.display = "none";
+    // Resume game systems
+    startHungerTimer();
+  }
+}
+
+// Fungsi untuk kembali ke menu utama
+function backToMainMenu() {
+  if (confirm("Apakah kamu yakin ingin kembali ke menu utama? Progress yang belum disimpan akan hilang.")) {
+    window.location.href = "halamanAwal.html";
+  }
+}

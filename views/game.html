@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game</title>
     <link rel="stylesheet" href="../style/game.css" />
+    <script src="../js/audio.js"></script>
   </head>
 
   <body>
@@ -12,22 +13,22 @@
       <div class="button">
         <!-- Tombol untuk kebun -->
         <div class="buttonKebun">
-          <button class="kebun" onclick="MasukKebun()" id="btnKebun">Kebun</button>
+          <button onclick="playButtonSound(); MasukKebun();" class="kebun" id="btnKebun">Kebun</button>
         </div>
         <!-- Tombol untuk kebun 2 -->
         <button onclick="checkGarden2Access()" id="garden2Button" class="kebun2" style="display: none">Kebun 2</button>
         <!-- Tombol untuk craft -->
         <div class="buttonCraft">
-          <button class="craft" onclick="MasukCraft()" id="btnCraft">Craft</button>
+          <button onclick="playButtonSound(); MasukCraft();" class="craft" id="btnCraft">Craft</button>
         </div>
         <!-- Tombol untuk rumah -->
         <div class="buttonRumah">
-          <button class="rumah" onclick="MasukRumah()" id="btnRumah">Rumah</button>
+          <button onclick="playButtonSound(); MasukRumah();" class="rumah" id="btnRumah">Rumah</button>
         </div>
       </div>
       <!-- Karakter -->
       <img src="../asset/char/depan.png" id="player" class="player" />
-      <div class="task-icon" onclick="toggleInventory()">
+      <div class="task-icon" onclick="playInventorySound(); toggleInventory()">
         <img src="../asset/icon/task.png" alt="Task" />
       </div>
       <div class="addEventListener">
