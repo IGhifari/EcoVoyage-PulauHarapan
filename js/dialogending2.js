@@ -71,7 +71,7 @@ const texts = [
   },
   {
     id: "ending2",
-    text: "Terima kasih telah memainkan Game Clevio! Melalui perjalanan Yanto, kita belajar bahwa kemajuan teknologi dan pelestarian alam dapat berjalan beriringan.",
+    text: "Terima kasih telah memainkan Game EcoVoyage: Pulau Harapan! Melalui perjalanan Yanto, kita belajar bahwa kemajuan teknologi dan pelestarian alam dapat berjalan beriringan.",
     title: "Pesan",
   },
   {
@@ -81,7 +81,7 @@ const texts = [
   },
   {
     id: "credits2",
-    text: "Dibuat oleh Tim Pengembang Game Clevio. Sampai jumpa di petualangan berikutnya!",
+    text: "Dibuat oleh Tim Pengembang Game SMKN 1 CIBINONG. Sampai jumpa di petualangan berikutnya!",
     title: "Credits",
   },
 ];
@@ -99,7 +99,7 @@ function showCredits() {
     { type: 'role', text: 'Art & Design' },
     { type: 'name', text: 'Tim Pengembang Clevio' },
     { type: 'role', text: 'Sound Design' },
-    { type: 'name', text: 'Tim Audio Clevio' },
+    { type: 'name', text: 'Music: Adventure by Alexander Nakarada (www.creatorchords.com)Licensed under Creative Commons BY Attribution 4.0 Licensehttps://creativecommons.org/licenses/by/4.0/' },
     { type: 'special', text: 'Terima Kasih Telah Bermain!' }
   ];
 
