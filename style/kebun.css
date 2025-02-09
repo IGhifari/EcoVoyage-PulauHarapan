@@ -160,6 +160,7 @@ button:hover {
   width: 57.5%;
   height: 35%;
   z-index: 1;
+  cursor: pointer;
 }
 
 /* Styling untuk tombol kembali */
@@ -322,8 +323,9 @@ button:hover {
 
 .pembatas {
   position: fixed;
-  width: 80%;
+  width: 70%;
   height: 165px;
   bottom: 0;
   z-index: 1;
+  left: 6rem;
 }

@@ -30,9 +30,13 @@
       <div class="task-icon" onclick="toggleInventory()">
         <img src="../asset/icon/task.png" alt="Task" />
       </div>
+      <!-- Tambahkan tombol panduan -->
+      <div class="guide-icon" onclick="toggleGuide()">
+        <img src="../asset/icon/guide.png" alt="Guide" />
+      </div>
       <div class="addEventListener">
         <div class="hunger-indicator">
-            <span class="hunger-text">Makan</span>
+            <span class="hunger-text">Energi</span>
             <img src="../asset/icon/eat.png" alt="Hunger" />
             <div class="hunger-bar">
         <div class="hunger-timer" id="hungerTimer"></div>
@@ -63,11 +67,78 @@
           </div>
         </div>
       </div>
+      <!-- Tambahkan konten panduan -->
+      <div class="game-guide" id="gameGuide">
+        <button class="close-guide" onclick="toggleGuide()"><img src="../asset/icon/close.png" alt=""></button>
+        <h1>Panduan Permainan</h1>
+        <div class="guide-content">
+          <div class="guide-section active" id="tutorial1">
+            <h2>Selamat Datang di Pulau!</h2>
+            <div class="guide-step">
+              <img src="../asset/latar/kebun1.png" alt="Tutorial 1" />
+              <div class="guide-text">
+                <h3>Langkah 1: Mengumpulkan Bahan</h3>
+                <p>🌱 Kunjungi Kebun untuk mendapatkan benih dan kayu</p>
+                <p>✨ Status: <span id="tutorial1Status" class="incomplete">Belum Selesai</span></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="guide-section" id="tutorial2">
+            <h2>Membuat Panel Surya dan Rumah</h2>
+            <div class="guide-step">
+              <img src="../asset/latar/craft.png" alt="Tutorial 2" />
+              <div class="guide-text">
+                <h3>Langkah 2: Kunjungi area Craft</h3>
+                <p>🔧 Crafting Panel Surya dan Rumah</p>
+                <p>✨ Status: <span id="tutorial2Status" class="incomplete">Belum Selesai</span></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="guide-section" id="tutorial3">
+            <h2>Pergi ke halaman kolam ikan</h2>
+            <div class="guide-step">
+              <img src="../asset/latar/kolamikan.png" alt="Tutorial 3" />
+              <div class="guide-text">
+                <h3>Langkah 3: Mengambil ikan</h3>
+                <p>🌿 Mengambil ikan dari kolam ikan</p>
+                <p>✨ Status: <span id="tutorial3Status" class="incomplete">Belum Selesai</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="guide-section" id="tutorial4">
+            <h2>Membuka Kebun 2</h2>
+            <div class="guide-step">
+              <img src="../asset/latar/kebun2.png" alt="Tutorial 4" />
+              <div class="guide-text">
+                <h3>Langkah 4: Buka Kebun 2</h3>
+                <p>🌱 Craft Blueprint untuk membuka Kebun 2</p>
+                <p>✨ Status: <span id="tutorial4Status" class="incomplete">Belum Selesai</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="guide-navigation">
+          <button onclick="previousGuide()">◀ Sebelumnya</button>
+          <div class="guide-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <button onclick="nextGuide()">Selanjutnya ▶</button>
+        </div>
+      </div>
     </div>
     <script src="../js/hunger.js"></script>
     <script src="../script/game.js"></script>
     <script src="../script/inventory.js"></script>
+    <script src="../script/guide.js"></script>
     <script>
+      
+      localStorage.setItem("hasCrafted", "true");
       function MasukKebun() {
         window.location.href = "kebun.html";
       }
@@ -90,9 +161,22 @@
       document.addEventListener("DOMContentLoaded", function () {
         const garden2Unlocked = localStorage.getItem("garden2Unlocked") === "true";
         const garden2Button = document.getElementById("garden2Button");
+        const tutorial2Status = document.getElementById("tutorial2Status");
+        const tutorial4Status = document.getElementById("tutorial4Status");
 
         if (garden2Unlocked) {
           garden2Button.style.display = "block";
+          tutorial4Status.textContent = "Selesai";
+          tutorial4Status.classList.remove("incomplete");
+          tutorial4Status.classList.add("complete");
+        }
+
+        // Cek status crafting dari localStorage
+        const hasCrafted = localStorage.getItem("hasCrafted") === "true";
+        if (hasCrafted) {
+          tutorial2Status.textContent = "Selesai";
+          tutorial2Status.classList.remove("incomplete");
+          tutorial2Status.classList.add("complete");
         }
       });
       function checkGarden2Access() {
