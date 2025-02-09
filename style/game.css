@@ -302,3 +302,241 @@ body {
   font-weight: bold;
   font-family: "Courier New", Courier, monospace;
 }
+
+.game-guide {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #F5DEB3;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(139, 69, 19, 0.3);
+  max-width: 700px;
+  width: 90%;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+  border: 3px solid #8B4513;
+}
+
+.close-guide {
+  background-color: #8B4513;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  position: absolute;
+  top: 15px;
+  right: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.close-guide img {
+  width: 40px;
+  height: 40px;
+}
+
+
+.game-guide h1 {
+
+  text-align: center;
+  color: #8B4513;
+  font-size: 2em;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 3px solid #8B4513;
+  padding-bottom: 10px;
+}
+.complete {
+  color: green;
+  font-weight: bold;
+}
+.guide-section {
+  display: none;
+  padding: 20px;
+  background: #DEB887;
+  border-radius: 15px;
+  margin: 10px 0;
+  box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+}
+
+.guide-step {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: 20px 0;
+  padding: 15px;
+  background: white;
+  border-radius: 12px;
+  transition: transform 0.3s;
+}
+
+.guide-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.15);
+}
+
+.guide-step img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.guide-text h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.guide-text p {
+  color: #666;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.guide-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #eee;
+}
+
+.guide-navigation button {
+  background: #8B4513;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.guide-navigation button:hover {
+  background: #A0522D;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+}
+
+.guide-dots {
+  display: flex;
+  gap: 12px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: #DEB887;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dot:hover {
+  background: #bdbdbd;
+}
+
+.dot.active {
+  background: #8B4513;
+  transform: scale(1.2);
+}
+
+.incomplete {
+  color: #ff5722;
+  font-weight: bold;
+  padding: 5px 10px;
+  background: rgba(255, 87, 34, 0.1);
+  border-radius: 15px;
+  font-size: 0.9em;
+}
+
+.complete {
+  color: #4CAF50;
+  font-weight: bold;
+  padding: 5px 10px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 15px;
+  font-size: 0.9em;
+}
+
+.guide-icon {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  padding: 15px;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+  transition: all 0.3s;
+}
+
+.guide-icon:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.guide-icon img {
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) invert(1);
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to { 
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.game-guide.show {
+  display: block;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.guide-section.active {
+  display: block;
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .guide-step {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .guide-step img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .guide-navigation button {
+    padding: 10px 15px;
+    font-size: 0.8em;
+  }
+}

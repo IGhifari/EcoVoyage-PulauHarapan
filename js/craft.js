@@ -23,9 +23,9 @@ const ENGINE_REQUIREMENTS = {
 
 // Tambahkan requirement untuk kebun 2
 const GARDEN2_REQUIREMENTS = {
-  wood: 1,
+  wood: 100,
   solarPanel: 2,
-  seed: 2,
+  seed: 20,
 };
 
 // Tambahkan quest filtrasi air
