@@ -174,3 +174,4 @@ function nextDialog() {
 document.addEventListener('DOMContentLoaded', () => {
   showDialog();
 });
+
