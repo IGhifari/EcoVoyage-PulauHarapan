@@ -11,11 +11,14 @@ function initHungerSystem() {
   // Cek apakah halaman saat ini menggunakan sistem hunger
   const currentPage = window.location.pathname.split("/").pop();
   if (!HUNGER_PAGES.includes(currentPage)) {
-    return; // Jika bukan halaman yang ditentukan, jangan inisialisasi sistem hunger
+    pauseHungerSystem();
+    return;
   }
 
   if (!localStorage.getItem("lastFedTime")) {
     resetHungerSystem();
+  } else {
+    resumeHungerSystem();
   }
 
   // Pastikan interval dibersihkan sebelum membuat yang baru
@@ -24,6 +27,29 @@ function initHungerSystem() {
   }
 
   startHungerTimer();
+}
+
+// Fungsi untuk pause sistem hunger
+function pauseHungerSystem() {
+  if (hungerInterval) {
+    clearInterval(hungerInterval);
+  }
+  // Simpan waktu saat sistem di-pause
+  localStorage.setItem("pausedTime", Date.now().toString());
+}
+
+// Fungsi untuk resume sistem hunger
+function resumeHungerSystem() {
+  const pausedTime = parseInt(localStorage.getItem("pausedTime"));
+  const lastFedTime = parseInt(localStorage.getItem("lastFedTime"));
+
+  if (pausedTime && lastFedTime) {
+    // Hitung berapa lama sistem di-pause
+    const pauseDuration = Date.now() - pausedTime;
+    // Update lastFedTime dengan menambahkan durasi pause
+    localStorage.setItem("lastFedTime", (lastFedTime + pauseDuration).toString());
+    localStorage.removeItem("pausedTime");
+  }
 }
 
 // Reset sistem hunger
@@ -256,24 +282,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Tambahkan event listener untuk visibility change
+// Modifikasi event listener untuk page visibility
 document.addEventListener("visibilitychange", () => {
   const currentPage = window.location.pathname.split("/").pop();
+
   if (HUNGER_PAGES.includes(currentPage)) {
     if (document.hidden) {
-      // Simpan waktu saat halaman disembunyikan
-      localStorage.setItem("pageHiddenTime", Date.now().toString());
-      clearInterval(hungerInterval);
+      pauseHungerSystem();
     } else {
-      // Update lastFedTime berdasarkan waktu yang berlalu
-      const hiddenTime = parseInt(localStorage.getItem("pageHiddenTime") || Date.now());
-      const lastFedTime = parseInt(localStorage.getItem("lastFedTime"));
-      const timeElapsed = Date.now() - hiddenTime;
-
-      localStorage.setItem("lastFedTime", (lastFedTime + timeElapsed).toString());
-      localStorage.removeItem("pageHiddenTime");
-
+      resumeHungerSystem();
       startHungerTimer();
     }
+  }
+});
+
+// Modifikasi event listener untuk page load
+window.addEventListener("beforeunload", () => {
+  const currentPage = window.location.pathname.split("/").pop();
+  if (HUNGER_PAGES.includes(currentPage)) {
+    pauseHungerSystem();
   }
 });

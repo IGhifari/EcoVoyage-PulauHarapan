@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Adventure</title>
     <link rel="stylesheet" href="../style/halamanAwal.css" />
+    <script src="../js/audio.js"></script>
   </head>
   <body>
     <div class="particles" id="particles-js"></div>
@@ -15,9 +16,9 @@
       </div>
 
       <div class="menu-buttons">
-        <button onclick="window.location.href='prolog.html'" class="start-btn pulse">Mulai Petualangan</button>
-        <button class="how-to-play-btn" onclick="toggleHowToPlay()">Cara Bermain</button>
-        <button onclick="toggleAbout()" class="about-btn">Tentang Game</button>
+        <button onclick="playButtonSound(); startGame();" class="start-btn pulse">Mulai Petualangan</button>
+        <button onclick="playButtonSound(); showHowToPlay();" class="how-to-play-btn">Cara Bermain</button>
+        <button onclick="playButtonSound(); showAbout();" class="about-btn">Tentang Game</button>
         <button onclick="resetGame()" class="reset-btn">Reset Progress</button>
       </div>
 
