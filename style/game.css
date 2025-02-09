@@ -473,22 +473,27 @@ body {
   position: fixed;
   top: 100px;
   right: 20px;
-  cursor: pointer;
-  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-  padding: 15px;
+  width: 50px;
+  height: 50px;
+  background: #8b4513;
   border-radius: 50%;
-  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-  transition: all 0.3s;
-}
-
-.guide-icon:hover {
-  transform: scale(1.1) rotate(5deg);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
 }
 
 .guide-icon img {
   width: 30px;
   height: 30px;
   filter: brightness(0) invert(1);
+}
+
+.guide-icon:hover {
+  transform: scale(1.1);
+  background: #5c3d2e;
 }
 
 @keyframes fadeIn {
@@ -539,4 +544,40 @@ body {
     padding: 10px 15px;
     font-size: 0.8em;
   }
+}
+
+.environment-stats {
+    position: fixed;
+    top: 20px;
+    left: 200px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    gap: 20px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.stat-item img {
+    width: 20px;
+    height: 20px;
+}
+
+.eco-tooltip {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: none;
+}
+
+.stat-item:hover .eco-tooltip {
+    display: block;
 }

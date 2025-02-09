@@ -46,26 +46,34 @@ function checkTutorialProgress() {
   }
   
   // Cek tutorial 2
-  const hasCrafted = localStorage.getItem("hasCrafted") === "true";
-  if (hasCrafted) {
+  const solarPanelCount = parseInt(document.getElementById('solarPanelCount').textContent);
+  if (solarPanelCount >= 1) {
     document.getElementById('tutorial2Status').textContent = 'Selesai';
     document.getElementById('tutorial2Status').classList.replace('incomplete', 'complete');
   }
   
   // Cek tutorial 3
-  const fishCount = parseInt(document.getElementById('fishCount').textContent);
-  if (fishCount >= 1) {
-    document.getElementById('tutorial3Status').textContent = 'Selesai';
-    document.getElementById('tutorial3Status').classList.replace('incomplete', 'complete');
-  }
-
-  // Cek tutorial 4
   const garden2Unlocked = localStorage.getItem("garden2Unlocked") === "true";
   if (garden2Unlocked) {
-    document.getElementById('tutorial4Status').textContent = 'Selesai';
-    document.getElementById('tutorial4Status').classList.replace('incomplete', 'complete');
+    document.getElementById('tutorial3Status').textContent = 'Selesai';
+    document.getElementById('tutorial3Status').classList.replace('incomplete', 'complete');
   }
 }
 
 // Update progress setiap 1 detik
-setInterval(checkTutorialProgress, 1000); 
+setInterval(checkTutorialProgress, 1000);
+
+// Tambahkan event listener saat DOM sudah dimuat
+document.addEventListener('DOMContentLoaded', function() {
+  // Cek apakah panduan sudah pernah ditampilkan sebelumnya
+  const hasShownGuide = localStorage.getItem('hasShownGuide');
+  
+  if (!hasShownGuide) {
+    // Jika belum pernah ditampilkan, tampilkan panduan
+    const guide = document.getElementById("gameGuide");
+    guide.classList.add("show");
+    
+    // Tandai bahwa panduan sudah ditampilkan
+    localStorage.setItem('hasShownGuide', 'true');
+  }
+}); 

@@ -80,7 +80,6 @@
               <div class="guide-text">
                 <h3>Langkah 1: Mengumpulkan Bahan</h3>
                 <p>🌱 Kunjungi Kebun untuk mendapatkan benih dan kayu</p>
-                <p>✨ Status: <span id="tutorial1Status" class="incomplete">Belum Selesai</span></p>
               </div>
             </div>
           </div>
@@ -92,7 +91,6 @@
               <div class="guide-text">
                 <h3>Langkah 2: Kunjungi area Craft</h3>
                 <p>🔧 Crafting Panel Surya dan Rumah</p>
-                <p>✨ Status: <span id="tutorial2Status" class="incomplete">Belum Selesai</span></p>
               </div>
             </div>
           </div>
@@ -104,20 +102,18 @@
               <div class="guide-text">
                 <h3>Langkah 3: Mengambil ikan</h3>
                 <p>🌿 Mengambil ikan dari kolam ikan</p>
-                <p>✨ Status: <span id="tutorial3Status" class="incomplete">Belum Selesai</span></p>
               </div>
             </div>
           </div>
 
           <div class="guide-section" id="tutorial4">
-            <h2>Membuka Kebun 2</h2>
+            <h2>Masuk Kedalam Rumah</h2>
             <div class="guide-step">
               <img src="../asset/latar/dalamrumah.png" alt="Tutorial 4" />
               <div class="guide-text">
                 <h3>Langkah 4: Masuk halaman rumah</h3>
                 <p>🚢 Menemukan blueprint untuk membuat kapal</p>
                 <p>🍽️ Masak ikan untuk membuat makanan</p>
-                <p>✨ Status: <span id="tutorial4Status" class="incomplete">Belum Selesai</span></p>
               </div>
             </div>
 
@@ -192,6 +188,22 @@
 
         window.location.href = "kebun2.html";
       }
+      document.addEventListener('DOMContentLoaded', function() {
+        const tutorialStatus = JSON.parse(localStorage.getItem('tutorialStatus')) || {
+            garden: false,
+            craft: false,
+            fish: false,
+            garden2: false
+        };
+        
+        // Update status sesuai halaman
+        if (window.location.pathname.toLowerCase().includes('kebun.html')) {
+            tutorialStatus.garden = true;
+        }
+        // Tambahkan kondisi untuk halaman lain sesuai kebutuhan
+        
+        localStorage.setItem('tutorialStatus', JSON.stringify(tutorialStatus));
+    });
     </script>
   </body>
 </html>
