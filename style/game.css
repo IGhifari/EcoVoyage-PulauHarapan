@@ -207,11 +207,12 @@ body {
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 /* Gradient warna untuk masing-masing button */
 .kebun {
-  background-image: linear-gradient(45deg, #2ecc71, #27ae60, #2ecc71);
+  background: #5c3d2e;
 }
 
 .craft {
@@ -223,13 +224,7 @@ body {
 }
 
 /* Hover effect */
-.kebun:hover,
-.craft:hover,
-.rumah:hover {
-  transform: translateY(-5px);
-  background-position: right center;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
+
 
 /* Active state */
 .kebun:active,
@@ -505,7 +500,6 @@ body {
     transform: translate(-50%, -50%);
   }
 }
-
 @keyframes slideIn {
   from {
     opacity: 0;
