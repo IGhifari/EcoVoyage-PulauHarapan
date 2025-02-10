@@ -14,9 +14,22 @@
         <div class="dialog-text" id="dialogText"></div>
         <div class="dialog-hint" style="cursor: pointer;">Klik untuk melanjutkan...</div>
       </div>
-      <audio src="../asset/sound/creditscene.mp3" loop></audio>
+      <audio id="bgMusic" src="../asset/sound/creditscene.mp3"  loop></audio>
     </div>
     <script src="../js/dialogending2.js"></script>
-    <script src="../js/endingSound.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const bgMusic = document.getElementById("bgMusic");
+    
+        // Cek apakah musik sudah diputar sebelumnya dari localStorage
+        if (localStorage.getItem('audioPlayed')) {
+          bgMusic.play().then(() => {
+            console.log("Music is continuing.");
+          }).catch(error => {
+            console.log("Autoplay diblokir:", error);
+          });
+        }
+      });
+    </script>
   </body>
 </html>

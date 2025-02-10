@@ -93,11 +93,11 @@ function showCredits() {
   const credits = [
     { type: 'title', text: 'EcoVoyage: Pulau Harapan' },
     { type: 'role', text: 'Game Developer' },
-    { type: 'name', text: 'Tim Pengembang Clevio' },
+    { type: 'name', text: 'Tim Pengembang SMKN 1 CIBINONG' },
     { type: 'role', text: 'Story Writer' },
-    { type: 'name', text: 'Tim Pengembang Clevio' },
+    { type: 'name', text: 'Tim Pengembang SMKN 1 CIBINONG' },
     { type: 'role', text: 'Art & Design' },
-    { type: 'name', text: 'Tim Pengembang Clevio' },
+    { type: 'name', text: 'Tim Pengembang SMKN 1 CIBINONG' },
     { type: 'role', text: 'Sound Design' },
     { type: 'name', text: 'Music: Adventure by Alexander Nakarada (www.creatorchords.com)Licensed under Creative Commons BY Attribution 4.0 Licensehttps://creativecommons.org/licenses/by/4.0/' },
     { type: 'special', text: 'Terima Kasih Telah Bermain!' }
