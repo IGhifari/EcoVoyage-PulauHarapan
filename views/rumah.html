@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rumah</title>
     <link rel="stylesheet" href="../style/rumah.css" />
-    <link rel="stylesheet" href="../style/minigames.css" />
-    <link rel="stylesheet" href="../style/dayNightWeather.css" />
   </head>
   <body>
     <div class="container">
@@ -56,15 +54,21 @@
         </div>
       </div>
       
+     
       <!-- Tambahkan button untuk ke kolam -->
       <button onclick="window.location.href='kolam.html'" class="pond-btn">Kolam Ikan</button>
     </div>
+    <div class="pembatas">
+      <img src="../asset/char/depan.png" alt="Player" class="player">
+    </div>
+  
     <div id="kapalContainer" class="reruntuhankapal">
       <img src="../asset/Objek/reruntuhankapal.png" alt="" id="kapalImage" />
       <button onclick="enterKapal()" class="enter-kapal-btn" id="enterKapalBtn" style="display: none">Masuk Kapal</button>
     </div>
     <script src="../script/inventory.js"></script>
     <script src="../js/hunger.js"></script>
+    <script src="../script/gamerumah.js"></script>
     <script>
       // Fungsi toggle inventory
       function toggleInventory() {
@@ -130,7 +134,5 @@
         updateInventoryDisplay();
       });
     </script> 
-    <script src="../js/dayNightWeather.js"></script>
-    <script src="../js/minigames.js"></script>
   </body>
 </html>
