@@ -254,22 +254,27 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 
-.player {
+
+
+/* ======= PEMBATAS AREA KARAKTER ======= */
+.pembatas {
   position: absolute;
-  height: 180px;
-  width: auto;
+  width: 100%;
+  height: 200px;
+  top: 55%;
   left: 50%;
-  bottom: 50%;
-  transform: translate(-50%, 50%);
-  z-index: 100;
-  pointer-events: none;
+  transform: translateX(-50%);
+  overflow: hidden; /* Mencegah karakter keluar */
 }
 
-.pembatas {
-  position: fixed;
-  width: 100%;
-  height: 310px;
-  bottom: 0;
-  overflow: hidden;
-  z-index: 50;
+/* ======= STYLE KARAKTER ======= */
+.player {
+  position: absolute;
+  width: 390px;  /* Sesuaikan ukuran karakter */
+
+  top: 50%;
+  left: 50%;
+ 
+  transition: transform 0.1s linear; /* Efek animasi halus */
 }
+
