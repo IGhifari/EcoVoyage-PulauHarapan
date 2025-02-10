@@ -8,6 +8,11 @@
   </head>
 
   <body>
+    <audio autoplay loop id="bgMusic">
+      <source src="../asset/sound/game.mp3" type="audio/mpeg">
+  </audio>
+  <div class="particles" id="particles-js"></div>
+  <!-- ...existing code... -->
     
     <div class="pembatas">
       <div class="button">
@@ -19,7 +24,7 @@
         <button onclick="checkGarden2Access()" id="garden2Button" class="kebun2" style="display: none">Kebun 2</button>
         <!-- Tombol untuk craft -->
         <div class="buttonCraft">
-          <button class="craft" onclick="MasukCraft()" id="btnCraft" >Craft</button>
+          <button class="craft" onclick="MasukCraft()" id="btnCraft">Craft</button>
         </div>
         <!-- Tombol untuk rumah -->
         <div class="buttonRumah">
@@ -171,6 +176,17 @@
 
         window.location.href = "kebun2.html";
       }
+      window.addEventListener('DOMContentLoaded', function() {
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.3; // Set volume to 30%
+    
+    // Handle autoplay restrictions
+    document.addEventListener('click', function() {
+        bgMusic.play().catch(function(error) {
+            console.log("Audio play failed:", error);
+        });
+    }, { once: true });
+});
     </script>
   </body>
 </html>
