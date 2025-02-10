@@ -32,7 +32,7 @@
       </div>
       <div class="addEventListener">
         <div class="hunger-indicator">
-            <span class="hunger-text">Makan</span>
+            <span class="hunger-text">Energi</span>
             <img src="../asset/icon/eat.png" alt="Hunger" />
             <div class="hunger-bar">
         <div class="hunger-timer" id="hungerTimer"></div>
@@ -63,7 +63,72 @@
           </div>
         </div>
       </div>
+<!-- Ikon Panduan -->
+<div class="guide-icon" onclick="toggleGuide()">
+  <img src="../asset/icon/guide.png" alt="Guide" />
+</div>
+
+<!-- Guide Container -->
+<div class="guide-container" id="guideContainer">
+  <div class="guide-content">
+    <button class="close-guide" onclick="toggleGuide()">✖</button>
+    <h2>📖 Panduan Permainan</h2>
+
+    <!-- Step 1 -->
+    <div class="guide-section active" id="step1">
+      <h3>🌱 1. Masuk ke Kebun</h3>
+      <div class="text-Img">
+        <img src="../asset/latar/kebun1.png" alt="Kebun">
+        <p>Tanam dan rawat tanamanmu! Gunakan benih yang tersedia untuk mulai berkebun.</p>
+      </div>
     </div>
+
+    <!-- Step 2 -->
+    <div class="guide-section" id="step2">
+      <h3>🛠️ 2. Halaman Craft</h3>
+      <div class="text-Img">
+        <img src="../asset/latar/craft.png" alt="Craft">
+        <p>Buat item baru dengan mengumpulkan kayu dan bahan lainnya untuk crafting.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="guide-section" id="step3">
+      <h3>🎣 3. Masuk ke Kolam Ikan</h3>
+      <div class="text-Img">
+        <img src="../asset/latar/kolamikan.png" alt="Kolam Ikan">
+        <p>Tangkap ikan sebagai sumber makanan tambahan untuk bertahan hidup.</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="guide-section" id="step4">
+      <h3>🏠 4. Masuk ke Rumah</h3>
+      <div class="text-Img">
+        <img src="../asset/latar/dalamrumah.png" alt="Rumah">
+        <p>Setelah menyelesaikan semua tugas, masuk ke rumah untuk beristirahat.</p>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="guide-navigation">
+      <button class="nav-button" onclick="previousGuide()">⬅ Sebelumnya</button>
+      <button class="nav-button" onclick="nextGuide()">Selanjutnya ➡</button>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+      <span class="dot active" onclick="showGuide(0)"></span>
+      <span class="dot" onclick="showGuide(1)"></span>
+      <span class="dot" onclick="showGuide(2)"></span>
+      <span class="dot" onclick="showGuide(3)"></span>
+    </div>
+  </div>
+</div>
+
+
+
+    <script src="../script/guide.js"></script>
     <script src="../js/hunger.js"></script>
     <script src="../script/game.js"></script>
     <script src="../script/inventory.js"></script>

@@ -581,3 +581,153 @@ body {
 .stat-item:hover .eco-tooltip {
     display: block;
 }
+/* ======= GUIDE STYLING ======= */
+.guide-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #ffebcd, #deb887);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(139, 69, 19, 0.3);
+  max-width: 500px;
+  width: 100%;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+  border: 4px solid #8B4513;
+  text-align: center;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.guide-container.show {
+  display: block;
+}
+
+/* Close Button */
+.close-guide {
+  background: none;
+  color: #8B4513;
+  font-size: 24px;
+  border: none;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-guide:hover {
+  transform: scale(1.2);
+}
+
+/* ======= GUIDE SECTION ======= */
+.guide-content h2 {
+  color: #8B4513;
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #8B4513;
+  padding-bottom: 10px;
+}
+
+.guide-section {
+  display: none;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  margin: 15px 0;
+  box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+}
+
+.guide-section.active {
+  display: block;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -48%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.guide-section img {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  margin-top: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ======= NAVIGATION BUTTONS ======= */
+.guide-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.nav-button {
+  background: #8B4513;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.nav-button:hover {
+  background: #A0522D;
+  transform: translateY(-2px);
+}
+
+/* ======= PROGRESS INDICATOR ======= */
+.progress-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: #DEB887;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dot.active {
+  background: #8B4513;
+  transform: scale(1.3);
+}
+
+/* ======= RESPONSIVE DESIGN ======= */
+@media (max-width: 600px) {
+  .guide-container {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .guide-section img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .nav-button {
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+}
+.text-Img{
+  display: flex;
+  align-items: center;
+}
