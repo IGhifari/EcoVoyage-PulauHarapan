@@ -347,3 +347,9 @@ body {
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
 }
+
+.player img{
+  position: absolute;
+  left: 20%;
+  width: 400px;
+}
