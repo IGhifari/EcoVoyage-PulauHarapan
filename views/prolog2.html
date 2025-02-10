@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="../style/prolog2.css">
 </head>
 <body>
-
+    <audio autoplay loop id="bgMusic">
+        <source src="../asset/sound/thunder.mp3" type="audio/mpeg">
+    </audio>
+    <div class="particles" id="particles-js"></div>
+    <!-- ...existing code... -->
     <div class="container">
         <div class="story-container">
             <div class="char">
@@ -38,5 +42,18 @@
         </video>
     </div>
     <script src="../js/prolog2.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.3; // Set volume to 30%
+    
+    // Handle autoplay restrictions
+    document.addEventListener('click', function() {
+        bgMusic.play().catch(function(error) {
+            console.log("Audio play failed:", error);
+        });
+    }, { once: true });
+});
+    </script>
 </body>
 </html> 
