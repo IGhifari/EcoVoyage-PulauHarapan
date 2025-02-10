@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="../style/kolam.css" />
   </head>
   <body>
+    <audio autoplay loop id="bgMusic">
+      <source src="../asset/sound/game.mp3" type="audio/mpeg">
+  </audio>
+  <div class="particles" id="particles-js"></div>
+  <!-- ...existing code... -->
     <div class="container">
       <button onclick="window.location.href='rumah.html'" class="back-btn">Kembali ke Rumah</button>
 
@@ -79,5 +84,18 @@
     <script src="../script/inventory.js"></script>
     <script src="../js/kolam.js"></script>
     <script src="../js/hunger.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.3; // Set volume to 30%
+    
+    // Handle autoplay restrictions
+    document.addEventListener('click', function() {
+        bgMusic.play().catch(function(error) {
+            console.log("Audio play failed:", error);
+        });
+    }, { once: true });
+});
+    </script>
   </body>
 </html>
