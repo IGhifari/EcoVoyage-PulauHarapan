@@ -88,7 +88,50 @@ function updatePosition() {
 
   player.style.left = x + "px";
 
+  // Add button visibility check
+  checkButtonProximity();
+
   requestAnimationFrame(updatePosition);
+}
+
+function checkButtonProximity() {
+  const btnKebun = document.querySelector('.buttonKebun');
+  const btnCraft = document.querySelector('.buttonCraft');
+  const btnRumah = document.querySelector('.buttonRumah');
+  const playerRect = player.getBoundingClientRect();
+  const proximityThreshold = 150; // Jarak dalam pixel
+
+  // Set button positions
+  btnKebun.style.left = '20%';
+  btnKebun.style.bottom = '20%';
+  btnCraft.style.left = '50%';
+  btnCraft.style.bottom = '20%';
+  btnRumah.style.right = '20%';
+  btnRumah.style.bottom = '20%';
+
+  // Get button positions
+  const kebunRect = btnKebun.getBoundingClientRect();
+  const craftRect = btnCraft.getBoundingClientRect();
+  const rumahRect = btnRumah.getBoundingClientRect();
+
+  // Calculate distances
+  const distanceToKebun = Math.hypot(
+    playerRect.left - kebunRect.left,
+    playerRect.top - kebunRect.top
+  );
+  const distanceToCraft = Math.hypot(
+    playerRect.left - craftRect.left,
+    playerRect.top - craftRect.top
+  );
+  const distanceToRumah = Math.hypot(
+    playerRect.left - rumahRect.left,
+    playerRect.top - rumahRect.top
+  );
+
+  // Show/hide buttons based on proximity
+  btnKebun.classList.toggle('visible', distanceToKebun < proximityThreshold);
+  btnCraft.classList.toggle('visible', distanceToCraft < proximityThreshold);
+  btnRumah.classList.toggle('visible', distanceToRumah < proximityThreshold);
 }
 
 updatePosition();
