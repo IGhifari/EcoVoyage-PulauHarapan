@@ -94,7 +94,7 @@ body {
 
 .enter-btn {
   position: absolute;
-  bottom: 55%; /* Sesuaikan nilai ini dengan posisi rumah */
+  top: 10%; /* Sesuaikan nilai ini dengan posisi rumah */
   left: 69%; /* Posisi horizontal di tengah */
   transform: translateX(-50%); /* Membuat tombol benar-benar di tengah */
   padding: 10px 20px;
@@ -192,8 +192,8 @@ body {
 
 .pond-btn {
   position: fixed;
-  bottom: 40px;
-  right: 40px;
+  top: 60%;
+  left: 2%;
   padding: 10px 20px;
   background: linear-gradient(45deg, #3498db, #2980b9);
   color: white;
@@ -255,13 +255,12 @@ body {
 }
 
 
-
 /* ======= PEMBATAS AREA KARAKTER ======= */
 .pembatas {
   position: absolute;
   width: 100%;
-  height: 200px;
-  top: 55%;
+  height: 300px;
+  top: 40%;
   left: 50%;
   transform: translateX(-50%);
   overflow: hidden; /* Mencegah karakter keluar */
@@ -278,3 +277,15 @@ body {
   transition: transform 0.1s linear; /* Efek animasi halus */
 }
 
+.enter-btn.visible, 
+.pond-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+.enter-btn, .pond-btn {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1000;
+  position: absolute;
+}

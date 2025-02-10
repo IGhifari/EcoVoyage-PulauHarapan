@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const player = document.querySelector(".player");
     const pembatas = document.querySelector(".pembatas");
+    const enterBtn = document.querySelector('.enter-btn');
+    const pondBtn = document.querySelector('.pond-btn');
 
     // Jika elemen tidak ditemukan, hentikan eksekusi dan tampilkan error di console
     if (!player || !pembatas) {
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let y = (pembatasRect.height / 2) - (playerRect.height / 2);
 
     // Kecepatan gerakan karakter
-    const speed = 4;
+    const speed = 2;
 
     // Variabel untuk mengontrol pergerakan
     let moveRight = false, moveLeft = false, moveUp = false, moveDown = false;
@@ -46,6 +48,29 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    function checkButtonProximity() {
+        const proximityThreshold = 200; // Jarak dalam pixel
+
+        // Get button positions
+        const enterBtnRect = enterBtn.getBoundingClientRect();
+        const pondBtnRect = pondBtn.getBoundingClientRect();
+        const playerRect = player.getBoundingClientRect();
+
+        // Calculate distances
+        const distanceToEnter = Math.hypot(
+            playerRect.left - enterBtnRect.left,
+            playerRect.top - enterBtnRect.top
+        );
+        const distanceToPond = Math.hypot(
+            playerRect.left - pondBtnRect.left,
+            playerRect.top - pondBtnRect.top
+        );
+
+        // Show/hide buttons based on proximity
+        enterBtn.classList.toggle('visible', distanceToEnter < proximityThreshold);
+        pondBtn.classList.toggle('visible', distanceToPond < proximityThreshold);
+    }
+
     // Fungsi untuk memperbarui posisi karakter
     function updatePosition() {
         // Pastikan pembatas dan karakter tetap ada
@@ -71,6 +96,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // Terapkan posisi baru ke karakter
         player.style.left = `${x}px`;
         player.style.top = `${y}px`;
+
+        // Add button proximity check
+        checkButtonProximity();
 
         // Jalankan animasi
         requestAnimationFrame(updatePosition);
