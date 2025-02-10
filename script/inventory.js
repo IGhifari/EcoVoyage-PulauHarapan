@@ -1,6 +1,6 @@
 // Inisialisasi nilai awal jika belum ada di localStorage
 if (!localStorage.getItem("woodCount")) {
-  localStorage.setItem("woodCount", "0");
+  localStorage.setItem("woodCount", "0");  // Changed from "100" to "0"
 }
 if (!localStorage.getItem("seedCount")) {
   localStorage.setItem("seedCount", "4");
