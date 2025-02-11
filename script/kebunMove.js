@@ -78,8 +78,36 @@ function updatePosition() {
   player.style.left = x + "px";
   player.style.top = y + "px";
 
+  checkButtonProximity();
   requestAnimationFrame(updatePosition); // Jalankan terus fungsi updatePosition
 }
 
 // Jalankan fungsi update posisi
 updatePosition();
+
+function checkButtonProximity() {
+  const player = document.querySelector('.player');
+  const garden2Btn = document.querySelector('.kebun2');
+  
+  if (!player || !garden2Btn) return;
+  
+  const garden2Unlocked = localStorage.getItem("garden2Unlocked") === "true";
+  
+  if (!garden2Unlocked) return;
+
+  const playerRect = player.getBoundingClientRect();
+  const btnRect = garden2Btn.getBoundingClientRect();
+  
+  const distance = Math.hypot(
+      (playerRect.left + playerRect.width/2) - (btnRect.left + btnRect.width/2),
+      (playerRect.top + playerRect.height/2) - (btnRect.top + btnRect.height/2)
+  );
+
+  const proximityThreshold = 200;
+  
+  if (distance < proximityThreshold) {
+      garden2Btn.classList.add('visible');
+  } else {
+      garden2Btn.classList.remove('visible');
+  }
+}

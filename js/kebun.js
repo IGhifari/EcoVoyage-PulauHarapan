@@ -183,3 +183,24 @@ function updateInventoryDisplay() {
   document.getElementById("woodCount").textContent = woodCount;
   document.getElementById("seedCount").textContent = seedCount;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const garden2Button = document.getElementById("garden2Button");
+    const garden2Unlocked = localStorage.getItem("garden2Unlocked") === "true";
+    
+    // Check if garden2 is unlocked
+    if (garden2Unlocked && garden2Button) {
+        garden2Button.style.display = "block";
+    }
+});
+
+// Add this function to check garden2 access
+function checkGarden2Access() {
+    const garden2Unlocked = localStorage.getItem("garden2Unlocked") === "true";
+    
+    if (garden2Unlocked) {
+        window.location.href = 'kebun2.html';
+    } else {
+        alert("Kamu belum membuka Kebun 2! Selesaikan quest untuk membukanya.");
+    }
+}

@@ -14,13 +14,13 @@ function initializeInventory() {
 
 // Fungsi untuk memperbarui tampilan inventory
 function updateInventoryDisplay() {
-  // Get values with default values if null/undefined
-  const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
-  const seedCount = parseInt(localStorage.getItem("seedCount")) || 4;
-  const blueprintCount = parseInt(localStorage.getItem("blueprintCount")) || 0;
-  const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
-  const fishCount = parseInt(localStorage.getItem("fishCount")) || 0;
-  const foodCount = parseInt(localStorage.getItem("foodCount")) || 0;
+  // Get values and ensure they're not negative
+  const woodCount = Math.max(0, parseInt(localStorage.getItem("woodCount")) || 0);
+  const seedCount = Math.max(0, parseInt(localStorage.getItem("seedCount")) || 4);
+  const blueprintCount = Math.max(0, parseInt(localStorage.getItem("blueprintCount")) || 0);
+  const solarPanelCount = Math.max(0, parseInt(localStorage.getItem("solarPanelCount")) || 0);
+  const fishCount = Math.max(0, parseInt(localStorage.getItem("fishCount")) || 0);
+  const foodCount = Math.max(0, parseInt(localStorage.getItem("foodCount")) || 0);
 
   // Update DOM elements if they exist
   if (document.getElementById("woodCount")) {
@@ -42,7 +42,7 @@ function updateInventoryDisplay() {
     document.getElementById("foodCount").textContent = foodCount;
   }
 
-  // Store the parsed values back to localStorage
+  // Store the non-negative values back to localStorage
   localStorage.setItem("woodCount", woodCount.toString());
   localStorage.setItem("seedCount", seedCount.toString());
   localStorage.setItem("blueprintCount", blueprintCount.toString());

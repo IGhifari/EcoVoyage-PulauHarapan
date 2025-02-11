@@ -61,29 +61,33 @@ function toggleQuest() {
 
 // Fungsi untuk craft kapal
 function craftShip() {
-  const woodCount = parseInt(document.getElementById("woodCount").textContent);
-  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
-  const blueprintCount = parseInt(document.getElementById("blueprintCount").textContent);
+    const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
+    const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
+    const blueprintCount = parseInt(localStorage.getItem("blueprintCount")) || 0;
 
-  if (blueprintCount < SHIP_REQUIREMENTS.blueprint) {
-    alert("Kamu membutuhkan Blueprint Kapal! Cari blueprint di dalam rumah.");
-    return;
-  }
+    // Check if has enough resources
+    if (woodCount >= SHIP_REQUIREMENTS.wood && 
+        solarPanelCount >= SHIP_REQUIREMENTS.solarPanel && 
+        blueprintCount >= SHIP_REQUIREMENTS.blueprint) {
 
-  if (woodCount < SHIP_REQUIREMENTS.wood) {
-    alert(`Kayu tidak cukup! Dibutuhkan ${SHIP_REQUIREMENTS.wood} kayu, kamu hanya punya ${woodCount} kayu.`);
-    return;
-  }
+        // Deduct resources
+        const newWoodCount = Math.max(0, woodCount - SHIP_REQUIREMENTS.wood);
+        const newSolarCount = Math.max(0, solarPanelCount - SHIP_REQUIREMENTS.solarPanel);
+        const newBlueprintCount = Math.max(0, blueprintCount - SHIP_REQUIREMENTS.blueprint);
 
-  if (solarPanelCount < SHIP_REQUIREMENTS.solarPanel) {
-    alert(`Panel Surya tidak cukup! Dibutuhkan ${SHIP_REQUIREMENTS.solarPanel} panel, kamu hanya punya ${solarPanelCount} panel.`);
-    return;
-  }
+        // Save new values
+        localStorage.setItem("woodCount", newWoodCount.toString());
+        localStorage.setItem("solarPanelCount", newSolarCount.toString());
+        localStorage.setItem("blueprintCount", newBlueprintCount.toString());
+        localStorage.setItem("shipBuilt", "true");
 
-  const craftBtn = event.target;
-  const progressBar = document.getElementById("shipProgress");
+        // Update display
+        updateInventoryDisplay();
 
-  startCrafting(craftBtn, progressBar, completeCraftShip);
+        alert("Selamat! Kamu berhasil membuat kapal!");
+    } else {
+        alert("Resource tidak mencukupi untuk membuat kapal!");
+    }
 }
 
 function completeCraftShip() {
@@ -403,23 +407,29 @@ function startCrafting(button, progressBar, completeCallback) {
 
 // Fungsi untuk craft mesin kapal
 function craftEngine() {
-  const woodCount = parseInt(document.getElementById("woodCount").textContent);
-  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
+    const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
+    const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
 
-  if (woodCount < ENGINE_REQUIREMENTS.wood) {
-    alert(`Kayu tidak cukup! Dibutuhkan ${ENGINE_REQUIREMENTS.wood} kayu, kamu hanya punya ${woodCount} kayu.`);
-    return;
-  }
+    // Check if has enough resources
+    if (woodCount >= ENGINE_REQUIREMENTS.wood && 
+        solarPanelCount >= ENGINE_REQUIREMENTS.solarPanel) {
 
-  if (solarPanelCount < ENGINE_REQUIREMENTS.solarPanel) {
-    alert(`Panel Surya tidak cukup! Dibutuhkan ${ENGINE_REQUIREMENTS.solarPanel} panel, kamu hanya punya ${solarPanelCount} panel.`);
-    return;
-  }
+        // Deduct resources
+        const newWoodCount = Math.max(0, woodCount - ENGINE_REQUIREMENTS.wood);
+        const newSolarCount = Math.max(0, solarPanelCount - ENGINE_REQUIREMENTS.solarPanel);
 
-  const craftBtn = event.target;
-  const progressBar = document.getElementById("engineProgress");
+        // Save new values
+        localStorage.setItem("woodCount", newWoodCount.toString());
+        localStorage.setItem("solarPanelCount", newSolarCount.toString());
+        localStorage.setItem("engineBuilt", "true");
 
-  startCrafting(craftBtn, progressBar, completeEngineBuilding);
+        // Update display
+        updateInventoryDisplay();
+
+        alert("Mesin berhasil dibuat!");
+    } else {
+        alert("Resource tidak mencukupi untuk membuat mesin!");
+    }
 }
 
 function completeEngineBuilding() {

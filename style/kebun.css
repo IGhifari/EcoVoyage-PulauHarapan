@@ -325,7 +325,34 @@ button:hover {
   position: fixed;
   width: 70%;
   height: 165px;
-  bottom: 0;
+  bottom: 0;;
   z-index: 1;
   left: 6rem;
+}
+
+/* Remove duplicate .kebun2 rules and combine them */
+.kebun2 {
+    position: absolute;
+    left: 90%;/* Changed from left: 90% */
+    top: 40%;  /* Changed from top: 40% */
+    background: #5c3d2e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 100px;
+    cursor: pointer;
+    opacity: 0;
+    height: 40px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+.kebun2:hover {
+    background: #8b4513;
+    transform: translateY(-2px);
+}
+.kebun2.visible {
+    opacity: 1;
+    pointer-events: auto;
 }
