@@ -14,53 +14,17 @@ let trashCollected = 0;
 let score = 0;
 const collectedTrash = [];
 
-// Add these state management functions at the top of the file
-function saveGameState() {
-    const gameState = {
-        trashCollected,
-        score,
-        collectedTrash,
-        isClean: trashCollected === trashCount
-    };
-    localStorage.setItem('kebun2State', JSON.stringify(gameState));
-}
-
-function loadGameState() {
-    const savedState = localStorage.getItem('kebun2State');
-    if (savedState) {
-        const gameState = JSON.parse(savedState);
-        trashCollected = gameState.trashCollected;
-        score = gameState.score;
-        collectedTrash.length = 0;
-        collectedTrash.push(...gameState.collectedTrash);
-        return gameState.isClean;
-    }
-    return false;
-}
+// Add at the top of the file with other variables
+const MINIGAME_COMPLETED_KEY = 'kebun2MinigameCompleted';
 
 /* filepath: /c:/Users/acer/Desktop/gameclevio/GameClevio/js/kebun2.js */
 function createTrash() {
-    const isClean = loadGameState();
+    collectedTrash.length = 0;
     const container = document.getElementById('trash-container');
     const containerRect = container.getBoundingClientRect();
     
     // Clear existing trash
     container.innerHTML = '';
-    
-    if (isClean) {
-        // If area is already clean, just show the completion message
-        showDialog("Area ini sudah bersih dan siap untuk bertani!");
-        updateDisplay();
-        updateCollectedDisplay();
-        return;
-    }
-
-    // If not clean but we have saved state, restore previous state
-    if (trashCollected > 0) {
-        updateDisplay();
-        updateCollectedDisplay();
-        return;
-    }
 
     // Create array with all trash types
     let trashPositions = [];
@@ -71,15 +35,14 @@ function createTrash() {
     const cellWidth = containerRect.width / cols;
     const cellHeight = containerRect.height / rows;
 
-    // Generate positions for remaining trash items
-    const remainingTrash = trashCount - trashCollected;
-    for (let i = 0; i < remainingTrash; i++) {
+    // Generate positions for all 9 trash items
+    for (let i = 0; i < trashCount; i++) {
         const row = Math.floor(i / cols);
         const col = i % cols;
         
         // Add random offset within cell
-        const offsetX = Math.random() * (cellWidth - 80);
-        const offsetY = Math.random() * (cellHeight - 80);
+        const offsetX = Math.random() * (cellWidth - 80); // 80 is trash width
+        const offsetY = Math.random() * (cellHeight - 80); // 80 is trash height
         
         trashPositions.push({
             type: trashTypes[i],
@@ -91,7 +54,7 @@ function createTrash() {
     // Shuffle positions
     trashPositions.sort(() => Math.random() - 0.5);
 
-    // Create trash elements only for remaining trash
+    // Create trash elements
     trashPositions.forEach((position) => {
         const trash = document.createElement('img');
         trash.className = 'trash';
@@ -107,6 +70,29 @@ function createTrash() {
     updateDisplay();
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+    const isCompleted = localStorage.getItem(MINIGAME_COMPLETED_KEY) === 'true';
+
+    if (!isCompleted) {
+        showDialog("Tempat ini penuh dengan sampah... Aku harus membersihkannya dulu sebelum mulai bertani.");
+        setTimeout(createTrash, 5000); // Mulai minigame setelah dialog selesai
+    } else {
+        showDialog("Area kebun ini sudah bersih!");
+        hideMinigameElements();
+    }
+});
+
+function hideMinigameElements() {
+    const trashContainer = document.getElementById('trash-container');
+    const scoreContainer = document.querySelector('.score-container');
+    const collectedContainer = document.querySelector('.collected-trash-container');
+
+    if (trashContainer) trashContainer.style.display = 'none';
+    if (scoreContainer) scoreContainer.style.display = 'none';
+    if (collectedContainer) collectedContainer.style.display = 'none';
+}
+
+
 function collectTrash(trashElement) {
     trashElement.style.animation = 'collect 0.3s ease-out';
     setTimeout(() => {
@@ -114,7 +100,6 @@ function collectTrash(trashElement) {
         trashCollected++;
         score += 10;
         
-        // Add collected trash to array and update display
         collectedTrash.push(trashElement.src);
         updateCollectedDisplay();
         updateDisplay();
@@ -123,10 +108,13 @@ function collectTrash(trashElement) {
             showDialog("Akhirnya bersih! Sekarang aku bisa mulai bertani.");
             score += 50;
             updateDisplay();
+            localStorage.setItem(MINIGAME_COMPLETED_KEY, 'true');
+            
+            // Show coming soon overlay after a delay
+            setTimeout(() => {
+                document.getElementById('comingSoonOverlay').style.display = 'flex';
+            }, 3000);
         }
-
-        // Save state after each collection
-        saveGameState();
     }, 300);
 }
 
@@ -163,25 +151,24 @@ function showDialog(text) {
     }, 3000);
 }
 
-// Add a reset function if needed
-function resetKebun2() {
-    localStorage.removeItem('kebun2State');
-    trashCollected = 0;
-    score = 0;
-    collectedTrash.length = 0;
-    createTrash();
-}
-
-// Initialize the game when the page loads
+// Update the window load event listener
 window.addEventListener('DOMContentLoaded', () => {
-    // Initialize state from localStorage on page load
-    const savedState = localStorage.getItem('kebun2State');
-    if (savedState) {
-        const gameState = JSON.parse(savedState);
-        trashCollected = gameState.trashCollected;
-        score = gameState.score;
-        collectedTrash.length = 0;
-        collectedTrash.push(...gameState.collectedTrash);
+    // Check if minigame has been completed
+    const isCompleted = localStorage.getItem(MINIGAME_COMPLETED_KEY) === 'true';
+    
+    if (!isCompleted) {
+        createTrash();
+    } else {
+        // Show completion message
+        showDialog("Area kebun ini sudah bersih!");
+        // Hide or remove game elements
+        const trashContainer = document.getElementById('trash-container');
+        const scoreContainer = document.querySelector('.score-container');
+        const collectedContainer = document.querySelector('.collected-trash-container');
+        document.getElementById('comingSoonOverlay').style.display = 'flex';
+        
+        if (trashContainer) trashContainer.style.display = 'none';
+        if (scoreContainer) scoreContainer.style.display = 'none';
+        if (collectedContainer) collectedContainer.style.display = 'none';
     }
-    createTrash();
 });

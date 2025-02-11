@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="../style/kebun2.css" />
   </head>
   <body>
-    <audio autoplay loop id="bgMusic">
-      <source src="../asset/sound/game.mp3" type="audio/mpeg">
-  </audio>
+    
     <!-- ...existing code... -->
     <div class="container">
         <!-- Add this after the existing container content -->
@@ -18,7 +16,14 @@
             <p id="dialog-text"></p>
         </div>
         <!-- ...existing code... -->
+        <div class="coming-soon-overlay" id="comingSoonOverlay" style="display: none;">
+          <img src="../asset/Objek/gembok.png" alt="Lock" class="lock-icon">
+          <div class="coming-soon-text">Coming Soon</div>
+      </div>
     </div>
+    <audio autoplay loop id="bgMusic">
+      <source src="../asset/sound/game.mp3" type="audio/mpeg">
+  </audio>
   <div class="particles" id="particles-js"></div>
   <!-- ...existing code... -->
     <div class="container">
@@ -36,7 +41,7 @@
             </div>
         </div>
         <div id="trash-container"></div>
-      <button onclick="window.location.href='kebun.html'" class="back-btn">Kembali</button>
+      <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
 
       <!-- Task Icon -->
       <div class="task-icon" onclick="toggleInventory()">
@@ -80,7 +85,6 @@
     <script src="../script/inventory.js"></script>
     <script src="../js/kebun2.js"></script>
     <script src="../js/hunger.js"></script>
-    <script src="../script/audiogame.js"></script>
     <script src="../script/main.js"></script>
     <script>
 function toggleInventory() {

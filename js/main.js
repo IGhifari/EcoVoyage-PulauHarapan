@@ -35,6 +35,7 @@ function resetGame() {
     localStorage.removeItem("hasEnteredShip");
     localStorage.removeItem("stayedInIsland");
     localStorage.removeItem("waterFilterBuilt");
+    localStorage.removeItem(MINIGAME_COMPLETED_KEY);
 
     alert("Game telah direset! Silakan mulai petualangan baru.");
     window.location.reload();
