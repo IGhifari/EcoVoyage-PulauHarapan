@@ -1,7 +1,13 @@
 const trashTypes = [
-    '../asset/Objek/sampah/29.png',
-    '../asset/objek/sampah/30.png',
-    '../asset/objek/sampah/31.png'
+    '../asset/objek/sampah/29.png', // Botol plastik
+    '../asset/objek/sampah/30.png', // Kaleng
+    '../asset/objek/sampah/31.png', // Kantong plastik
+    '../asset/objek/sampah/32.png', // Kardus
+    '../asset/objek/sampah/33.png', // Kertas
+    '../asset/objek/sampah/34.png', // Gelas plastik
+    '../asset/objek/sampah/35.png', // Styrofoam
+    '../asset/objek/sampah/36.png', // Bungkus snack
+    '../asset/objek/sampah/37.png'  // Botol kaca
 ];
 let trashCount = 9; // Updated to 9 trash items
 let trashCollected = 0;
