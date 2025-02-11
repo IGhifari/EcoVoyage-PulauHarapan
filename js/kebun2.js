@@ -41,6 +41,11 @@ function loadGameState() {
 /* filepath: /c:/Users/acer/Desktop/gameclevio/GameClevio/js/kebun2.js */
 function createTrash() {
     const isClean = loadGameState();
+    const container = document.getElementById('trash-container');
+    const containerRect = container.getBoundingClientRect();
+    
+    // Clear existing trash
+    container.innerHTML = '';
     
     if (isClean) {
         // If area is already clean, just show the completion message
@@ -50,12 +55,12 @@ function createTrash() {
         return;
     }
 
-    collectedTrash.length = 0;
-    const container = document.getElementById('trash-container');
-    const containerRect = container.getBoundingClientRect();
-    
-    // Clear existing trash
-    container.innerHTML = '';
+    // If not clean but we have saved state, restore previous state
+    if (trashCollected > 0) {
+        updateDisplay();
+        updateCollectedDisplay();
+        return;
+    }
 
     // Create array with all trash types
     let trashPositions = [];
@@ -66,14 +71,15 @@ function createTrash() {
     const cellWidth = containerRect.width / cols;
     const cellHeight = containerRect.height / rows;
 
-    // Generate positions for all 9 trash items
-    for (let i = 0; i < trashCount; i++) {
+    // Generate positions for remaining trash items
+    const remainingTrash = trashCount - trashCollected;
+    for (let i = 0; i < remainingTrash; i++) {
         const row = Math.floor(i / cols);
         const col = i % cols;
         
         // Add random offset within cell
-        const offsetX = Math.random() * (cellWidth - 80); // 80 is trash width
-        const offsetY = Math.random() * (cellHeight - 80); // 80 is trash height
+        const offsetX = Math.random() * (cellWidth - 80);
+        const offsetY = Math.random() * (cellHeight - 80);
         
         trashPositions.push({
             type: trashTypes[i],
@@ -85,7 +91,7 @@ function createTrash() {
     // Shuffle positions
     trashPositions.sort(() => Math.random() - 0.5);
 
-    // Create trash elements
+    // Create trash elements only for remaining trash
     trashPositions.forEach((position) => {
         const trash = document.createElement('img');
         trash.className = 'trash';
@@ -167,4 +173,15 @@ function resetKebun2() {
 }
 
 // Initialize the game when the page loads
-window.addEventListener('DOMContentLoaded', createTrash);
+window.addEventListener('DOMContentLoaded', () => {
+    // Initialize state from localStorage on page load
+    const savedState = localStorage.getItem('kebun2State');
+    if (savedState) {
+        const gameState = JSON.parse(savedState);
+        trashCollected = gameState.trashCollected;
+        score = gameState.score;
+        collectedTrash.length = 0;
+        collectedTrash.push(...gameState.collectedTrash);
+    }
+    createTrash();
+});
