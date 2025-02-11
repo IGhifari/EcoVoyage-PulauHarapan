@@ -61,30 +61,43 @@ function toggleQuest() {
 
 // Fungsi untuk craft kapal
 function craftShip() {
+    if (localStorage.getItem("shipBuilt") === "true") {
+        alert("Kapal sudah dibuat! Tidak bisa membuat lagi.");
+        return;
+    }
+
     const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
     const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
     const blueprintCount = parseInt(localStorage.getItem("blueprintCount")) || 0;
 
-    // Check if has enough resources
     if (woodCount >= SHIP_REQUIREMENTS.wood && 
         solarPanelCount >= SHIP_REQUIREMENTS.solarPanel && 
         blueprintCount >= SHIP_REQUIREMENTS.blueprint) {
 
-        // Deduct resources
-        const newWoodCount = Math.max(0, woodCount - SHIP_REQUIREMENTS.wood);
-        const newSolarCount = Math.max(0, solarPanelCount - SHIP_REQUIREMENTS.solarPanel);
-        const newBlueprintCount = Math.max(0, blueprintCount - SHIP_REQUIREMENTS.blueprint);
+        // Start crafting animation
+        const craftBtn = event.target;
+        const progressBar = document.getElementById("shipProgress");
+        
+        startCrafting(craftBtn, progressBar, () => {
+            // Deduct resources
+            localStorage.setItem("woodCount", (woodCount - SHIP_REQUIREMENTS.wood).toString());
+            localStorage.setItem("solarPanelCount", (solarPanelCount - SHIP_REQUIREMENTS.solarPanel).toString());
+            localStorage.setItem("blueprintCount", (blueprintCount - SHIP_REQUIREMENTS.blueprint).toString());
+            localStorage.setItem("shipBuilt", "true");
 
-        // Save new values
-        localStorage.setItem("woodCount", newWoodCount.toString());
-        localStorage.setItem("solarPanelCount", newSolarCount.toString());
-        localStorage.setItem("blueprintCount", newBlueprintCount.toString());
-        localStorage.setItem("shipBuilt", "true");
+            // Update display
+            updateInventoryDisplay();
+            
+            // Update quest status
+            const questItem = document.getElementById("shipQuest");
+            if (questItem) {
+                questItem.classList.add("completed");
+                craftBtn.disabled = true;
+                craftBtn.textContent = "Selesai";
+            }
 
-        // Update display
-        updateInventoryDisplay();
-
-        alert("Selamat! Kamu berhasil membuat kapal!");
+            alert("Selamat! Kamu berhasil membuat kapal!");
+        });
     } else {
         alert("Resource tidak mencukupi untuk membuat kapal!");
     }
@@ -288,23 +301,39 @@ document.addEventListener("click", function (event) {
 
 // Fungsi untuk membangun rumah
 function buildHouse() {
-  const woodCount = parseInt(document.getElementById("woodCount").textContent);
-  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
+    if (localStorage.getItem("houseBuilt") === "true") {
+        alert("Rumah sudah dibuat! Tidak bisa membuat lagi.");
+        return;
+    }
 
-  if (woodCount < HOUSE_REQUIREMENTS.wood) {
-    alert(`Kayu tidak cukup! Dibutuhkan ${HOUSE_REQUIREMENTS.wood} kayu, kamu hanya punya ${woodCount} kayu.`);
-    return;
-  }
+    const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
+    const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
 
-  if (solarPanelCount < HOUSE_REQUIREMENTS.solarPanel) {
-    alert(`Panel Surya tidak cukup! Dibutuhkan ${HOUSE_REQUIREMENTS.solarPanel} panel, kamu hanya punya ${solarPanelCount} panel.`);
-    return;
-  }
+    if (woodCount >= HOUSE_REQUIREMENTS.wood && 
+        solarPanelCount >= HOUSE_REQUIREMENTS.solarPanel) {
 
-  const craftBtn = event.target;
-  const progressBar = document.getElementById("houseProgress");
+        const craftBtn = event.target;
+        const progressBar = document.getElementById("houseProgress");
 
-  startCrafting(craftBtn, progressBar, completeHouseBuilding);
+        startCrafting(craftBtn, progressBar, () => {
+            localStorage.setItem("woodCount", (woodCount - HOUSE_REQUIREMENTS.wood).toString());
+            localStorage.setItem("solarPanelCount", (solarPanelCount - HOUSE_REQUIREMENTS.solarPanel).toString());
+            localStorage.setItem("houseBuilt", "true");
+
+            updateInventoryDisplay();
+
+            const questItem = document.getElementById("houseQuest");
+            if (questItem) {
+                questItem.classList.add("completed");
+                craftBtn.disabled = true;
+                craftBtn.textContent = "Selesai";
+            }
+
+            alert("Selamat! Kamu berhasil membangun rumah!");
+        });
+    } else {
+        alert("Resource tidak mencukupi untuk membangun rumah!");
+    }
 }
 
 function completeHouseBuilding() {
@@ -407,70 +436,103 @@ function startCrafting(button, progressBar, completeCallback) {
 
 // Fungsi untuk craft mesin kapal
 function craftEngine() {
-    const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
-    const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
+  // Cek apakah mesin sudah dibuat
+  if (localStorage.getItem("engineBuilt") === "true") {
+      alert("Mesin Kapal sudah dibuat! Tidak bisa membuat lagi.");
+      return;
+  }
 
-    // Check if has enough resources
-    if (woodCount >= ENGINE_REQUIREMENTS.wood && 
-        solarPanelCount >= ENGINE_REQUIREMENTS.solarPanel) {
+  const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
+  const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
 
-        // Deduct resources
-        const newWoodCount = Math.max(0, woodCount - ENGINE_REQUIREMENTS.wood);
-        const newSolarCount = Math.max(0, solarPanelCount - ENGINE_REQUIREMENTS.solarPanel);
+  // Cek apakah resource mencukupi
+  if (woodCount >= ENGINE_REQUIREMENTS.wood && 
+      solarPanelCount >= ENGINE_REQUIREMENTS.solarPanel) {
 
-        // Save new values
-        localStorage.setItem("woodCount", newWoodCount.toString());
-        localStorage.setItem("solarPanelCount", newSolarCount.toString());
-        localStorage.setItem("engineBuilt", "true");
+      // Kurangi resource
+      const newWoodCount = woodCount - ENGINE_REQUIREMENTS.wood;
+      const newSolarCount = solarPanelCount - ENGINE_REQUIREMENTS.solarPanel;
 
-        // Update display
-        updateInventoryDisplay();
+      // Simpan perubahan ke localStorage
+      localStorage.setItem("woodCount", newWoodCount.toString());
+      localStorage.setItem("solarPanelCount", newSolarCount.toString());
+      localStorage.setItem("engineBuilt", "true"); // Tandai mesin sudah dibuat
 
-        alert("Mesin berhasil dibuat!");
-    } else {
-        alert("Resource tidak mencukupi untuk membuat mesin!");
-    }
+      // Update tampilan
+      updateInventoryDisplay();
+
+      alert("Selamat! Mesin berhasil dibuat!");
+  } else {
+      alert("Resource tidak mencukupi untuk membuat mesin!");
+  }
 }
 
-function completeEngineBuilding() {
-  const woodCount = parseInt(document.getElementById("woodCount").textContent);
-  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
 
+function completeEngineBuilding() {
+  if (localStorage.getItem("engineBuilt") === "true") {
+      alert("Mesin Kapal sudah dibuat! Tidak bisa membuat lagi.");
+      return;
+  }
+
+  const woodCount = parseInt(document.getElementById("woodCount").textContent) || 0;
+  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent) || 0;
+
+  if (woodCount < ENGINE_REQUIREMENTS.wood || solarPanelCount < ENGINE_REQUIREMENTS.solarPanel) {
+      alert("Resource tidak mencukupi untuk membuat mesin!");
+      return;
+  }
+
+  // Kurangi resource
   document.getElementById("woodCount").textContent = woodCount - ENGINE_REQUIREMENTS.wood;
   document.getElementById("solarPanelCount").textContent = solarPanelCount - ENGINE_REQUIREMENTS.solarPanel;
 
+  // Simpan ke localStorage
   localStorage.setItem("engineBuilt", "true");
   localStorage.setItem("woodCount", (woodCount - ENGINE_REQUIREMENTS.wood).toString());
   localStorage.setItem("solarPanelCount", (solarPanelCount - ENGINE_REQUIREMENTS.solarPanel).toString());
 
-  alert("Selamat! Kamu berhasil membuat Mesin Kapal! Sekarang kapalmu bisa berlayar.");
+  alert("Selamat! Kamu berhasil membuat Mesin Kapal!");
 }
+
 
 // Fungsi untuk membuka kebun 2
 function unlockGarden2() {
-  const woodCount = parseInt(document.getElementById("woodCount").textContent);
-  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent);
-  const seedCount = parseInt(document.getElementById("seedCount").textContent);
+    if (localStorage.getItem("garden2Unlocked") === "true") {
+        alert("Kebun 2 sudah dibuka! Tidak bisa membuka lagi.");
+        return;
+    }
 
-  if (woodCount < GARDEN2_REQUIREMENTS.wood) {
-    alert(`Kayu tidak cukup! Dibutuhkan ${GARDEN2_REQUIREMENTS.wood} kayu, kamu hanya punya ${woodCount} kayu.`);
-    return;
-  }
+    const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
+    const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
+    const seedCount = parseInt(localStorage.getItem("seedCount")) || 0;
 
-  if (solarPanelCount < GARDEN2_REQUIREMENTS.solarPanel) {
-    alert(`Panel Surya tidak cukup! Dibutuhkan ${GARDEN2_REQUIREMENTS.solarPanel} panel, kamu hanya punya ${solarPanelCount} panel.`);
-    return;
-  }
+    if (woodCount >= GARDEN2_REQUIREMENTS.wood && 
+        solarPanelCount >= GARDEN2_REQUIREMENTS.solarPanel && 
+        seedCount >= GARDEN2_REQUIREMENTS.seed) {
 
-  if (seedCount < GARDEN2_REQUIREMENTS.seed) {
-    alert(`Benih tidak cukup! Dibutuhkan ${GARDEN2_REQUIREMENTS.seed} benih, kamu hanya punya ${seedCount} benih.`);
-    return;
-  }
+        const craftBtn = event.target;
+        const progressBar = document.getElementById("garden2Progress");
 
-  const craftBtn = event.target;
-  const progressBar = document.getElementById("garden2Progress");
+        startCrafting(craftBtn, progressBar, () => {
+            localStorage.setItem("woodCount", (woodCount - GARDEN2_REQUIREMENTS.wood).toString());
+            localStorage.setItem("solarPanelCount", (solarPanelCount - GARDEN2_REQUIREMENTS.solarPanel).toString());
+            localStorage.setItem("seedCount", (seedCount - GARDEN2_REQUIREMENTS.seed).toString());
+            localStorage.setItem("garden2Unlocked", "true");
 
-  startCrafting(craftBtn, progressBar, completeGarden2Unlock);
+            updateInventoryDisplay();
+
+            const questItem = document.getElementById("garden2Quest");
+            if (questItem) {
+                questItem.classList.add("completed");
+                craftBtn.disabled = true;
+                craftBtn.textContent = "Selesai";
+            }
+
+            alert("Selamat! Kamu berhasil membuka Kebun 2!");
+        });
+    } else {
+        alert("Resource tidak mencukupi untuk membuka Kebun 2!");
+    }
 }
 
 function completeGarden2Unlock() {
