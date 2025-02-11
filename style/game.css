@@ -356,7 +356,6 @@ body {
   margin: 10px 0;
   box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
 }
-
 .guide-step {
   display: flex;
   align-items: center;
@@ -482,7 +481,6 @@ body {
 .guide-icon img {
   width: 30px;
   height: 30px;
-  filter: brightness(0) invert(1);
 }
 
 .guide-icon:hover {

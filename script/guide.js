@@ -1,7 +1,7 @@
 let currentGuideIndex = 0;
 const guideSections = document.querySelectorAll(".guide-section");
 const dots = document.querySelectorAll(".dot");
-const totalSlides = 5;
+const totalSlides = 4;
 
 function showGuide(index) {
     // Hide all sections first

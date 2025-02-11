@@ -1,5 +1,5 @@
 body {
-  background: url(../asset/latar/kebun2.png);
+  background: url(../asset/latar/latarkincirangin.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -28,10 +28,47 @@ body {
   background-color: rgb(128, 26, 26);
   transform: translateY(-2px);
 }
+.hunger-indicator {
+  position: fixed;
+  top: 10px;
+  left: 120px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 15px;
+  border-radius: 20px;
+  z-index: 1000;
+}
 
-/* Copy inventory styles dari kebun.css */
+.hunger-indicator img {
+  width: 24px;
+  height: 24px;
+}
+
+.hunger-bar {
+  width: 100px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hunger-timer {
+  height: 100%;
+  width: 100%;
+  background: #27ae60;
+  transition: width 1s linear, background-color 0.5s ease;
+}
+
+.hunger-text {
+  color: white;
+  margin-right: 10px;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+}
+/* Inventory Styling - Updated to match game.css */
 .inventory {
-  display: none;
   background: rgba(255, 255, 255, 0.9);
   border: 3px solid #8b4513;
   border-radius: 15px;
@@ -42,11 +79,77 @@ body {
   top: 80px;
   right: 20px;
   z-index: 999;
+  display: none;
 }
 
 .inventory.show {
   display: block;
   animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.inventory h1 {
+  color: #5c3d2e;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #8b4513;
+  padding-bottom: 10px;
+}
+
+.inventory-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  background: #f5deb3;
+  border: 2px solid #8b4513;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  width: auto;
+  margin: 0;
+}
+
+.item:hover {
+  transform: scale(1.05);
+  background: #deb887;
+}
+
+.item img {
+  width: 25px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.item p {
+  margin: 0;
+  color: #5c3d2e;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.item span {
+  color: #8b4513;
+  font-size: 18px;
 }
 
 .kebundalem2 {
@@ -55,7 +158,7 @@ body {
   cursor: pointer;
 }
 
-/* Task icon styles */
+/* Task Icon Styling */
 .task-icon {
   position: fixed;
   top: 20px;
@@ -82,16 +185,6 @@ body {
   background: #5c3d2e;
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 .hunger-text {
   color: white;
   margin-right: 10px;

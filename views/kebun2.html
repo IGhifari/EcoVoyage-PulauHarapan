@@ -13,13 +13,19 @@
   <div class="particles" id="particles-js"></div>
   <!-- ...existing code... -->
     <div class="container">
-      <button onclick="window.location.href='kebun.html'" class="back-btn">Kembali ke Kebun 1</button>
+      <button onclick="window.location.href='game.html'" class="back-btn">Kembali</button>
 
       <!-- Task Icon -->
       <div class="task-icon" onclick="toggleInventory()">
         <img src="../asset/icon/task.png" alt="Task" />
       </div>
-
+      <div class="hunger-indicator">
+            <span class="hunger-text">Energi</span>
+            <img src="../asset/icon/eat.png" alt="Hunger" />
+            <div class="hunger-bar">
+        <div class="hunger-timer" id="hungerTimer"></div>
+      </div>
+    </div>
       <!-- Inventory -->
       <div class="inventory" id="inventory">
         <h1>Inventory</h1>
@@ -33,7 +39,7 @@
             <p>Benih: <span id="seedCount">4</span></p>
           </div>
           <div class="item">
-            <img src="../asset/icon/blueprint.png" alt="" />
+            <img src="../asset/icon/blueprint.PNG" alt="" />
             <p>Blueprint: <span id="blueprintCount">0</span></p>
           </div>
           <div class="item">
@@ -47,22 +53,20 @@
         </div>
       </div>
 
-      <div class="kebundalem2" onclick="tanam(event)"></div>
     </div>
     <script src="../script/inventory.js"></script>
     <script src="../js/kebun2.js"></script>
+    <script src="../js/hunger.js"></script>
     <script>
-      window.addEventListener('DOMContentLoaded', function() {
-    const bgMusic = document.getElementById('bgMusic');
-    bgMusic.volume = 0.3; // Set volume to 30%
-    
-    // Handle autoplay restrictions
-    document.addEventListener('click', function() {
-        bgMusic.play().catch(function(error) {
-            console.log("Audio play failed:", error);
-        });
-    }, { once: true });
-});
+function toggleInventory() {
+    const inventory = document.getElementById("inventory");
+    if (inventory.classList.contains("show")) {
+        inventory.classList.remove("show");
+    } else {
+        inventory.classList.add("show");
+        updateInventoryDisplay(); // Add this to update inventory when opened
+    }
+}
     </script>
   </body>
 </html>

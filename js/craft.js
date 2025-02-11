@@ -104,7 +104,15 @@ function completeCraftShip() {
 
   alert("Selamat! Kamu berhasil membuat kapal!");
 }
+function completeCraftShip() {
+  // ...existing code...
+  localStorage.setItem("shipBuilt", "true");
+  localStorage.setItem("woodCount", (woodCount - SHIP_REQUIREMENTS.wood).toString());
+  localStorage.setItem("solarPanelCount", (solarPanelCount - SHIP_REQUIREMENTS.solarPanel).toString());
+  localStorage.setItem("blueprintCount", (blueprintCount - SHIP_REQUIREMENTS.blueprint).toString());
 
+  alert("Selamat! Kamu berhasil membuat kapal!");// Redirect to rumah.html
+}
 // Fungsi untuk craft panel surya
 function craftSolar() {
   const woodCount = parseInt(document.getElementById("woodCount").textContent);
@@ -237,6 +245,16 @@ document.addEventListener("DOMContentLoaded", () => {
     waterFilterQuest.classList.add("completed");
     waterFilterQuest.querySelector(".craft-btn").disabled = true;
     waterFilterQuest.querySelector(".craft-btn").textContent = "Selesai";
+  }
+
+  // Check water filter status
+  const waterFilterProgress = document.getElementById("waterFilterProgress");
+  const waterFilterBtn = document.querySelector("#waterFilterCraft .craft-btn");
+
+  if (waterFilterBuilt && waterFilterProgress && waterFilterBtn) {
+    waterFilterProgress.style.width = "100%";
+    waterFilterBtn.disabled = true;
+    waterFilterBtn.textContent = "Selesai";
   }
 
   checkAvailableQuests();

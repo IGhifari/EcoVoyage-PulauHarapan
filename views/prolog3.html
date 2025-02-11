@@ -8,9 +8,6 @@
 </head>
 <body>
     <body>
-        <audio id="bgMusic" loop>
-            <source src="../asset/sound/birds-in-the-morning-24614.mp3" type="audio/mpeg">
-        </audio>
         <!-- ...existing code... -->
     <div class="background-layer">
         <img src="../asset/latar/pulau.jpg" alt="pulau" class="island">
@@ -45,19 +42,6 @@
         bgMusic.volume = 0.3; // Set volume to 30%
         
         // Handle autoplay restrictions
-        function tryPlayMusic() {
-            bgMusic.play().catch(function(error) {
-                console.log("Audio play failed, retrying on user interaction");
-            });
-        }
-        
-        // Try to play on page load
-        tryPlayMusic();
-        
-        // Try to play on first user interaction
-        document.addEventListener('click', function() {
-            tryPlayMusic();
-        }, { once: true });
     });</script>
 </body>
 </html> 

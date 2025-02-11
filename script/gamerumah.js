@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let y = (pembatasRect.height / 2) - (playerRect.height / 2);
 
     // Kecepatan gerakan karakter
-    const speed = 5;
+    const speed = 3;
 
     // Variabel untuk mengontrol pergerakan
     let moveRight = false, moveLeft = false, moveUp = false, moveDown = false;

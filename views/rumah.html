@@ -137,6 +137,32 @@
       function enterKapal() {
         window.location.href = "dalamkapal.html"; // Halaman baru untuk dalam kapal
       }
+      document.addEventListener("DOMContentLoaded", function() {
+    checkKapalStatus(); // Check ship status on page load
+    
+    // ...existing DOMContentLoaded code...
+});
+function checkKapalStatus() {
+    const shipBuilt = localStorage.getItem("shipBuilt") === "true";
+    const kapalImage = document.getElementById("kapalImage");
+    const enterKapalBtn = document.getElementById("enterKapalBtn");
+
+    if (shipBuilt && kapalImage) {
+        kapalImage.src = "../asset/Objek/kapal.png";
+        if (enterKapalBtn) {
+            enterKapalBtn.style.display = "block";
+        }
+        console.log("Ship is built, updating image"); // Debug log
+    } else {
+        if (kapalImage) {
+            kapalImage.src = "../asset/Objek/reruntuhankapal.png";
+        }
+        if (enterKapalBtn) {
+            enterKapalBtn.style.display = "none";
+        }
+        console.log("Ship is not built yet"); // Debug log
+    }
+}
     </script> 
   </body>
 </html>
