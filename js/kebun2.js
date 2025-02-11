@@ -14,27 +14,56 @@ let trashCollected = 0;
 let score = 0;
 const collectedTrash = [];
 
+/* filepath: /c:/Users/acer/Desktop/gameclevio/GameClevio/js/kebun2.js */
 function createTrash() {
-    collectedTrash.length = 0; // Reset collected trash array
+    collectedTrash.length = 0;
     const container = document.getElementById('trash-container');
+    const containerRect = container.getBoundingClientRect();
     
     // Clear existing trash
     container.innerHTML = '';
 
+    // Create array with all trash types
+    let trashPositions = [];
+    
+    // Calculate grid positions
+    const cols = 3;
+    const rows = 3;
+    const cellWidth = containerRect.width / cols;
+    const cellHeight = containerRect.height / rows;
+
+    // Generate positions for all 9 trash items
     for (let i = 0; i < trashCount; i++) {
+        const row = Math.floor(i / cols);
+        const col = i % cols;
+        
+        // Add random offset within cell
+        const offsetX = Math.random() * (cellWidth - 80); // 80 is trash width
+        const offsetY = Math.random() * (cellHeight - 80); // 80 is trash height
+        
+        trashPositions.push({
+            type: trashTypes[i],
+            x: (col * cellWidth) + offsetX,
+            y: (row * cellHeight) + offsetY
+        });
+    }
+
+    // Shuffle positions
+    trashPositions.sort(() => Math.random() - 0.5);
+
+    // Create trash elements
+    trashPositions.forEach((position) => {
         const trash = document.createElement('img');
         trash.className = 'trash';
-        trash.src = trashTypes[Math.floor(Math.random() * trashTypes.length)];
+        trash.src = position.type;
         
-        // Random position within container bounds - keep trash near ground
-        const x = Math.random() * (900) + 50; // container width - trash width
-        const y = Math.random() * (800) + 50; // Reduced height range to keep trash near ground
-        trash.style.left = x + 'px';
-        trash.style.top = y + 'px';
+        trash.style.left = position.x + 'px';
+        trash.style.top = position.y + 'px';
         
         trash.addEventListener('click', () => collectTrash(trash));
         container.appendChild(trash);
-    }
+    });
+    
     updateDisplay();
 }
 
