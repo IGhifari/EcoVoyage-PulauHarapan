@@ -195,11 +195,11 @@ body {
 /* Add at the end of the file */
 .trash {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   cursor: pointer;
   transition: transform 0.3s ease;
-  z-index: 10;
+  z-index: 110;
   animation: spawn 0.5s ease-out;
 }
 
@@ -328,4 +328,17 @@ body {
         transform: scale(1);
         opacity: 1;
     }
+}
+
+.trash-container{
+    position: absolute;
+    bottom: 100px;    /* Distance from bottom of screen */
+    left: 50%;        /* Center horizontally */ /* Center adjustment */
+    width: 800px;     /* Container width */
+    height: 10px;    /* Container height */
+    background: rgba(139, 69, 19, 0.1); /* Semi-transparent background */
+    z-index: 100;     /* Layer ordering */
+    display: flex;
+    align-items: center;
+    justify-content: center/* Rounded only top corners */
 }

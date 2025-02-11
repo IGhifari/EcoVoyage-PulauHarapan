@@ -17,17 +17,18 @@ const collectedTrash = [];
 function createTrash() {
     collectedTrash.length = 0; // Reset collected trash array
     const container = document.getElementById('trash-container');
-    const containerRect = container.getBoundingClientRect();
+    
+    // Clear existing trash
+    container.innerHTML = '';
 
     for (let i = 0; i < trashCount; i++) {
         const trash = document.createElement('img');
         trash.className = 'trash';
         trash.src = trashTypes[Math.floor(Math.random() * trashTypes.length)];
         
-        // Random position within the container
-        const x = Math.random() * (containerRect.width - 100) + 50;
-        const y = Math.random() * (containerRect.height - 100) + 50;
-        
+        // Random position within container bounds - keep trash near ground
+        const x = Math.random() * (900) + 50; // container width - trash width
+        const y = Math.random() * (800) + 50; // Reduced height range to keep trash near ground
         trash.style.left = x + 'px';
         trash.style.top = y + 'px';
         
