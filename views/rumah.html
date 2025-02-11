@@ -78,6 +78,7 @@
     <script src="../script/inventory.js"></script>
     <script src="../js/hunger.js"></script>
     <script src="../script/gamerumah.js" defer></script>
+    <script src="../script/audiogame.js"></script>
     <script>
       // Fungsi toggle inventory
       function toggleInventory() {
@@ -136,23 +137,6 @@
       function enterKapal() {
         window.location.href = "dalamkapal.html"; // Halaman baru untuk dalam kapal
       }
-
-      // Panggil checkKapalStatus saat halaman dimuat
-      document.addEventListener("DOMContentLoaded", function () {
-        checkKapalStatus();
-        updateInventoryDisplay();
-      })
-      ;window.addEventListener('DOMContentLoaded', function() {
-    const bgMusic = document.getElementById('bgMusic');
-    bgMusic.volume = 0.3; // Set volume to 30%
-    
-    // Handle autoplay restrictions
-    document.addEventListener('click', function() {
-        bgMusic.play().catch(function(error) {
-            console.log("Audio play failed:", error);
-        });
-    }, { once: true });
-});
     </script> 
   </body>
 </html>

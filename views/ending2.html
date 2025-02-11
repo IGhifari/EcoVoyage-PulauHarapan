@@ -8,28 +8,18 @@
     <link rel="stylesheet" href="../style/creditScene.css" />
   </head>
   <body>
+    <audio autoplay loop id="bgMusic">
+      <source src="../asset/sound/ending.mp3" type="audio/mpeg">
+   </audio>
     <div class="container">
       <div class="dialog-box" id="dialogBox" onclick="nextDialog()">
         <div class="character-name" id="characterName"></div>
         <div class="dialog-text" id="dialogText"></div>
         <div class="dialog-hint" style="cursor: pointer;">Klik untuk melanjutkan...</div>
       </div>
-      <audio id="bgMusic" src="../asset/sound/creditscene.mp3"  loop></audio>
+      
     </div>
     <script src="../js/dialogending2.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const bgMusic = document.getElementById("bgMusic");
-    
-        // Cek apakah musik sudah diputar sebelumnya dari localStorage
-        if (localStorage.getItem('audioPlayed')) {
-          bgMusic.play().then(() => {
-            console.log("Music is continuing.");
-          }).catch(error => {
-            console.log("Autoplay diblokir:", error);
-          });
-        }
-      });
-    </script>
+    <script src="../script/audioending.js"></script>
   </body>
 </html>

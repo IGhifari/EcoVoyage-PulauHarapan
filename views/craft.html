@@ -161,6 +161,7 @@
     <script src="../script/inventory.js"></script>
     <script src="../js/craft.js"></script>
     <script src="../js/hunger.js"></script>
+    <script src="../script/audiogame.js"></script>
     <script>
       // Fungsi untuk toggle inventory
       function toggleInventory() {
@@ -181,23 +182,7 @@
         }
       });
 
-      // Inisialisasi
-      document.addEventListener("DOMContentLoaded", function () {
-        updateInventoryDisplay();
-        document.getElementById("inventory").classList.remove("show");
-      });
-
-      window.addEventListener('DOMContentLoaded', function() {
-    const bgMusic = document.getElementById('bgMusic');
-    bgMusic.volume = 0.3; // Set volume to 30%
-    
-    // Handle autoplay restrictions
-    document.addEventListener('click', function() {
-        bgMusic.play().catch(function(error) {
-            console.log("Audio play failed:", error);
-        });
-    }, { once: true });
-});
+     
     </script>
   </body>
 </html>
