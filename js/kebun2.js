@@ -14,8 +14,42 @@ let trashCollected = 0;
 let score = 0;
 const collectedTrash = [];
 
+// Add these state management functions at the top of the file
+function saveGameState() {
+    const gameState = {
+        trashCollected,
+        score,
+        collectedTrash,
+        isClean: trashCollected === trashCount
+    };
+    localStorage.setItem('kebun2State', JSON.stringify(gameState));
+}
+
+function loadGameState() {
+    const savedState = localStorage.getItem('kebun2State');
+    if (savedState) {
+        const gameState = JSON.parse(savedState);
+        trashCollected = gameState.trashCollected;
+        score = gameState.score;
+        collectedTrash.length = 0;
+        collectedTrash.push(...gameState.collectedTrash);
+        return gameState.isClean;
+    }
+    return false;
+}
+
 /* filepath: /c:/Users/acer/Desktop/gameclevio/GameClevio/js/kebun2.js */
 function createTrash() {
+    const isClean = loadGameState();
+    
+    if (isClean) {
+        // If area is already clean, just show the completion message
+        showDialog("Area ini sudah bersih dan siap untuk bertani!");
+        updateDisplay();
+        updateCollectedDisplay();
+        return;
+    }
+
     collectedTrash.length = 0;
     const container = document.getElementById('trash-container');
     const containerRect = container.getBoundingClientRect();
@@ -84,6 +118,9 @@ function collectTrash(trashElement) {
             score += 50;
             updateDisplay();
         }
+
+        // Save state after each collection
+        saveGameState();
     }, 300);
 }
 
@@ -118,6 +155,15 @@ function showDialog(text) {
     setTimeout(() => {
         dialogBox.classList.add('hidden');
     }, 3000);
+}
+
+// Add a reset function if needed
+function resetKebun2() {
+    localStorage.removeItem('kebun2State');
+    trashCollected = 0;
+    score = 0;
+    collectedTrash.length = 0;
+    createTrash();
 }
 
 // Initialize the game when the page loads
