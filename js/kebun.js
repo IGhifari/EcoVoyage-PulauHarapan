@@ -1,6 +1,3 @@
-// Add at the top of the file
-const KEBUN_GUIDE_SHOWN = 'kebunGuideShown';
-
 // Variabel untuk menyimpan pohon yang sedang tumbuh
 let growingTrees = [];
 
