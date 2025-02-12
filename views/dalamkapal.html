@@ -104,6 +104,13 @@
 
       document.addEventListener("DOMContentLoaded", function () {
         // Set flag bahwa player sudah masuk kapal
+        const hasShownEngineQuest = localStorage.getItem("hasShownEngineQuest");
+        
+        if (!hasShownEngineQuest) {
+            alert("Quest mesin kapal telah terbuka di halaman craft!, untuk menjalankan kapal diperlukannya mesin kapal");
+            localStorage.setItem("hasShownEngineQuest", "true");
+        }
+        
         localStorage.setItem("hasEnteredShip", "true");
 
         // Check mesin
@@ -111,7 +118,7 @@
         const sailButton = document.getElementById("sailButton");
 
         if (engineBuilt) {
-          sailButton.style.display = "block";
+            sailButton.style.display = "block";
         }
 
         updateInventoryDisplay();
@@ -121,10 +128,10 @@
         const engineBuilt = localStorage.getItem("engineBuilt") === "true";
 
         if (!engineBuilt) {
-          alert("Kapal belum bisa berlayar! Kamu harus membuat mesin kapal terlebih dahulu di halaman craft.");
+          alert("Quest mesin kapal telah terbuka di halaman craft!, untuk menjalankan kapal diperlukannya mesin kapal");
           return;
         }
-
+        
         // Mulai dialog awal
         startDialog(texts);
       }
