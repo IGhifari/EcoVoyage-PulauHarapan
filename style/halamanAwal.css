@@ -124,10 +124,10 @@ button a {
   padding-bottom: 10px;
 }
 
-.about-header h1 {
+.about-header h2 {
   color: #4caf50;
   margin: 0;
-  font-size: 2.2em;
+  font-size: 2em;
   text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
 }
 
