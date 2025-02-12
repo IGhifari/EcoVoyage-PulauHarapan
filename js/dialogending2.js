@@ -99,7 +99,7 @@ function showCredits() {
     { type: 'role', text: 'Art & Design' },
     { type: 'name', text: 'Tim Pengembang SMKN 1 CIBINONG' },
     { type: 'role', text: 'Sound Design' },
-    { type: 'name', text: 'Music: Adventure by Alexander Nakarada (www.creatorchords.com)Licensed under Creative Commons BY Attribution 4.0 Licensehttps://creativecommons.org/licenses/by/4.0/' },
+    { type: 'name', text: 'Music: by Alexander Nakarada (www.creatorchords.com)Licensed under Creative Commons BY Attribution 4.0 Licensehttps://creativecommons.org/licenses/by/4.0/' },
     { type: 'special', text: 'Terima Kasih Telah Bermain!' }
   ];
 
