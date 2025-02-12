@@ -9,13 +9,14 @@ const trashTypes = [
     '../asset/objek/sampah/36.png', // Bungkus snack
     '../asset/objek/sampah/37.png'  // Botol kaca
 ];
-let trashCount = 9; // Updated to 9 trash items
+let trashCount = 9;     // Updated to 9 trash items
 let trashCollected = 0;
 let score = 0;
 const collectedTrash = [];
 
 // Add at the top of the file with other variables
 const MINIGAME_COMPLETED_KEY = 'kebun2MinigameCompleted';
+let isDialogVisible = true; // Start with dialog visible
 
 /* filepath: /c:/Users/acer/Desktop/gameclevio/GameClevio/js/kebun2.js */
 function createTrash() {
@@ -75,7 +76,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (!isCompleted) {
         showDialog("Tempat ini penuh dengan sampah... Aku harus membersihkannya dulu sebelum mulai bertani.");
-        setTimeout(createTrash, 5000); // Mulai minigame setelah dialog selesai
+        setTimeout(() => {
+            createTrash();
+            // Add slight delay after trash creation before enabling collection
+            setTimeout(() => {
+                isDialogVisible = false;
+            }, 3000);
+        }, 2000);
     } else {
         showDialog("Area kebun ini sudah bersih!");
         hideMinigameElements();
@@ -94,6 +101,11 @@ function hideMinigameElements() {
 
 
 function collectTrash(trashElement) {
+    // Prevent collection while dialog is visible
+    if (isDialogVisible) {
+        return;
+    }
+    
     trashElement.style.animation = 'collect 0.3s ease-out';
     setTimeout(() => {
         trashElement.remove();
@@ -140,14 +152,17 @@ function updateCollectedDisplay() {
     });
 }
 
+// Update the showDialog function
 function showDialog(text) {
     const dialogBox = document.getElementById('dialog-box');
     const dialogText = document.getElementById('dialog-text');
     dialogText.textContent = text;
     dialogBox.classList.remove('hidden');
+    isDialogVisible = true;
     
     setTimeout(() => {
         dialogBox.classList.add('hidden');
+        isDialogVisible = false;
     }, 3000);
 }
 
