@@ -132,17 +132,34 @@ function completeCraftShip() {
 }
 // Fungsi untuk craft panel surya
 function craftSolar() {
-  const woodCount = parseInt(document.getElementById("woodCount").textContent);
+    const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
 
-  if (woodCount < SOLAR_REQUIREMENTS.wood) {
-    alert(`Kayu tidak cukup! Dibutuhkan ${SOLAR_REQUIREMENTS.wood} kayu, kamu hanya punya ${woodCount} kayu.`);
-    return;
-  }
+    if (woodCount >= SOLAR_REQUIREMENTS.wood) {
+        const craftBtn = event.target;
+        const progressBar = document.getElementById("solarProgress");
 
-  const craftBtn = event.target;
-  const progressBar = document.getElementById("solarProgress");
+        // Start crafting animation
+        startCrafting(craftBtn, progressBar, () => {
+            // Deduct wood and add solar panel
+            const newWoodCount = woodCount - SOLAR_REQUIREMENTS.wood;
+            const currentSolarPanels = parseInt(localStorage.getItem("solarPanelCount")) || 0;
+            
+            localStorage.setItem("woodCount", newWoodCount.toString());
+            localStorage.setItem("solarPanelCount", (currentSolarPanels + 1).toString());
 
-  startCrafting(craftBtn, progressBar, completeCraftSolar);
+            // Update display
+            updateInventoryDisplay();
+
+            // Reset button to allow crafting again
+            craftBtn.disabled = false;
+            craftBtn.textContent = "Craft";
+            progressBar.style.width = "0%";
+
+            alert("Panel Surya berhasil dibuat!");
+        });
+    } else {
+        alert(`Kayu tidak cukup! Dibutuhkan ${SOLAR_REQUIREMENTS.wood} kayu.`);
+    }
 }
 
 function completeCraftSolar() {
@@ -401,7 +418,7 @@ function resetAllQuests() {
     const garden2Quest = document.getElementById("garden2Quest");
 
     if (engineQuest) engineQuest.style.display = "none";
-    if (garden2Quest) garden2Quest.style.display = "none";
+    if (garden2Quest) engineQuest.style.display = "none";
 
     // Reset status menetap di pulau
     localStorage.removeItem("stayedInIsland");
@@ -469,31 +486,43 @@ function craftEngine() {
 
 
 function completeEngineBuilding() {
-  if (localStorage.getItem("engineBuilt") === "true") {
-      alert("Mesin Kapal sudah dibuat! Tidak bisa membuat lagi.");
-      return;
-  }
+    if (localStorage.getItem("engineBuilt") === "true") {
+        alert("Mesin Kapal sudah dibuat! Tidak bisa membuat lagi.");
+        return;
+    }
 
-  const woodCount = parseInt(document.getElementById("woodCount").textContent) || 0;
-  const solarPanelCount = parseInt(document.getElementById("solarPanelCount").textContent) || 0;
+    const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
+    const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
 
-  if (woodCount < ENGINE_REQUIREMENTS.wood || solarPanelCount < ENGINE_REQUIREMENTS.solarPanel) {
-      alert("Resource tidak mencukupi untuk membuat mesin!");
-      return;
-  }
+    if (woodCount >= ENGINE_REQUIREMENTS.wood && 
+        solarPanelCount >= ENGINE_REQUIREMENTS.solarPanel) {
 
-  // Kurangi resource
-  document.getElementById("woodCount").textContent = woodCount - ENGINE_REQUIREMENTS.wood;
-  document.getElementById("solarPanelCount").textContent = solarPanelCount - ENGINE_REQUIREMENTS.solarPanel;
+        const craftBtn = event.target;
+        const progressBar = document.getElementById("engineProgress");
 
-  // Simpan ke localStorage
-  localStorage.setItem("engineBuilt", "true");
-  localStorage.setItem("woodCount", (woodCount - ENGINE_REQUIREMENTS.wood).toString());
-  localStorage.setItem("solarPanelCount", (solarPanelCount - ENGINE_REQUIREMENTS.solarPanel).toString());
+        // Start crafting animation
+        startCrafting(craftBtn, progressBar, () => {
+            // Deduct resources
+            localStorage.setItem("woodCount", (woodCount - ENGINE_REQUIREMENTS.wood).toString());
+            localStorage.setItem("solarPanelCount", (solarPanelCount - ENGINE_REQUIREMENTS.solarPanel).toString());
+            localStorage.setItem("engineBuilt", "true");
 
-  alert("Selamat! Kamu berhasil membuat Mesin Kapal!");
+            // Update display
+            updateInventoryDisplay();
+
+            const questItem = document.getElementById("engineQuest");
+            if (questItem) {
+                questItem.classList.add("completed");
+                craftBtn.disabled = true;
+                craftBtn.textContent = "Selesai";
+            }
+
+            alert("Selamat! Kamu berhasil membuat Mesin Kapal!");
+        });
+    } else {
+        alert("Resource tidak mencukupi untuk membuat mesin kapal!");
+    }
 }
-
 
 // Fungsi untuk membuka kebun 2
 function unlockGarden2() {
@@ -609,4 +638,61 @@ function checkAvailableQuests() {
   if (garden2Quest) {
     garden2Quest.style.display = stayedInIsland ? "block" : "none";
   }
+}
+
+function buildWaterFilter() {
+    const woodCount = parseInt(localStorage.getItem("woodCount")) || 0;
+    const fishCount = parseInt(localStorage.getItem("fishCount")) || 0;
+    const solarPanelCount = parseInt(localStorage.getItem("solarPanelCount")) || 0;
+
+    if (woodCount >= WATER_FILTER_REQUIREMENTS.wood && 
+        fishCount >= WATER_FILTER_REQUIREMENTS.fish && 
+        solarPanelCount >= WATER_FILTER_REQUIREMENTS.solarPanel) {
+
+        const craftBtn = event.target;
+        const progressBar = document.getElementById("waterFilterProgress");
+
+        // Start crafting animation
+        startCrafting(craftBtn, progressBar, () => {
+            // Deduct resources
+            localStorage.setItem("woodCount", (woodCount - WATER_FILTER_REQUIREMENTS.wood).toString());
+            localStorage.setItem("fishCount", (fishCount - WATER_FILTER_REQUIREMENTS.fish).toString());
+            localStorage.setItem("solarPanelCount", (solarPanelCount - WATER_FILTER_REQUIREMENTS.solarPanel).toString());
+            localStorage.setItem("waterFilterBuilt", "true");
+
+            // Update display
+            updateInventoryDisplay();
+
+            const questItem = document.getElementById("waterFilterCraft");
+            if (questItem) {
+                questItem.classList.add("completed");
+                craftBtn.disabled = true;
+                craftBtn.textContent = "Selesai";
+            }
+
+            alert("Sistem filtrasi air berhasil dibangun!");
+        });
+    } else {
+        alert("Resource tidak mencukupi untuk membangun sistem filtrasi air!");
+    }
+}
+
+function startCrafting(button, progressBar, callback) {
+    button.disabled = true;
+    button.textContent = "Membangun...";
+    
+    let progress = 0;
+    const duration = 3000; // 3 seconds
+    const interval = 30; // Update every 30ms
+    const increment = (interval / duration) * 100;
+
+    const animation = setInterval(() => {
+        progress += increment;
+        progressBar.style.width = `${Math.min(progress, 100)}%`;
+
+        if (progress >= 100) {
+            clearInterval(animation);
+            callback();
+        }
+    }, interval);
 }
