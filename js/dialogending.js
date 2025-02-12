@@ -29,7 +29,7 @@ class TypeWriter {
 }
 
 const dialogs = [
-  { name: "Yanto", text: "Aku… aku benar-benar sudah pulang." },
+  { name: "Yanto", text: "Aku… aku benar-benar sudah pulang. Namun desa ini masih saja belum berubah" },
   { name: "Narator", text: "Dari kejauhan, seorang pria paruh baya dengan tubuh tegap berjalan mendekat. Matanya membelalak, seakan tak percaya dengan apa yang dilihatnya." },
   { name: "Ayah", text: "Yanto…? Apakah ini benar-benar kau?" },
   { name: "Narator", text: "Yanto terpaku sejenak, sebelum akhirnya langkahnya berlari menuju ayahnya. Mereka bertemu di tengah, dan sang ayah langsung merengkuh Yanto dalam pelukan erat." },
@@ -37,6 +37,7 @@ const dialogs = [
   { name: "Narator", text: "Ayahnya menghela napas panjang, berusaha menahan emosi, tapi Yanto bisa merasakan genggaman tangan yang erat di pundaknya." },
   { name: "Ayah", text: "Aku pikir… aku sudah kehilanganmu, Nak. Tapi lihatlah kau sekarang… kau kembali dengan selamat."},
   { name: "Narator", text: "Penduduk desa mulai berdatangan, wajah mereka penuh keterkejutan dan kebahagiaan."},
+  { name: "Yanto", text: "Sepertinya aku harus merubah lingkungan disini" },
 ];
 
 let currentDialog = 0;
