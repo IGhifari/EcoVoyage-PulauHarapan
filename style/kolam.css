@@ -308,6 +308,16 @@ body {
   font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 1px;
+  position: relative;
+  min-width: 150px;
+}
+
+.prev-btn {
+  visibility: visible; /* Will be controlled by JavaScript */
+}
+
+.next-btn {
+  visibility: visible; /* Will be controlled by JavaScript */
 }
 
 .nav-button:hover {
@@ -373,6 +383,16 @@ body {
 
 .close-guide:hover {
   transform: scale(1.2);
+}
+
+.guide-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #f5deb3;
+  padding-top: 20px;
+  border-top: 2px solid #8B4513;
 }
 
 .guide-section {

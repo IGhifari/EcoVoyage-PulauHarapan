@@ -1,3 +1,6 @@
+// Add at the top of the file
+const KEBUN_GUIDE_SHOWN = 'kebunGuideShown';
+
 // Variabel untuk menyimpan pohon yang sedang tumbuh
 let growingTrees = [];
 
@@ -204,41 +207,35 @@ function checkGarden2Access() {
         alert("Kamu belum membuka Kebun 2! Selesaikan quest untuk membukanya.");
     }
 }
-
-let currentGuide = 0;
-const totalGuides = 3;
+// Guide functionality
+let currentGuideIndex = 0;
 
 function toggleGuide() {
     const guideContainer = document.getElementById('guideContainer');
-    guideContainer.style.display = guideContainer.style.display === 'block' ? 'none' : 'block';
+    guideContainer.style.display = guideContainer.style.display === 'flex' ? 'none' : 'flex';
 }
 
 function showGuide(index) {
-    currentGuide = index;
-    updateGuideDisplay();
+    const sections = document.querySelectorAll('.guide-section');
+    const dots = document.querySelectorAll('.dot');
+    
+    sections.forEach(section => section.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    sections[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentGuideIndex = index;
 }
 
 function nextGuide() {
-    currentGuide = (currentGuide + 1) % totalGuides;
-    updateGuideDisplay();
+    const sections = document.querySelectorAll('.guide-section');
+    if (currentGuideIndex < sections.length - 1) {
+        showGuide(currentGuideIndex + 1);
+    }
 }
 
 function previousGuide() {
-    currentGuide = (currentGuide - 1 + totalGuides) % totalGuides;
-    updateGuideDisplay();
-}
-
-function updateGuideDisplay() {
-    // Hide all sections
-    document.querySelectorAll('.guide-section').forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Show current section
-    document.querySelector(`#step${currentGuide + 1}`).classList.add('active');
-    
-    // Update dots
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentGuide);
-    });
+    if (currentGuideIndex > 0) {
+        showGuide(currentGuideIndex - 1);
+    }
 }
