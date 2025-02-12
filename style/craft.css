@@ -128,7 +128,7 @@ body {
 
 /* Quest Container styling */
 .quest-container {
-  display: none;
+  display: block; /* Always visible */
   background: rgba(255, 255, 255, 0.95);
   border: 3px solid #8b4513;
   border-radius: 15px;
@@ -143,9 +143,7 @@ body {
 }
 
 .quest-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
   margin-bottom: 20px;
   border-bottom: 2px solid #8b4513;
   padding-bottom: 10px;
@@ -159,19 +157,7 @@ body {
 }
 
 .close-btn {
-  background: none;
-  border: none;
-  color: #8b4513;
-  font-size: 32px;
-  cursor: pointer;
-  padding: 0;
-  line-height: 1;
-  transition: all 0.3s ease;
-}
-
-.close-btn:hover {
-  color: #5c3d2e;
-  transform: scale(1.1);
+  display: none;
 }
 
 /* Quest list dengan scrollbar */

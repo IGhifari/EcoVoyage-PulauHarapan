@@ -35,30 +35,6 @@ const WATER_FILTER_REQUIREMENTS = {
   solarPanel: 1,
 };
 
-// Fungsi untuk toggle quest
-function toggleQuest() {
-  const questContainer = document.getElementById("questContainer");
-  const overlay = document.querySelector(".overlay");
-
-  if (questContainer.style.display === "none" || !questContainer.style.display) {
-    questContainer.style.display = "block";
-    // Tambahkan overlay jika belum ada
-    if (!overlay) {
-      const newOverlay = document.createElement("div");
-      newOverlay.className = "overlay";
-      document.body.appendChild(newOverlay);
-      newOverlay.style.display = "block";
-    } else {
-      overlay.style.display = "block";
-    }
-  } else {
-    questContainer.style.display = "none";
-    if (overlay) {
-      overlay.style.display = "none";
-    }
-  }
-}
-
 // Fungsi untuk craft kapal
 function craftShip() {
     if (localStorage.getItem("shipBuilt") === "true") {
@@ -177,20 +153,6 @@ function completeCraftSolar() {
   alert("Selamat! Kamu berhasil membuat Panel Surya!");
   updateInventoryDisplay();
 }
-
-// Event listener untuk menutup quest saat klik di luar
-document.addEventListener("click", (event) => {
-  const questContainer = document.getElementById("questContainer");
-  const questBtn = document.querySelector(".quest-btn");
-  const overlay = document.querySelector(".overlay");
-
-  if (questContainer.style.display === "block" && !questContainer.contains(event.target) && event.target !== questBtn) {
-    questContainer.style.display = "none";
-    if (overlay) {
-      overlay.style.display = "none";
-    }
-  }
-});
 
 // Check quest status saat halaman dimuat
 document.addEventListener("DOMContentLoaded", () => {
