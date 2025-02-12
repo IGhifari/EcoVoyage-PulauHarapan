@@ -37,7 +37,7 @@ const dialogs = [
   { name: "Narator", text: "Ayahnya menghela napas panjang, berusaha menahan emosi, tapi Yanto bisa merasakan genggaman tangan yang erat di pundaknya." },
   { name: "Ayah", text: "Aku pikir… aku sudah kehilanganmu, Nak. Tapi lihatlah kau sekarang… kau kembali dengan selamat."},
   { name: "Narator", text: "Penduduk desa mulai berdatangan, wajah mereka penuh keterkejutan dan kebahagiaan."},
-  { name: "Yanto", text: "Sepertinya aku harus merubah lingkungan disini" },
+  { name: "Yanto", text: "Sepertinya aku harus merubah lingkungan disini!!" },
 ];
 
 let currentDialog = 0;

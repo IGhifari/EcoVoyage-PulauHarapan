@@ -204,3 +204,41 @@ function checkGarden2Access() {
         alert("Kamu belum membuka Kebun 2! Selesaikan quest untuk membukanya.");
     }
 }
+
+let currentGuide = 0;
+const totalGuides = 3;
+
+function toggleGuide() {
+    const guideContainer = document.getElementById('guideContainer');
+    guideContainer.style.display = guideContainer.style.display === 'block' ? 'none' : 'block';
+}
+
+function showGuide(index) {
+    currentGuide = index;
+    updateGuideDisplay();
+}
+
+function nextGuide() {
+    currentGuide = (currentGuide + 1) % totalGuides;
+    updateGuideDisplay();
+}
+
+function previousGuide() {
+    currentGuide = (currentGuide - 1 + totalGuides) % totalGuides;
+    updateGuideDisplay();
+}
+
+function updateGuideDisplay() {
+    // Hide all sections
+    document.querySelectorAll('.guide-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show current section
+    document.querySelector(`#step${currentGuide + 1}`).classList.add('active');
+    
+    // Update dots
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentGuide);
+    });
+}

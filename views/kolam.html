@@ -56,6 +56,69 @@
         </div>
       </div>
 
+      <!-- Add this after the inventory div -->
+      <div class="guide-icon" onclick="toggleGuide()">
+        <img src="../asset/icon/guide.png" alt="Guide" />
+      </div>
+
+      <!-- Guide Container -->
+      <div class="guide-container" id="guideContainer">
+        <div class="guide-content">
+          <button class="close-guide" onclick="toggleGuide()">✖</button>
+          <h2>📖 Panduan Memancing</h2>
+
+          <!-- Step 1 -->
+          <div class="guide-section active" id="step1">
+            <h3>🌊 1. Kebersihan Kolam</h3>
+            <div class="text-Img">
+              <img src="../asset/latar/kolamikan.png" alt="Kolam Bersih">
+              <p>Pastikan kolam selalu bersih dengan menekan tombol "Bersihkan Air". Perhatikan indikator kebersihan di atas layar! 🧹</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="guide-section" id="step2">
+            <h3>🎣 2. Menangkap Ikan</h3>
+            <div class="text-Img">
+              <img src="../asset/latar/kolamikan.png" alt="Memancing">
+              <p>Klik tombol "Ambil Ikan" untuk memancing! Setiap kali memancing, kamu bisa mendapatkan 1-3 ikan secara acak. Pastikan kolam dalam keadaan bersih! 🐟</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="guide-section" id="step3">
+            <h3>⚡ 3. Sistem Filtrasi</h3>
+            <div class="text-Img">
+              <img src="../asset/latar/craft.png" alt="Filtrasi">
+              <p>Bangun sistem filtrasi air di halaman craft untuk membuat kolam selalu bersih secara otomatis! Dibutuhkan kayu, ikan, dan panel surya. 🔧</p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="guide-section" id="step4">
+            <h3>🔄 4. Reproduksi Ikan</h3>
+            <div class="text-Img">
+              <img src="../asset/Objek/ikan.png" alt="Reproduksi">
+              <p>Ikan akan berkembang biak secara otomatis setiap 1 menit jika kolam dalam keadaan bersih! Maksimal 20 ikan dalam kolam. 🐠</p>
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="guide-navigation">
+            <button class="nav-button" onclick="previousGuide()">⬅ Sebelumnya</button>
+            <button class="nav-button" onclick="nextGuide()">Selanjutnya ➡</button>
+          </div>
+
+          <!-- Progress Indicator -->
+          <div class="progress-indicator">
+            <span class="dot active" onclick="showGuide(0)"></span>
+            <span class="dot" onclick="showGuide(1)"></span>
+            <span class="dot" onclick="showGuide(2)"></span>
+            <span class="dot" onclick="showGuide(3)"></span>
+          </div>
+        </div>
+      </div>
+
       <!-- Tambahkan setelah container dan sebelum button actions -->
       <div class="fish-container" id="fishContainer">
         <!-- Ikan akan ditambahkan secara dinamis di sini -->
