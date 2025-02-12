@@ -1,3 +1,6 @@
+// Add at the top of the file
+const KEBUN_GUIDE_SHOWN = 'kebunGuideShown';
+
 // Variabel untuk menyimpan pohon yang sedang tumbuh
 let growingTrees = [];
 
@@ -204,17 +207,4 @@ function checkGarden2Access() {
         alert("Kamu belum membuka Kebun 2! Selesaikan quest untuk membukanya.");
     }
 }
-function updateGuideDisplay() {
-    // Hide all sections
-    document.querySelectorAll('.guide-section').forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Show current section
-    document.querySelector(`#step${currentGuide + 1}`).classList.add('active');
-    
-    // Update dots
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentGuide);
-    });
-}
+
