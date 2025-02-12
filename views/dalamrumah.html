@@ -81,6 +81,59 @@
         </div>
       </div>
 
+      <!-- Add this after the inventory div in dalamrumah.html -->
+      <div class="guide-icon" onclick="toggleGuide()">
+        <img src="../asset/icon/guide.png" alt="Guide" />
+      </div>
+
+      <!-- Guide Container -->
+      <div class="guide-container" id="guideContainer">
+        <div class="guide-content">
+          <button class="close-guide" onclick="toggleGuide()">✖</button>
+          <h2>📖 Panduan Dalam Rumah</h2>
+
+          <!-- Step 1 -->
+          <div class="guide-section active" id="step1">
+            <h3>🍖 1. Memasak Makanan</h3>
+            <div class="text-Img">
+              <img src="../asset/latar/dalamrumah.png" alt="Memasak">
+              <p>Gunakan 2 ikan untuk memasak makanan dengan menekan tombol "Masak". Makanan digunakan untuk menambah energi! 🍳</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="guide-section" id="step2">
+            <h3>⚡ 2. Mengisi Energi</h3>
+            <div class="text-Img">
+              <img src="../asset/icon/eat.png" alt="Energi">
+              <p>Klik tombol "Makan" untuk mengisi energi. Perhatikan indikator energi di atas layar! 🔋</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="guide-section" id="step3">
+            <h3>📜 3. Blueprint Kapal</h3>
+            <div class="text-Img">
+              <img src="../asset/icon/blueprint.PNG" alt="Blueprint">
+              <p>Di dalam rumah, kamu akan mendapatkan Blueprint Kapal yang diperlukan untuk membuat kapal! 🚢</p>
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="guide-navigation">
+            <button class="nav-button" onclick="previousGuide()">⬅ Sebelumnya</button>
+            <button class="nav-button" onclick="nextGuide()">Selanjutnya ➡</button>
+          </div>
+
+          <!-- Progress Indicator -->
+          <div class="progress-indicator">
+            <span class="dot active" onclick="showGuide(0)"></span>
+            <span class="dot" onclick="showGuide(1)"></span>
+            <span class="dot" onclick="showGuide(2)"></span>
+          </div>
+        </div>
+      </div>
+
       <!-- Tambahkan setelah inventory -->
       <div class="cooking-area">
         <button onclick="cookFood()" class="cook-btn">Masak (2 Ikan)</button>
@@ -128,6 +181,51 @@
       }
     
     );
+    let currentGuideIndex = 0;
+const RUMAH_GUIDE_SHOWN = 'rumahGuideShown';
+
+function toggleGuide() {
+    const guideContainer = document.getElementById('guideContainer');
+    guideContainer.style.display = guideContainer.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function showGuide(index) {
+    const sections = document.querySelectorAll('.guide-section');
+    const dots = document.querySelectorAll('.dot');
+    
+    sections.forEach(section => section.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    sections[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentGuideIndex = index;
+}
+
+function nextGuide() {
+    const sections = document.querySelectorAll('.guide-section');
+    if (currentGuideIndex < sections.length - 1) {
+        showGuide(currentGuideIndex + 1);
+    }
+}
+
+function previousGuide() {
+    if (currentGuideIndex > 0) {
+        showGuide(currentGuideIndex - 1);
+    }
+}
+
+// Show guide on first visit
+document.addEventListener("DOMContentLoaded", function() {
+    const guideShown = localStorage.getItem(RUMAH_GUIDE_SHOWN);
+    
+    if (!guideShown) {
+        const guideContainer = document.getElementById('guideContainer');
+        if (guideContainer) {
+            guideContainer.style.display = 'flex';
+            localStorage.setItem(RUMAH_GUIDE_SHOWN, 'true');
+        }
+    }
+});
     </script>
     <script src="../js/hunger.js"></script>
     <script src="../script/audiogame.js"></script>

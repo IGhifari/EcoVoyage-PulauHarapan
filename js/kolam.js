@@ -8,6 +8,9 @@ let cleaningTimer;
 const CLEANING_INTERVAL = 300000; // 5 menit
 const DIRTY_WARNING_TIME = 60000 * 4; // 4 menit (1 menit sebelum kotor)
 
+// Add this at the top with other constants
+const KOLAM_GUIDE_SHOWN = 'kolamGuideShown';
+
 // Tambahkan fungsi untuk menyimpan status ikan
 function saveFishState() {
   const fishState = {
@@ -222,6 +225,19 @@ function showFish(show) {
 
 // Inisialisasi kolam
 document.addEventListener("DOMContentLoaded", function () {
+  // Check if guide has been shown before
+  const guideShown = localStorage.getItem(KOLAM_GUIDE_SHOWN);
+  
+  if (!guideShown) {
+      // Show guide on first visit
+      const guideContainer = document.getElementById('guideContainer');
+      if (guideContainer) {
+          guideContainer.style.display = 'flex';
+          // Mark guide as shown
+          localStorage.setItem(KOLAM_GUIDE_SHOWN, 'true');
+      }
+  }
+
   // Muat status ikan yang tersimpan
   loadFishState();
 
@@ -318,4 +334,37 @@ function cleanWater() {
 function updateInventoryDisplay() {
   const currentFishCount = parseInt(localStorage.getItem("fishCount") || "0");
   document.getElementById("fishCount").textContent = currentFishCount.toString();
+}
+
+// Guide functionality
+let currentGuideIndex = 0;
+
+function toggleGuide() {
+    const guideContainer = document.getElementById('guideContainer');
+    guideContainer.style.display = guideContainer.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function showGuide(index) {
+    const sections = document.querySelectorAll('.guide-section');
+    const dots = document.querySelectorAll('.dot');
+    
+    sections.forEach(section => section.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    sections[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentGuideIndex = index;
+}
+
+function nextGuide() {
+    const sections = document.querySelectorAll('.guide-section');
+    if (currentGuideIndex < sections.length - 1) {
+        showGuide(currentGuideIndex + 1);
+    }
+}
+
+function previousGuide() {
+    if (currentGuideIndex > 0) {
+        showGuide(currentGuideIndex - 1);
+    }
 }
