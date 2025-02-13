@@ -738,3 +738,31 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
+
+.guide-section ul {
+    margin: 10px 0;
+}
+
+.guide-section ul li {
+    padding: 5px 0;
+    color: #5c3d2e;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.guide-text {
+    flex: 1;
+}
+
+#step5 .text-Img {
+  width: 650px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    transition: transform 0.3s;
+}
+
+#step5 .text-Img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.15);
+}

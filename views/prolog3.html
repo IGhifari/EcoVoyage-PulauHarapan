@@ -8,6 +8,9 @@
 </head>
 <body>
     <body>
+        <audio autoplay loop id="bgMusic">
+            <source src="../asset/sound/birds-in-the-morning-24614.mp3" type="audio/mpeg">
+        </audio>
         <!-- ...existing code... -->
     <div class="background-layer">
         <img src="../asset/latar/pulau.jpg" alt="pulau" class="island">
@@ -37,11 +40,16 @@
     </div>
     <script src="../js/prolog3.js"></script>
     <script src="../js/hunger.js"></script>
-    <script>window.addEventListener('DOMContentLoaded', function() {
+    <script> window.addEventListener('DOMContentLoaded', function() {
         const bgMusic = document.getElementById('bgMusic');
         bgMusic.volume = 0.3; // Set volume to 30%
         
         // Handle autoplay restrictions
-    });</script>
+        document.addEventListener('click', function() {
+            bgMusic.play().catch(function(error) {
+                console.log("Audio play failed:", error);
+            });
+        }, { once: true });
+    })</script>
 </body>
 </html> 

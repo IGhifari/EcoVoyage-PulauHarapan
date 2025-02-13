@@ -275,6 +275,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const inventory = document.getElementById("inventory");
     inventory.classList.toggle("show");
   });
+
+  // Load all inventory values from localStorage
+  const woodCount = localStorage.getItem("woodCount") || "0";
+  const seedCount = localStorage.getItem("seedCount") || "4";
+  const blueprintCount = localStorage.getItem("blueprintCount") || "0";
+  const solarPanelCount = localStorage.getItem("solarPanelCount") || "0";
+  const fishCount = localStorage.getItem("fishCount") || "0";
+
+  // Update all inventory displays
+  document.getElementById("woodCount").textContent = woodCount;
+  document.getElementById("seedCount").textContent = seedCount;
+  document.getElementById("blueprintCount").textContent = blueprintCount;
+  document.getElementById("solarPanelCount").textContent = solarPanelCount;
+  document.getElementById("fishCount").textContent = fishCount;
 });
 
 // Update fungsi catchFish
@@ -332,8 +346,17 @@ function cleanWater() {
 
 // Update inventory display
 function updateInventoryDisplay() {
-  const currentFishCount = parseInt(localStorage.getItem("fishCount") || "0");
-  document.getElementById("fishCount").textContent = currentFishCount.toString();
+  const woodCount = localStorage.getItem("woodCount") || "0";
+  const seedCount = localStorage.getItem("seedCount") || "4";
+  const blueprintCount = localStorage.getItem("blueprintCount") || "0";
+  const solarPanelCount = localStorage.getItem("solarPanelCount") || "0";
+  const fishCount = localStorage.getItem("fishCount") || "0";
+
+  document.getElementById("woodCount").textContent = woodCount;
+  document.getElementById("seedCount").textContent = seedCount;
+  document.getElementById("blueprintCount").textContent = blueprintCount;
+  document.getElementById("solarPanelCount").textContent = solarPanelCount;
+  document.getElementById("fishCount").textContent = fishCount;
 }
 
 // Guide functionality
