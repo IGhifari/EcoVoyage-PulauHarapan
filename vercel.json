@@ -1,4 +1,7 @@
 {
-    "routes": [{ "src": "/(.*)", "dest": "/views/halamanAwal.html" }]
+    "routes": [
+      { "src": "/(.*)", "dest": "/views/halamanAwal.html" },
+      { "handle": "filesystem" }
+    ]
   }
   
