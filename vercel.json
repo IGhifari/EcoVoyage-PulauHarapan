@@ -1,6 +1,7 @@
 {
     "routes": [
       { "src": "/js/(.*)", "dest": "/js/$1" },
+      { "src": "/script/(.*)", "dest": "/script/$1" },
       { "src": "/style/(.*)", "dest": "/style/$1" },
       { "src": "/asset/(.*)", "dest": "/asset/$1" },
       { "src": "/(.*)", "dest": "/views/halamanAwal.html" }
