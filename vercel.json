@@ -1,7 +1,9 @@
 {
     "routes": [
-      { "src": "/(.*)", "dest": "/views/halamanAwal.html" },
-      { "handle": "filesystem" }
+      { "src": "/js/(.*)", "dest": "/js/$1" },
+      { "src": "/style/(.*)", "dest": "/style/$1" },
+      { "src": "/asset/(.*)", "dest": "/asset/$1" },
+      { "src": "/(.*)", "dest": "/views/halamanAwal.html" }
     ]
   }
   
